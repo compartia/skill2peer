@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.az.skill2peer.nuclei.UnitTestContext;
+import org.az.skill2peer.nuclei.Urls;
 import org.az.skill2peer.nuclei.config.WebAppContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,8 +38,8 @@ public class SignUpControllerTest {
 
     @Test
     public void redirectRequestToRegistrationPage_ShouldRedirectToRegistrationPage() throws Exception {
-        mockMvc.perform(get("/signup"))
+        mockMvc.perform(get(Urls.USER_SIGNUP))
                 .andExpect(status().isMovedTemporarily())
-                .andExpect(redirectedUrl("/user/register"));
+                .andExpect(redirectedUrl(Urls.USER_REGISTER));
     }
 }

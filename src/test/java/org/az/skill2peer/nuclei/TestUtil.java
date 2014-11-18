@@ -1,4 +1,4 @@
-package net.petrikainulainen.spring.social.signinmvc;
+package org.az.skill2peer.nuclei;
 
 public class TestUtil {
 

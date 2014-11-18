@@ -10,6 +10,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * a link between a user and a course
+ * @author Artem Zaborskiy
+ *
+ */
 @Entity
 @Table(name = "course_favorite")
 @SequenceGenerator(name = "course_favorite_id_seq", sequenceName = "course_favorite_id_seq")

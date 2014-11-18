@@ -1,4 +1,4 @@
-package net.petrikainulainen.spring.social.signinmvc.user.controller;
+package org.az.skill2peer.nuclei.user;
 
 import static org.az.skill2peer.nuclei.Urls.USER_REGISTER;
 import static org.az.skill2peer.nuclei.security.SecurityContextAssert.assertThat;
@@ -21,11 +21,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import net.petrikainulainen.spring.social.signinmvc.TestUtil;
-import net.petrikainulainen.spring.social.signinmvc.WebTestConstants;
 
+import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.UnitTestContext;
 import org.az.skill2peer.nuclei.Urls;
+import org.az.skill2peer.nuclei.WebTestConstants;
 import org.az.skill2peer.nuclei.config.WebAppContext;
 import org.az.skill2peer.nuclei.model.UserBuilder;
 import org.az.skill2peer.nuclei.user.dto.RegistrationForm;

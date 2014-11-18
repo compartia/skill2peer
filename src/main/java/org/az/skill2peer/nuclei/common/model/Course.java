@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -22,15 +24,29 @@ import javax.validation.constraints.Size;
 
 import org.az.skill2peer.nuclei.user.model.User;
 
+/**
+ *
+ * @author Artem Zaborskiy
+ *
+ */
 @Entity
 @Table(name = "course")
 @SequenceGenerator(name = "course_id_seq", sequenceName = "course_id_seq")
 public class Course extends BaseEntity<Integer> implements HasOwner {
 
+    private static final long serialVersionUID = 3541638359681997928L;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinColumn(name = "author")
     private User author;
+
+    /**
+     * editable copy. Must be null, if course is published
+     */
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Course draft;
 
     @Size(max = 10000)
     @Column(name = "description")
@@ -80,6 +96,10 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return description;
     }
 
+    public Course getDraft() {
+        return draft;
+    }
+
     @Override
     public Integer getId() {
         return id;
@@ -121,15 +141,19 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return tags;
     }
 
-    //    public boolean isFavorited(final User user) {
-    //    }
-
     public void setAuthor(final User author) {
         this.author = author;
     }
 
+    //    public boolean isFavorited(final User user) {
+    //    }
+
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public void setDraft(final Course draft) {
+        this.draft = draft;
     }
 
     public void setId(final Integer id) {
