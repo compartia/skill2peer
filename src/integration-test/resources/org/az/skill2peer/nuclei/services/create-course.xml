@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <user_accounts id="1111"
+                   creation_time="2014-02-20 11:13:28"
+                   email="facebook@socialuser.com"
+                   first_name="Facebook"
+                   last_name="User"
+                   modification_time="2014-02-20 11:13:28"
+                   role="ROLE_USER"
+                   sign_in_provider="FACEBOOK"
+                   version="0"/>
+    
+
+    <UserConnection/>
+</dataset>
