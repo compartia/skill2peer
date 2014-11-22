@@ -44,7 +44,7 @@ public class CourseRestController {
     public void favorite(@PathVariable("id") final Integer id) {
         final Integer userId = SecurityUtil.getCurrentUser().getId();
 
-        final List<CourseFavorite> resultList = getCourseFavorites(id, userId);
+        final List<CourseFavorite> resultList = courseService.getCourseFavorites(id, userId);
 
         if (resultList.isEmpty()) {
             final CourseFavorite cf = new CourseFavorite();
@@ -60,11 +60,7 @@ public class CourseRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CourseMetaDataDto getCourseById(@PathVariable("id") final Integer id) {
-        final CourseMetaDataDto dto = new CourseMetaDataDto();
-        final Course c = em.find(Course.class, id);
-        dto.setId(c.getId());
-        dto.setFavorited(!getCourseFavorites(id, SecurityUtil.getCurrentUser().getId()).isEmpty());
-        return dto;
+        return courseService.getCourseInfo(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -84,12 +80,4 @@ public class CourseRestController {
         return ret;
     }
 
-    private List<CourseFavorite> getCourseFavorites(final Integer courseId, final Integer userId) {
-        final List<CourseFavorite> resultList = em
-                .createNamedQuery("CourseFavorite.findByUserAndCourse", CourseFavorite.class)
-                .setParameter("userId", userId)
-                .setParameter("courseId", courseId)
-                .getResultList();
-        return resultList;
-    }
 }
