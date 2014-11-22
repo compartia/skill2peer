@@ -5,32 +5,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.az.skill2peer.config.UnitTestContext;
-import org.az.skill2peer.nuclei.config.PersistenceContext;
-import org.az.skill2peer.nuclei.config.Skill2PeerApplicationContext;
-import org.az.skill2peer.nuclei.config.WebAppContext;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {
-        UnitTestContext.class,
-        WebAppContext.class, PersistenceContext.class,
-        Skill2PeerApplicationContext.class })
-@WebAppConfiguration
-@IntegrationTest
-@ActiveProfiles(profiles = "test")
-public class HomeControllerTest {
+public class HomeControllerTest extends AbstractControllerIntegrationTest {
 
     private MockMvc mockMvc;
 
