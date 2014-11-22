@@ -1,47 +1,21 @@
 package org.az.skill2peer.nuclei.services;
 
-import org.az.skill2peer.ColumnSensingFlatXMLDataSetLoader;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
-import org.az.skill2peer.nuclei.config.PersistenceContext;
-import org.az.skill2peer.nuclei.config.Skill2PeerApplicationContext;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {
-        ServicesTestContext.class,
-        Skill2PeerApplicationContext.class,
-        PersistenceContext.class })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
-@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-@ActiveProfiles(profiles = "test")
-//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = )
-//@Transactional
-public class CourseServiceTest {
+public class CourseServiceTest extends AbstractServiceTest {
     @Autowired
     CourseService service;
 
@@ -75,10 +49,10 @@ public class CourseServiceTest {
     @Test
     @DatabaseSetup(value = "edit-draft-course.xml")
     public void editDraftCourse() throws Exception {
-        final Course editCourse = service.editCourse(2);
+        final Course editCourse = service.editCourse(72);
 
         Assert.assertNotNull(editCourse.getPublishedVersion());
-        Assert.assertEquals(2, editCourse.getId().intValue());
+        Assert.assertEquals(72, editCourse.getId().intValue());
         Assert.assertNotNull(editCourse.getPublishedVersion().getDraft());
         Assert.assertEquals(CourseStatus.DRAFT, editCourse.getStatus());
     }
@@ -86,10 +60,10 @@ public class CourseServiceTest {
     @Test
     @DatabaseSetup(value = "edit-draft-course.xml")
     public void editDraftPublishedCourse() throws Exception {
-        final Course editCourse = service.editCourse(1);
+        final Course editCourse = service.editCourse(71);
 
         Assert.assertNotNull(editCourse.getPublishedVersion());
-        Assert.assertEquals(2, editCourse.getId().intValue());
+        Assert.assertEquals(72, editCourse.getId().intValue());
         Assert.assertNotNull(editCourse.getPublishedVersion().getDraft());
         Assert.assertEquals(CourseStatus.DRAFT, editCourse.getStatus());
     }
@@ -98,6 +72,23 @@ public class CourseServiceTest {
     public void setUp() {
         final User user = User.getBuilder().email("email").id(1111).build();
         SecurityUtil.logInUser(user);
+    }
+
+    //@Transactional
+    //@Ignore
+    @Test
+    @DatabaseSetup(value = "edit-draft-course.xml")
+    @ExpectedDatabase(value = "edit-draft-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void updateDraftCourse() throws Exception {
+        final CourseEditDto editableCourse = service.getEditableCourse(71);
+        Assert.assertEquals(CourseStatus.DRAFT, editableCourse.getStatus());
+        Assert.assertEquals(72, editableCourse.getId().intValue());
+        editableCourse.setDescription("description edited");
+        service.updateCourse(editableCourse);
+
+        //
+        final CourseEditDto editableCourse2 = service.getEditableCourse(72);
+        Assert.assertEquals("description edited", editableCourse2.getDescription());
     }
 
     private CourseEditDto buildCourse() {
