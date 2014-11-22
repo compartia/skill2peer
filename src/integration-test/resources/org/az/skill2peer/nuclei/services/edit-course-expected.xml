@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<course title="title" summary="summary" description="description" status="PUBLISHED" author="1111"></course>
+	<course title="title" summary="summary" description="description" status="DRAFT" author="1111"
+		published_version_id="1"></course>
+</dataset>

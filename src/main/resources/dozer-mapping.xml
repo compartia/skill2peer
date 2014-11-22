@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<configuration>
+	</configuration>
+	
+	 <mapping map-id="course-copy-publish">
+        <class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
+        <class-b>org.az.skill2peer.nuclei.common.model.Course</class-b>
+        <field-exclude>
+            <a>id</a>
+            <b>id</b>
+        </field-exclude>
+         <field-exclude>
+            <a>draft</a>
+            <b>draft</b>
+        </field-exclude>
+        <field-exclude>
+            <a>publishedVersion</a>
+            <b>publishedVersion</b>
+        </field-exclude>
+        <field-exclude>
+            <a>author</a>
+            <b>author</b>
+        </field-exclude>
+        <field-exclude>
+            <a>status</a>
+            <b>status</b>
+        </field-exclude>
+    </mapping>
+</mappings>
