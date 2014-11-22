@@ -41,11 +41,14 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     @JoinColumn(name = "author")
     private User author;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "published_version_id")
+    private Course publishedVersion;
+
     /**
      * editable copy. Must be null, if course is published
      */
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "publishedVersion")
     private Course draft;
 
     @Size(max = 10000)
@@ -121,6 +124,10 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return name;
     }
 
+    public Course getPublishedVersion() {
+        return publishedVersion;
+    }
+
     public Schedule getSchedule() {
         return getFirstLesson().getSchedule();
     }
@@ -145,12 +152,12 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         this.author = author;
     }
 
-    //    public boolean isFavorited(final User user) {
-    //    }
-
     public void setDescription(final String description) {
         this.description = description;
     }
+
+    //    public boolean isFavorited(final User user) {
+    //    }
 
     public void setDraft(final Course draft) {
         this.draft = draft;
@@ -170,6 +177,10 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public void setPublishedVersion(final Course publishedVersion) {
+        this.publishedVersion = publishedVersion;
     }
 
     public void setSchedule(final Schedule schedule) {
