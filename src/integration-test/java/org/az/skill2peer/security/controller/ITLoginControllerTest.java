@@ -10,20 +10,25 @@ import org.az.skill2peer.nuclei.Urls;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-public class LoginControllerTest extends AbstractControllerIntegrationTest {
+public class ITLoginControllerTest extends AbstractControllerIntegrationTest {
+
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext webAppContext;
-
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .addFilter(springSecurityFilterChain)
                 .build();
     }
 
