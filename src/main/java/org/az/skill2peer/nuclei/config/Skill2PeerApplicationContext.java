@@ -10,10 +10,12 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 @Configuration
 @ComponentScan(basePackages = { "org.az.skill2peer.nuclei.user.service" })
 @PropertySource("classpath:application.properties")
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class Skill2PeerApplicationContext implements S2PAppCtx {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
