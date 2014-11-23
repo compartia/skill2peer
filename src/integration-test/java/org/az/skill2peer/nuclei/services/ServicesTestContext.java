@@ -28,6 +28,11 @@ public class ServicesTestContext {
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
 
     @Bean
+    public CalendarService calendarService() {
+        return new CalendarServiceImpl();
+    }
+
+    @Bean
     public CourseController courseController() {
         return mock(CourseController.class);
     }
