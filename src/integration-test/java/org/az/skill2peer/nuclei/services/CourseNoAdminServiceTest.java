@@ -7,12 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-public class CourseAdminServiceTest extends AbstractServiceTest {
+public class CourseNoAdminServiceTest extends AbstractServiceTest {
     @Autowired
     CourseAdminService service;
 
@@ -21,21 +20,15 @@ public class CourseAdminServiceTest extends AbstractServiceTest {
 
     @Before
     public void _setUp() {
-        final User usr = users.findByEmail("admin@admin.com");
+        final User usr = users.findByEmail("user@user.com");
         SecurityUtil.logInUser(usr);
     }
 
-    @Test
-    @DatabaseSetup(value = "publish-course.xml")
-    @ExpectedDatabase(value = "publish-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @Test(expected = AccessDeniedException.class)
+    @DatabaseSetup(value = "publish-course-no-admin.xml")
     public void publishEditedCourse() throws Exception {
         final Integer publishCourse = service.publishCourse(72);
         Assert.assertEquals(171, publishCourse.intValue());
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void publishNonExistentCourse() throws Exception {
-        service.publishCourse(8899);
     }
 
 }

@@ -1,21 +1,35 @@
-package org.az.skill2peer.nuclei;
+package org.az.skill2peer.config;
 
 import static org.mockito.Mockito.mock;
 
 import org.az.skill2peer.nuclei.common.controller.CourseController;
 import org.az.skill2peer.nuclei.common.controller.S3Plugin;
-import org.az.skill2peer.nuclei.user.service.UserService;
+import org.az.skill2peer.nuclei.services.CourseService;
+import org.az.skill2peer.nuclei.services.CourseServiceImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.connect.UsersConnectionRepository;
 
 @Configuration
 @EnableAutoConfiguration
 public class UnitTestContext {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
+
+    @Bean
+    public CourseController courseController() {
+        return mock(CourseController.class);
+    }
+
+    @Bean
+    public CourseService courseService() {
+        return new CourseServiceImpl();
+    }
 
     @Bean
     public MessageSource messageSource() {
@@ -28,18 +42,24 @@ public class UnitTestContext {
     }
 
     @Bean
-    public UserService userService() {
-        return mock(UserService.class);
-    }
-
-    @Bean
-    public CourseController courseController() {
-        return mock(CourseController.class);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
     }
 
     @Bean
     public S3Plugin s3Plugin() {
         return mock(S3Plugin.class);
     }
+
+    @Bean
+    public UsersConnectionRepository usersConnectionRepository() {
+        return mock(UsersConnectionRepository.class);
+    }
+
+    //    @Bean
+    //    public UserService userService() {
+    //        return mock(UserService.class);
+    //    }
+    //    
 
 }

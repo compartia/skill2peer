@@ -19,6 +19,12 @@ public class CourseServiceTest extends AbstractServiceTest {
     @Autowired
     CourseService service;
 
+    @Before
+    public void _setUp() {
+        final User user = User.getBuilder().email("email").id(1111).build();
+        SecurityUtil.logInUser(user);
+    }
+
     @Test
     @DatabaseSetup(value = "create-course.xml")
     @ExpectedDatabase(value = "create-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
@@ -66,12 +72,6 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertEquals(72, editCourse.getId().intValue());
         Assert.assertNotNull(editCourse.getPublishedVersion().getDraft());
         Assert.assertEquals(CourseStatus.DRAFT, editCourse.getStatus());
-    }
-
-    @Before
-    public void setUp() {
-        final User user = User.getBuilder().email("email").id(1111).build();
-        SecurityUtil.logInUser(user);
     }
 
     //@Transactional

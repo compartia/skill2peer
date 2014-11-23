@@ -1,6 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<course id="171" title="title" summary="summary" description="description" status="PUBLISHED" author="1111" version="1"></course>
-	<course id="72" title="title_edited" summary="summary_edited" description="description_edited" status="DRAFT" author="1111"
-		published_version_id="171" version="1"></course>
+
+	<user_accounts id="2222" creation_time="2014-02-20 11:13:28" email="admin@admin.com" first_name="Facebook"
+		last_name="User" modification_time="2014-02-20 11:13:28" role="ROLE_ADMIN" sign_in_provider="FACEBOOK" version="0" />
+	
+	<user_accounts id="1111" creation_time="2014-02-20 11:13:28" email="facebook@socialuser.com" first_name="Facebook"
+		last_name="User" modification_time="2014-02-20 11:13:28" role="ROLE_USER" sign_in_provider="FACEBOOK" version="0" />
+
+	<course id="171" title="title" summary="summary" description="description" status="PUBLISHED" author="1111"
+		version="1"></course>
+	<course id="72" title="title_edited" summary="summary_edited" description="description_edited" status="DRAFT"
+		author="1111" published_version_id="171" version="1"></course>
 </dataset>
