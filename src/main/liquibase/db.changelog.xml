@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
- 
+
 
 	<changeSet id="create_user_accounts" author="az">
 		<createTable tableName="user_accounts">
@@ -31,20 +31,22 @@
 		</modifySql>
 	</changeSet>
 
-	
+
 
 	<changeSet id="create_UserConnection" author="az">
 		<sql>
 			create table UserConnection (userId varchar(255) not null,
 			providerId varchar(255) not null,
-			providerUserId varchar(255),
+			providerUserId
+			varchar(255),
 			rank int
 			not null,
 			displayName varchar(255),
 			profileUrl varchar(512),
 			imageUrl
 			varchar(512),
-			accessToken varchar(255) not null,
+			accessToken
+			varchar(255) not null,
 			secret varchar(255),
 			refreshToken varchar(255),
 			expireTime bigint,
@@ -55,12 +57,12 @@
 			providerId, rank);
 		</sql>
 		<rollback>
-			<dropTable tableName="userconnection"/>
+			<dropTable tableName="userconnection" />
 		</rollback>
 
 	</changeSet>
-	
-	
+
+
 	<changeSet id="create_course_table" author="az">
 		<createTable tableName="course">
 			<column name="id" autoIncrement="true" type="int" incrementBy="1">
@@ -74,24 +76,21 @@
 			<column name="description" type="text" />
 			<column name="status" type="text" />
 			<column name="last_update_time" type="timestamp without time zone" />
-			<column name="published_version_id" type="int"
-				remarks="draft refers publication" />
-			<column name="author" type="int"/> 
-			
+			<column name="published_version_id" type="int" remarks="draft refers publication" />
+			<column name="author" type="int" />
+
 			<column name="creation_time" type="datetime" />
 			<column name="modification_time" type="datetime" />
 			<column name="version" type="bigint" />
-			
+
 
 		</createTable>
 
-		<addForeignKeyConstraint constraintName="course_publication_fk"
-			referencedTableName="course" baseColumnNames="published_version_id"
-			baseTableName="course" referencedColumnNames="id" onDelete="NO ACTION" />
-			
-		<addForeignKeyConstraint constraintName="fk_course_user"
-			referencedTableName="user_accounts" baseColumnNames="author"
-			baseTableName="course" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+		<addForeignKeyConstraint constraintName="course_publication_fk" referencedTableName="course"
+			baseColumnNames="published_version_id" baseTableName="course" referencedColumnNames="id" onDelete="NO ACTION" />
+
+		<addForeignKeyConstraint constraintName="fk_course_user" referencedTableName="user_accounts"
+			baseColumnNames="author" baseTableName="course" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
 
 		<modifySql dbms="postgresql">
 			<replace replace="WITH" with="WITHOUT" />
@@ -106,25 +105,49 @@
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="course_id" type="int">
-				
+
 			</column>
 			<column name="user_id" type="int">
-				
+
 			</column>
 		</createTable>
 
-		<addForeignKeyConstraint onDelete="CASCADE"
-			onUpdate="CASCADE" constraintName="fk_fav_user" referencedTableName="user_accounts"
-			baseColumnNames="user_id" baseTableName="course_favorite" referencedColumnNames="id" />
-			
-		<addForeignKeyConstraint onDelete="CASCADE"
-			onUpdate="CASCADE" constraintName="fk_fav_course" referencedTableName="course"
-			baseColumnNames="course_id" baseTableName="course_favorite" referencedColumnNames="id" />
+		<addForeignKeyConstraint onDelete="CASCADE" onUpdate="CASCADE" constraintName="fk_fav_user"
+			referencedTableName="user_accounts" baseColumnNames="user_id" baseTableName="course_favorite" referencedColumnNames="id" />
+
+		<addForeignKeyConstraint onDelete="CASCADE" onUpdate="CASCADE" constraintName="fk_fav_course"
+			referencedTableName="course" baseColumnNames="course_id" baseTableName="course_favorite" referencedColumnNames="id" />
 
 		<addUniqueConstraint columnNames="course_id,user_id" constraintName="course_favorite_course_id_user_id_key"
 			tableName="course_favorite" />
 	</changeSet>
-	
-	 
+
+
+	<changeSet id="create_enrollment_table" author="az">
+		<createTable tableName="enrollment">
+			<column name="id" autoIncrement="true" type="int" incrementBy="1">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="user_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="course_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="notes" type="text" />
+		</createTable>
+
+
+		<addForeignKeyConstraint onDelete="CASCADE" onUpdate="CASCADE" constraintName="fk_enrollment_user"
+			referencedTableName="user_accounts" baseColumnNames="user_id" baseTableName="enrollment" referencedColumnNames="id" />
+
+		<addForeignKeyConstraint onDelete="CASCADE" onUpdate="CASCADE" constraintName="fk_enrollment_course"
+			referencedTableName="course" baseColumnNames="course_id" baseTableName="enrollment" referencedColumnNames="id" />
+
+		<addUniqueConstraint columnNames="course_id,user_id" constraintName="enrollment_course_user_key"
+			tableName="enrollment" />
+	</changeSet>
+
 
 </databaseChangeLog>
