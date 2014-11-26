@@ -37,6 +37,8 @@ public class SecurityUtil {
 
         LOGGER.info("User: {} has been logged in.", userDetails);
 
+        //        LocaleContextHolder.setLocale(Locale.);
+
     }
 
     private static final Logger LOGGER = LoggerFactory

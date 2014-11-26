@@ -2,6 +2,11 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
 import org.az.skill2peer.nuclei.common.model.HasIntegerId;
 
+/**
+ *
+ * @author Artem Zaborskiy
+ *
+ */
 public class UserInfoDto implements HasIntegerId {
 
     private String firstName;
@@ -14,6 +19,7 @@ public class UserInfoDto implements HasIntegerId {
         return firstName;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

@@ -59,11 +59,11 @@ public class CalendarServiceImpl implements CalendarService {
                 .setParameter("courseId", courseId)
                 .getResultList();
 
-        //Adding author as enrolled
-        final Enrollment ve = new Enrollment();
-        ve.setCourse(course);
-        ve.setUser(course.getAuthor());//XXX: get teachers
-        resultList.add(ve);
+        //        //Adding author as enrolled
+        //        final Enrollment ve = new Enrollment();
+        //        ve.setCourse(course);
+        //        ve.setUser(course.getAuthor());//XXX: get teachers
+        //        resultList.add(ve);
         return resultList;
     }
 

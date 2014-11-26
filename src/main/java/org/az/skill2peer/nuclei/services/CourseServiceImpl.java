@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
@@ -76,6 +77,15 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
                 .setParameter("courseId", courseId)
                 .getResultList();
         return resultList;
+    }
+
+    @Override
+    public CourseInfoDto getCourseFullInfo(final Integer id) {
+        final Course course = getCourse(id);
+        Preconditions.checkState(course.getStatus() == CourseStatus.PUBLISHED);
+        final CourseInfoDto dto = new CourseInfoDto();
+        mapper.map(course, dto);
+        return dto;
     }
 
     @Override
