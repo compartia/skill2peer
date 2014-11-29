@@ -5,29 +5,42 @@
 
 	<configuration>
 	</configuration>
-	
-	 <mapping map-id="course-copy-publish">
-        <class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
-        <class-b>org.az.skill2peer.nuclei.common.model.Course</class-b>
-        <field-exclude>
-            <a>id</a>
-            <b>id</b>
-        </field-exclude>
-         <field-exclude>
-            <a>draft</a>
-            <b>draft</b>
-        </field-exclude>
-        <field-exclude>
-            <a>publishedVersion</a>
-            <b>publishedVersion</b>
-        </field-exclude>
-        <field-exclude>
-            <a>author</a>
-            <b>author</b>
-        </field-exclude>
-        <field-exclude>
-            <a>status</a>
-            <b>status</b>
-        </field-exclude>
-    </mapping>
+
+	<mapping map-id="lesson-copy-publish">
+		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
+
+	<mapping map-id="course-copy-publish">
+		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Course</class-b>
+		<field map-id="lesson-copy-publish">
+			<a>lessons</a>
+			<b>lessons</b>
+		</field>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+		<field-exclude>
+			<a>draft</a>
+			<b>draft</b>
+		</field-exclude>
+		<field-exclude>
+			<a>publishedVersion</a>
+			<b>publishedVersion</b>
+		</field-exclude>
+		<field-exclude>
+			<a>author</a>
+			<b>author</b>
+		</field-exclude>
+		<field-exclude>
+			<a>status</a>
+			<b>status</b>
+		</field-exclude>
+	</mapping>
 </mappings>
