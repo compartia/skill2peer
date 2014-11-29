@@ -149,5 +149,29 @@
 			tableName="enrollment" />
 	</changeSet>
 
+	<changeSet id="create_schedule_table" author="az">
+		<createTable tableName="schedule">
+			<column name="start_time" type="datetime" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create_lesson_table" author="az">
+		<createTable tableName="lesson">
+			<column name="id" autoIncrement="true" type="int" incrementBy="1">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			
+			<column name="course_id" type="int" >
+				<constraints foreignKeyName="lesson_course_id" referencedTableName="course" referencedColumnNames="id"/>
+			</column>
+			
+			<column name="description" type="text" />
+			
+			<column name="creation_time" type="datetime" />
+			<column name="modification_time" type="datetime" />
+			<column name="version" type="bigint" />
+			
+		</createTable>
+	</changeSet>
 
 </databaseChangeLog>

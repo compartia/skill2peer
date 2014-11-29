@@ -10,8 +10,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
@@ -20,14 +21,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         ServicesTestContext.class,
         Skill2PeerApplicationContext.class,
         PersistenceContext.class })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+@TestExecutionListeners({
+        DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+        // DbUnitTestExecutionListener.class
+        TransactionDbUnitTestExecutionListener.class
+})
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @ActiveProfiles(profiles = "test")
-//@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = )
-//@Transactional
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional
 public abstract class AbstractServiceTest {
 
 }

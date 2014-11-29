@@ -4,7 +4,6 @@ import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.az.skill2peer.nuclei.user.repository.UserRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,16 +18,12 @@ public class CourseAdminServiceTest extends AbstractServiceTest {
     @Autowired
     UserRepository users;
 
-    @Before
-    public void _setUp() {
-        final User usr = users.findByEmail("admin@admin.com");
-        SecurityUtil.logInUser(usr);
-    }
-
     @Test
     @DatabaseSetup(value = "publish-course.xml")
     @ExpectedDatabase(value = "publish-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void publishEditedCourse() throws Exception {
+        final User usr = users.findByEmail("admin@admin.com");
+        SecurityUtil.logInUser(usr);
         final Integer publishCourse = service.publishCourse(72);
         Assert.assertEquals(171, publishCourse.intValue());
     }

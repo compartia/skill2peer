@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-public class CalendarServiceTest extends AbstractServiceTest {
+public class CalendarServiceITest extends AbstractServiceTest {
     @Autowired
     CalendarService service;
 
@@ -31,7 +31,7 @@ public class CalendarServiceTest extends AbstractServiceTest {
         final List<UserInfoDto> enrolledUsers = service.getEnrolledUsers(1);
 
         Assert.assertNotNull(enrolledUsers);
-        Assert.assertEquals(3, enrolledUsers.size());
+        Assert.assertEquals(2, enrolledUsers.size());
     }
 
 }
