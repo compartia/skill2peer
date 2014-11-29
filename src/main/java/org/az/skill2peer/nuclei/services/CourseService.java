@@ -12,7 +12,7 @@ public interface CourseService {
 
     Course createCourse(CourseEditDto courseDto);
 
-    Course editCourse(Integer courseId);
+    void deleteCourse(final Integer courseId);
 
     List<CourseFavorite> getCourseFavorites(Integer courseId, Integer userId);
 

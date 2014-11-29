@@ -17,7 +17,6 @@ import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.az.skill2peer.nuclei.user.repository.CourseRepository;
 import org.dozer.Mapper;
-import org.hibernate.internal.util.SerializationHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         em.flush();
     }
 
-    @Override
+    //    @Override
     @Transactional(readOnly = false)
     public Course editCourse(final Integer courseId) {
         final Course course = getCourse(courseId);
@@ -147,7 +146,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
             em.remove(draft);
             em.merge(publishedVersion);
-
+            em.flush();
             return publishedVersion.getId();
         }
 
@@ -204,6 +203,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             clonedObject.setPublishedVersion(course);
             em.persist(clonedObject);
             em.merge(course);
+            em.flush();
 
             return clonedObject;
         }
@@ -211,7 +211,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
     @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
     Course cloneCourse(final Course course) {
-        final Course clonedObject = (Course)SerializationHelper.clone(course);
+
+        final Course clonedObject = new Course();
+        mapper.map(course, clonedObject, "course-copy-publish");
 
         clonedObject.setAuthor(getCurrentUser());
         return clonedObject;
