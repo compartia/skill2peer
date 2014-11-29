@@ -25,23 +25,23 @@ public class PersistenceContext implements S2PAppCtx {
             "org.az.skill2peer.nuclei.common.model",
             "org.az.skill2peer.nuclei.user.model" };
 
-    protected static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
+    protected static final String PROP_DATABASE_DRIVER = "db.driver";
 
-    protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
+    protected static final String PROP_DATABASE_PASSWORD = "db.password";
 
-    protected static final String PROPERTY_NAME_DATABASE_URL = "db.url";
+    protected static final String PROP_DATABASE_URL = "db.url";
 
-    protected static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+    protected static final String PROP_DATABASE_USERNAME = "db.username";
 
-    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String PROP_HIBERNATE_DIALECT = "hibernate.dialect";
 
-    private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
+    private static final String PROP_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
 
-    private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
+    private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 
-    private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
+    private static final String PROP_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
 
-    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String PROP_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 
     @Resource
     private Environment env;
@@ -50,10 +50,10 @@ public class PersistenceContext implements S2PAppCtx {
     public DataSource dataSource() {
         final BoneCPDataSource dataSource = new BoneCPDataSource();
 
-        dataSource.setDriverClass(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-        dataSource.setJdbcUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+        dataSource.setDriverClass(env.getRequiredProperty(PROP_DATABASE_DRIVER));
+        dataSource.setJdbcUrl(env.getRequiredProperty(PROP_DATABASE_URL));
+        dataSource.setUsername(env.getRequiredProperty(PROP_DATABASE_USERNAME));
+        dataSource.setPassword(env.getRequiredProperty(PROP_DATABASE_PASSWORD));
 
         return dataSource;
     }
@@ -67,14 +67,11 @@ public class PersistenceContext implements S2PAppCtx {
         entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
 
         final Properties jpaProperties = new Properties();
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL,
-                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO,
-                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY,
-                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+        jpaProperties.put(PROP_HIBERNATE_DIALECT, env.getRequiredProperty(PROP_HIBERNATE_DIALECT));
+        jpaProperties.put(PROP_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROP_HIBERNATE_FORMAT_SQL));
+        jpaProperties.put(PROP_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROP_HIBERNATE_HBM2DDL_AUTO));
+        jpaProperties.put(PROP_HIBERNATE_NAMING_STRATEGY, env.getRequiredProperty(PROP_HIBERNATE_NAMING_STRATEGY));
+        jpaProperties.put(PROP_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROP_HIBERNATE_SHOW_SQL));
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
@@ -84,9 +81,8 @@ public class PersistenceContext implements S2PAppCtx {
     @Bean
     public JpaTransactionManager transactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
-
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-
         return transactionManager;
     }
+
 }
