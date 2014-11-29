@@ -1,5 +1,8 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 
 public class CourseEditDto {
@@ -8,13 +11,15 @@ public class CourseEditDto {
 
     private Integer id;
 
+    private final List<LessonEditDto> lessons = new ArrayList<LessonEditDto>();
+
     //    private List<Lesson> lessons = new ArrayList<Lesson>();
 
     private String name;
 
-    //    private SortedSet<Skill> skills;
-
     private CourseStatus status;
+
+    //    private SortedSet<Skill> skills;
 
     private String summary;
 
@@ -33,6 +38,10 @@ public class CourseEditDto {
 
     public Integer getId() {
         return id;
+    }
+
+    public List<LessonEditDto> getLessons() {
+        return lessons;
     }
 
     //    public List<Lesson> getLessons() {

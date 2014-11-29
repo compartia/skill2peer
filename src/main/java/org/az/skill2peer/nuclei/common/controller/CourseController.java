@@ -1,14 +1,14 @@
 package org.az.skill2peer.nuclei.common.controller;
 
-import java.util.Date;
-
 import org.az.skill2peer.nuclei.Urls;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto;
+import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CourseService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class CourseController {
     private void fakeCourseData(final CourseInfoDto course) {
         course.setLocation(fakeLocation());
         course.setPrice(fakePrice());
-        course.setSchedule(fakeSchedule());
+        course.setSchedule(fakeScheduleDto());
 
         course.getLessons().add(fakeLesson(1));
         course.getLessons().add(fakeLesson(2));
@@ -74,7 +74,7 @@ public class CourseController {
         lesson.setLocation(fakeLocation());
         lesson.setName("lesson name " + no);
         lesson.setPrice(fakePrice());
-        lesson.setSchedule(fakeSchedule());
+        lesson.setSchedule(fakeScheduleDto());
         lesson.setSkills("lesson skill " + no);
         lesson.setSummary("lesson summary " + no);
         return lesson;
@@ -99,10 +99,19 @@ public class CourseController {
     }
 
     @Deprecated
-    private ScheduleDto fakeSchedule() {
-        final ScheduleDto schedule = new ScheduleDto();
+    private Schedule fakeSchedule() {
+        final Schedule schedule = new Schedule();
         schedule.setDuration(120);
-        schedule.setStart(new Date());
+        schedule.setStart(DateTime.now());
         return schedule;
     }
+
+    @Deprecated
+    private ScheduleDto fakeScheduleDto() {
+        final ScheduleDto schedule = new ScheduleDto();
+        schedule.setDuration(120);
+        schedule.setStart(DateTime.now());
+        return schedule;
+    }
+
 }

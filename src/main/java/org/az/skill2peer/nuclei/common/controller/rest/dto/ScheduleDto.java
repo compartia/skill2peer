@@ -1,7 +1,6 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
-import java.util.Date;
-
+import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -13,12 +12,14 @@ import org.springframework.context.i18n.LocaleContextHolder;
  *
  */
 public class ScheduleDto {
-    private Date start;
+    private DateTime start;
 
     /**
      * duration in minutes;
      */
     private int duration;
+
+    private String next;
 
     public int getDuration() {
         return duration;
@@ -30,7 +31,16 @@ public class ScheduleDto {
                 .print(period.normalizedStandard(period.getPeriodType()));
     }
 
-    public Date getStart() {
+    public DateTime getEnd() {
+        final DateTime s = new DateTime(start);
+        return s.plus(Period.minutes(duration));
+    }
+
+    public String getNext() {
+        return next;
+    }
+
+    public DateTime getStart() {
         return start;
     }
 
@@ -38,7 +48,16 @@ public class ScheduleDto {
         this.duration = duration;
     }
 
-    public void setStart(final Date start) {
+    public void setNext(final String next) {
+        this.next = next;
+    }
+
+    //    public int getStartDay(){
+    //        DateTime time=new DateTime(start);
+    //        time.getDayOfMonth();
+    //    }
+
+    public void setStart(final DateTime start) {
         this.start = start;
     }
 }
