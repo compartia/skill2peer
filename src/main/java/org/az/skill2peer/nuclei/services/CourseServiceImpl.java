@@ -2,6 +2,7 @@ package org.az.skill2peer.nuclei.services;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,12 +15,15 @@ import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.HasOwner;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
+import org.az.skill2peer.nuclei.user.repository.CourseRepository;
 import org.dozer.Mapper;
 import org.hibernate.internal.util.SerializationHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -30,13 +34,15 @@ import com.google.common.base.Preconditions;
 * @author Artem Zaborskiy
 *
 */
-@Transactional
-@Component
+@Service
 public class CourseServiceImpl implements CourseService, CourseAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Autowired
     Mapper mapper;
+
+    @Resource
+    CourseRepository repo;
 
     @PersistenceContext
     EntityManager em;
@@ -52,14 +58,23 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         course.setStatus(CourseStatus.DRAFT);
 
         em.persist(course);
+        em.flush();
         return course;
     }
 
     @Override
     @Transactional(readOnly = false)
+    public void deleteCourse(final Integer courseId) {
+        final Course draft = getCourse(courseId);
+        assertNotPublished(draft);
+        em.remove(draft);
+        em.flush();
+    }
+
+    @Override
+    @Transactional(readOnly = false)
     public Course editCourse(final Integer courseId) {
-        final Course course = em.find(Course.class, courseId);
-        Assert.notNull(course);
+        final Course course = getCourse(courseId);
         assertCurrentUserHasPermission(course);
 
         if (course.getStatus() == CourseStatus.DRAFT) {
@@ -67,6 +82,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         } else {
             return makeOrGetDraft(course);
         }
+
     }
 
     @Override
@@ -91,7 +107,8 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     @Override
     public CourseMetaDataDto getCourseInfo(final Integer id) {
         final CourseMetaDataDto dto = new CourseMetaDataDto();
-        final Course c = em.find(Course.class, id);
+        final Course c = repo.findOne(id);
+
         dto.setId(c.getId());
         dto.setFavorited(!getCourseFavorites(id, SecurityUtil.getCurrentUser().getId()).isEmpty());
         return dto;
@@ -142,8 +159,8 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         LOGGER.debug("updating course " + courseDto.getId());
 
         Assert.notNull(courseDto);
-        Assert.notNull(courseDto.getId());
-        final Course course = em.find(Course.class, courseDto.getId());
+
+        final Course course = getCourse(courseDto.getId());
         Assert.notNull(course);
         assertCurrentUserHasPermission(course);
         assertNotPublished(course);
@@ -151,6 +168,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         mapper.map(courseDto, course);
         course.setStatus(CourseStatus.DRAFT);
         em.merge(course);
+        em.flush();
         return course;
     }
 
@@ -165,25 +183,13 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         Preconditions.checkState(course.getDraft() == null);
     }
 
-    private Course cloneCourse(final Course course) {
-        final Course clonedObject = (Course)SerializationHelper.clone(course);
-        clonedObject.setAuthor(getCurrentUser());
-        return clonedObject;
-    }
-
-    private Course getCourse(final Integer courseId) {
-        Preconditions.checkNotNull(courseId);
-        final Course course = em.find(Course.class, courseId);
-        return course;
-    }
-
     private User getCurrentUser() {
         final User user = em.find(User.class, SecurityUtil.getCurrentUser().getId());
         Assert.notNull(user);
         return user;
     }
 
-    Course makeOrGetDraft(final Course course) {
+    private Course makeOrGetDraft(final Course course) {
         if (course.getDraft() != null) {
             return course.getDraft();
         } else {
@@ -201,5 +207,24 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
             return clonedObject;
         }
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
+    Course cloneCourse(final Course course) {
+        final Course clonedObject = (Course)SerializationHelper.clone(course);
+
+        clonedObject.setAuthor(getCurrentUser());
+        return clonedObject;
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
+    Course cloneCourse(final Integer courseId) {
+        return cloneCourse(getCourse(courseId));
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    Course getCourse(final Integer courseId) {
+        Preconditions.checkNotNull(courseId);
+        return em.find(Course.class, courseId);
     }
 }
