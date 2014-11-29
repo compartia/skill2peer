@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<course id="1" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
+	<course id="2" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
+	
+	<lesson id="11" course_id="1" version="0"/>
+	<lesson id="21" course_id="2" version="0"/>
+	<lesson id="22" course_id="2" version="0"/>
+</dataset>
