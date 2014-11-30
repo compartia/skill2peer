@@ -1,5 +1,6 @@
 package org.az.skill2peer.nuclei.common.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "lesson")
@@ -14,10 +16,6 @@ import javax.persistence.Transient;
 public class Lesson extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 765205335817537834L;
-
-    //    @JoinColumn(name = "course_id")
-    //    @ManyToOne
-    //    private Course course;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_id_seq")
@@ -29,11 +27,9 @@ public class Lesson extends BaseEntity<Integer> {
     @Transient
     private Schedule schedule;
 
+    @Column(name = "description")
+    @Size(max = 10000)
     private String description;
-
-    //    public Course getCourse() {
-    //        return course;
-    //    }
 
     public String getDescription() {
         return description;
@@ -51,10 +47,6 @@ public class Lesson extends BaseEntity<Integer> {
     public Schedule getSchedule() {
         return schedule;
     }
-
-    //    public void setCourse(final Course course) {
-    //        this.course = course;
-    //    }
 
     public void setDescription(final String description) {
         this.description = description;

@@ -20,6 +20,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -69,6 +70,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
     @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @Valid
     private List<Lesson> lessons;
 
     @Size(max = 160)

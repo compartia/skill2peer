@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
@@ -65,7 +66,8 @@ public class CourseRestController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public CourseEditDto save(@RequestBody final CourseEditDto courseDto) {
+    public CourseEditDto save(@RequestBody @Valid final CourseEditDto courseDto) {
+        LOGGER.debug("course saved " + courseDto.getId());
         Course course;
 
         if (courseDto.getId() != null) {

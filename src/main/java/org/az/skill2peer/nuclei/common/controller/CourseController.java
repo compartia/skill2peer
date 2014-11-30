@@ -56,11 +56,11 @@ public class CourseController {
         course.setPrice(fakePrice());
         course.setSchedule(fakeScheduleDto());
 
-        course.getLessons().add(fakeLesson(1));
-        course.getLessons().add(fakeLesson(2));
-        course.getLessons().add(fakeLesson(3));
-        course.getLessons().add(fakeLesson(4));
-        course.getLessons().add(fakeLesson(5));
+        //        course.getLessons().add(fakeLesson(1));
+        //        course.getLessons().add(fakeLesson(2));
+        //        course.getLessons().add(fakeLesson(3));
+        //        course.getLessons().add(fakeLesson(4));
+        //        course.getLessons().add(fakeLesson(5));
 
         course.setSkills("fake skill 1,fake skill 2,fake skill 3");
 

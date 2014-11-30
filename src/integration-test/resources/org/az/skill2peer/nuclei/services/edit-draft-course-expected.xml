@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 	<course id="71" title="title" summary="summary" description="description" status="PUBLISHED" author="1111"></course>
-	<course id="72" title="title" summary="summary" description="description edited" status="DRAFT" author="1111"
-		published_version_id="71"></course>
+	<course id="72" title="title" summary="summary" description="description edited" status="DRAFT" author="1111" published_version_id="71"></course>
+
+	<lesson id="1" course_id="72" description="1" />
+	 
 </dataset>

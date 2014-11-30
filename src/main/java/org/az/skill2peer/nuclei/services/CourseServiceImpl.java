@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
@@ -45,6 +47,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    Validator validator;
 
     @Override
     @Transactional(readOnly = false)
@@ -154,7 +159,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
     @Override
     @Transactional(readOnly = false)
-    public Course updateCourse(final CourseEditDto courseDto) {
+    public Course updateCourse(final @Valid CourseEditDto courseDto) {
         LOGGER.debug("updating course " + courseDto.getId());
 
         Assert.notNull(courseDto);
@@ -193,7 +198,6 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             return course.getDraft();
         } else {
             //make deep copy;
-            //em.detach(entity);
             final Course clonedObject = cloneCourse(course);
             course.setDraft(clonedObject);
             clonedObject.setId(null);
@@ -209,9 +213,12 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         }
     }
 
-    @Transactional(propagation = Propagation.MANDATORY, isolation = Isolation.READ_COMMITTED)
+    /**
+     * makes deep copy
+     * @param course
+     * @return
+     */
     Course cloneCourse(final Course course) {
-
         final Course clonedObject = new Course();
         mapper.map(course, clonedObject, "course-copy-publish");
 
@@ -225,8 +232,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     }
 
     @Transactional(propagation = Propagation.MANDATORY)
+    @Deprecated
     Course getCourse(final Integer courseId) {
         Preconditions.checkNotNull(courseId);
-        return em.find(Course.class, courseId);
+        return repo.findOne(courseId);
     }
 }

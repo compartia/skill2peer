@@ -11,6 +11,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 @ComponentScan(basePackages = { "org.az.skill2peer.nuclei.user.service" })
@@ -27,6 +28,11 @@ public class Skill2PeerApplicationContext implements S2PAppCtx {
                 new ClassPathResource("dozer-mapping.xml")
         });
         return mapper;
+    }
+
+    @Bean
+    public javax.validation.Validator localValidatorFactoryBean() {
+        return new LocalValidatorFactoryBean();
     }
 
     @Bean
