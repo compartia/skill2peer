@@ -1,0 +1,25 @@
+.star-rating {
+  line-height:32px;
+  font-size:1.25em;
+  cursor: pointer;
+}
+
+.badge-info {
+	padding:0;
+	width: 20px;
+	height: 20px;
+	border:2px solid grey;
+	font-size: 15px;
+
+	&:before {
+		content:"?";
+	}
+	span {
+		display: none;
+	}
+	&,
+	.panel-default>.panel-heading & {
+		background:transparent;
+		color:grey;
+	}
+}
