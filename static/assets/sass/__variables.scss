@@ -1,0 +1,53 @@
+$gray-base:              #000;
+$brand-primary:         #2980b9;
+$gray-light:  #a5a5a5;
+$gray-lighter: #eaeaea;
+
+$social-color: #cbcbcb;
+
+$course-time-color: #f3f3f3;
+
+$breadcrumb-separator: "\\";
+$breadcrumb-color: $gray-light;
+$breadcrumb-active-color: $breadcrumb-color;
+$breadcrumb-padding-vertical:   0;
+$breadcrumb-padding-horizontal: 0;
+//** Breadcrumb background color
+$breadcrumb-bg: transparent;
+
+/* override icon-font-path value and include scss */
+$icon-font-path: "../fonts/bootstrap/"; 
+
+//** Global text color on `<body>`.
+$text-color:            $gray-base;
+
+//** Global textual link color.
+$link-color:            $brand-primary;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "robotoregular", Helvetica, Arial, sans-serif !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          14px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            30px;
+$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h5:            $font-size-base !default;
+$font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.35; 
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-weight:    500;
+$headings-line-height:    1.1 !default;

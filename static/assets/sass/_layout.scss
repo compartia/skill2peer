@@ -1,3 +1,79 @@
+// .page-header {
+// 	text-align: center;
+// }
+
+
+.breadcrumb {
+	border-radius: 0;
+	li a {
+		color:$breadcrumb-color;
+	}
+}
+
+.header-toolbar {
+	border:1px solid $gray-lighter;
+	@include clearfix;
+
+	.header-toolbar-item {
+		float:left;
+	}
+	.friends-counter {
+		float:right;
+	}
+}
+
+.header-toolbar-item {
+	padding:0 10px;
+	height: 44px;
+	line-height: 44px;
+	border-right:1px solid $gray-lighter;
+
+	&.btn-group {
+		padding:0; 
+		border:0;
+	}
+	&.friends-counter {
+		border:0;
+		border-left:1px solid $gray-lighter;
+	}
+
+	.btn-social-icon {
+		height:44px;
+		width:42px;
+		color:$social-color;
+		background:none;
+		border-radius:0;
+		border:0;
+		border-right:1px solid $gray-lighter;
+
+		:first-child {
+			line-height: 44px;
+		}
+	}
+}
+
+.friends-counter {
+	color:$gray-light;
+	em {
+		font-size: $font-size-large;
+		font-style: normal;
+	}
+}
+.navigate-link {
+	&:after {
+		content:">";
+		font-size:1.2em;
+		padding:0 0 0 3px;
+	}	
+}
+
+
+.course-time-info {
+	background: $course-time-color;
+}
+.course-dates {
+		
+}
 .star-rating {
   line-height:32px;
   font-size:1.25em;
