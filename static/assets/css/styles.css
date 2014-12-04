@@ -5922,27 +5922,15 @@ h1 {
   margin-top: 44px; }
 
 .page-header-wrap {
-  padding: 0 0 0 390px;
   background: #e9e9e9; }
-  .page-header-wrap:before, .page-header-wrap:after {
-    content: " ";
-    display: table; }
-  .page-header-wrap:after {
-    clear: both; }
-  .page-header-wrap .page-header {
-    float: right;
-    width: 100%; }
-  .page-header-wrap .course-time-info {
-    float: left;
-    width: 390px;
-    margin: 0 0 0 -390px; }
 
 .page-header {
   display: table;
   margin: 0;
   padding: 0;
   min-height: 338px;
-  border: 0; }
+  border: 0;
+  width: 100%; }
   .page-header .page-header-inner {
     display: table-cell;
     vertical-align: middle;
@@ -6145,3 +6133,24 @@ h1 {
   .badge-info, .panel-default > .panel-heading .badge-info {
     background: transparent;
     color: grey; }
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .page-header-wrap {
+    padding: 0 0 0 390px; }
+    .page-header-wrap:before, .page-header-wrap:after {
+      content: " ";
+      display: table; }
+    .page-header-wrap:after {
+      clear: both; }
+    .page-header-wrap .page-header {
+      float: right;
+      width: 100%; }
+    .page-header-wrap .course-time-info {
+      float: right;
+      width: 390px;
+      margin: 0 0 0 -390px; } }
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */

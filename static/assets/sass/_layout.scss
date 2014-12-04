@@ -3,19 +3,14 @@
 }
 
 .page-header-wrap {
-	padding:0 0 0 390px;
-	@include clearfix;
 	background:$header-bg;
 
 	.page-header {
-		float:right;
-		width:100%;
+
 	}
 
 	.course-time-info {
-		float:left;
-		width: 390px;
-		margin:0 0 0 -390px;
+
 	}
 }
 
@@ -25,6 +20,7 @@
 	padding:0;
 	min-height:338px;
 	border:0;
+	width:100%;
 
 	.page-header-inner {
 		display: table-cell;
