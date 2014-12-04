@@ -2,13 +2,36 @@ $gray-base:              #000;
 $brand-primary:         #2980b9;
 $gray-light:  #a5a5a5;
 $gray-lighter: #eaeaea;
+$light-color: #fff;
+
+$header-bg: #e9e9e9;
+
+$accent-color: #62b6ed;
+
+$btn-primary-bg: #2980b9;
+$btn-primary-color:$light-color;
+
+$btn-info-bg: #62b6ed;
+$btn-info-color:$light-color;
+
+$btn-like-bg:#83c8f5;
+$btn-like-color:$light-color;
+$btn-like-border:darken($btn-like-bg, 5%);
+
+//** Global text color on `<body>`.
+$text-color:            $gray-base;
+$light-text-color:      $gray-light;
 
 $social-color: #cbcbcb;
 
-$course-time-color: #f3f3f3;
+$panel-bg:#f3f3f3;
+$light-panel-bg:$light-color;
+$panel-border: #e9e9e9;
+
+$time-panel-color: #d1d1d1;
 
 $breadcrumb-separator: "\\";
-$breadcrumb-color: $gray-light;
+$breadcrumb-color: $light-text-color;
 $breadcrumb-active-color: $breadcrumb-color;
 $breadcrumb-padding-vertical:   0;
 $breadcrumb-padding-horizontal: 0;
@@ -18,8 +41,6 @@ $breadcrumb-bg: transparent;
 /* override icon-font-path value and include scss */
 $icon-font-path: "../fonts/bootstrap/"; 
 
-//** Global text color on `<body>`.
-$text-color:            $gray-base;
 
 //** Global textual link color.
 $link-color:            $brand-primary;

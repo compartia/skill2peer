@@ -5901,60 +5901,12 @@ h1 {
   text-transform: uppercase;
   font-weight: 800; }
 
-.btn-like {
-  color: white;
-  background-color: #83c8f5;
-  border-color: #6bbef3; }
-  .btn-like:hover, .btn-like:focus, .btn-like.focus, .btn-like:active, .btn-like.active, .open > .btn-like.dropdown-toggle {
-    color: white;
-    background-color: #54b3f1;
-    border-color: #33a4ef; }
-  .btn-like:active, .btn-like.active, .open > .btn-like.dropdown-toggle {
-    background-image: none; }
-  .btn-like.disabled, .btn-like.disabled:hover, .btn-like.disabled:focus, .btn-like.disabled.focus, .btn-like.disabled:active, .btn-like.disabled.active, .btn-like[disabled], .btn-like[disabled]:hover, .btn-like[disabled]:focus, .btn-like[disabled].focus, .btn-like[disabled]:active, .btn-like[disabled].active, fieldset[disabled] .btn-like, fieldset[disabled] .btn-like:hover, fieldset[disabled] .btn-like:focus, fieldset[disabled] .btn-like.focus, fieldset[disabled] .btn-like:active, fieldset[disabled] .btn-like.active {
-    background-color: #83c8f5;
-    border-color: #6bbef3; }
-  .btn-like .badge {
-    color: #83c8f5;
-    background-color: white; }
-
-.container {
-  margin-top: 44px; }
-
-.page-header-wrap {
-  padding: 0 0 0 390px;
-  background: #e9e9e9; }
-  .page-header-wrap:before, .page-header-wrap:after {
-    content: " ";
-    display: table; }
-  .page-header-wrap:after {
-    clear: both; }
-  .page-header-wrap .page-header {
-    float: right;
-    width: 100%; }
-  .page-header-wrap .course-time-info {
-    float: left;
-    width: 390px;
-    margin: 0 0 0 -390px; }
-
-.page-header {
-  display: table;
-  margin: 0;
-  padding: 0;
-  min-height: 338px;
-  border: 0; }
-  .page-header .page-header-inner {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center; }
-
 .breadcrumb {
   border-radius: 0; }
   .breadcrumb li a {
     color: #a5a5a5; }
 
 .header-toolbar {
-  margin: 30px 0;
   border: 1px solid #eaeaea; }
   .header-toolbar:before, .header-toolbar:after {
     content: " ";
@@ -6092,7 +6044,7 @@ h1 {
     font-family: "robotoregular"; }
 
 .course-options-wrap .btn {
-  padding: 8px 16px 7px;
+  padding: 8px 16px;
   border: 0;
   border-radius: 0;
   text-transform: uppercase;
@@ -6110,6 +6062,9 @@ h1 {
     display: table-cell; }
   .course-options-wrap .btn-group .btn-like {
     width: 59px; }
+.course-options-wrap .btn-like {
+  background: #83c8f5;
+  color: white; }
 
 .course-place-wrap {
   display: table;
