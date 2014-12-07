@@ -11,10 +11,12 @@ import javax.validation.Validator;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.HasOwner;
+import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.az.skill2peer.nuclei.user.repository.CourseRepository;
@@ -162,14 +164,13 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     public Course updateCourse(final @Valid CourseEditDto courseDto) {
         LOGGER.debug("updating course " + courseDto.getId());
 
-        Assert.notNull(courseDto);
-
         final Course course = getCourse(courseDto.getId());
-        Assert.notNull(course);
+
         assertCurrentUserHasPermission(course);
         assertNotPublished(course);
-
+        //-----
         mapper.map(courseDto, course);
+        updateLessons(course, courseDto.getLessons());
         course.setStatus(CourseStatus.DRAFT);
         em.merge(course);
         em.flush();
@@ -210,6 +211,20 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             em.flush();
 
             return clonedObject;
+        }
+    }
+
+    private void updateLessons(final Course course, final List<LessonEditDto> lessons) {
+        course.getLessons().clear();
+        for (final LessonEditDto lessonDto : lessons) {
+            final Lesson lesson;
+            if (lessonDto.getId() != null) {
+                lesson = em.find(Lesson.class, lessonDto.getId());
+            } else {
+                lesson = new Lesson();
+            }
+            mapper.map(lessonDto, lesson);
+            course.getLessons().add(lesson);
         }
     }
 

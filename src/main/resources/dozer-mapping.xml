@@ -6,6 +6,20 @@
 	<configuration>
 	</configuration>
 
+	<mapping map-id="lesson-edit">
+		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto</class-b>
+	</mapping>
+
+	<mapping>
+		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto</class-b>
+		<field map-id="lesson-edit">
+			<a>lessons</a>
+			<b>lessons</b>
+		</field>
+	</mapping>
+
 	<mapping map-id="lesson-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
 		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>

@@ -1,15 +1,24 @@
 package org.az.skill2peer.nuclei.common.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+/**
+ * a course consists of lessons
+ *
+ * @author Artem Zaborskiy
+ *
+ */
 @Entity
 @Table(name = "lesson")
 @SequenceGenerator(name = "lesson_id_seq", sequenceName = "lesson_id_seq")
@@ -21,15 +30,21 @@ public class Lesson extends BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_id_seq")
     private Integer id;
 
-    @Transient
+    @Valid
+    @ManyToOne(targetEntity = Location.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
-    @Transient
+    @ManyToOne(targetEntity = Schedule.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
+    @Valid
     private Schedule schedule;
 
     @Column(name = "description")
     @Size(max = 10000)
     private String description;
+
+    /*    methods   */
 
     public String getDescription() {
         return description;

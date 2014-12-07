@@ -5,7 +5,7 @@ public class LocationDto {
 
     private String address;
 
-    private String comment;
+    private String description;
 
     private Integer id;
 
@@ -13,8 +13,8 @@ public class LocationDto {
         return address;
     }
 
-    public String getComment() {
-        return comment;
+    public String getDescription() {
+        return description;
     }
 
     public Integer getId() {
@@ -29,8 +29,8 @@ public class LocationDto {
         this.address = address;
     }
 
-    public void setComment(final String comment) {
-        this.comment = comment;
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     public void setId(final Integer id) {

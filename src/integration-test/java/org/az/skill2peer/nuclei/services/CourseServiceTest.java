@@ -1,7 +1,10 @@
 package org.az.skill2peer.nuclei.services;
 
+import java.util.List;
+
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
@@ -33,7 +36,6 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "delete-course.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void cloneCourse() throws Exception {
 
-        //        Assert.assertEquals("artem", TransactionSynchronizationManager.getCurrentTransactionName());
         Assert.assertTrue(TransactionSynchronizationManager.isActualTransactionActive());
 
         final Course cloneCourse = service.cloneCourse(1);
@@ -114,12 +116,30 @@ public class CourseServiceTest extends AbstractServiceTest {
     @Transactional
     @Test
     @DatabaseSetup(value = "edit-draft-course.xml")
-    @ExpectedDatabase(value = "edit-draft-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateDraftCourse() throws Exception {
+    public void getEditableCourse() throws Exception {
         final CourseEditDto editableCourse = service.getEditableCourse(71);
         Assert.assertEquals(CourseStatus.DRAFT, editableCourse.getStatus());
         Assert.assertEquals(72, editableCourse.getId().intValue());
+        final List<LessonEditDto> lessons = editableCourse.getLessons();
+        Assert.assertNotNull(lessons);
+        Assert.assertEquals(1, lessons.size());
+        final LessonEditDto lessonEditDto = lessons.get(0);
+        Assert.assertEquals(1, lessonEditDto.getId().intValue());
+    }
+
+    @Transactional
+    @Test
+    @DatabaseSetup(value = "edit-draft-course.xml")
+    @ExpectedDatabase(value = "edit-draft-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void updateDraftCourse() throws Exception {
+        final CourseEditDto editableCourse = service.getEditableCourse(71);
+
         editableCourse.setDescription("description edited");
+        final LessonEditDto lessonEditDto = editableCourse.getLessons().get(0);
+
+        editableCourse.getLessons().add(buildLesson());
+
+        lessonEditDto.getLocation().setDescription("description_edited");
         service.updateCourse(editableCourse);
 
         //
@@ -145,9 +165,16 @@ public class CourseServiceTest extends AbstractServiceTest {
         courseDto.setDescription("description");
         courseDto.setSummary("summary");
 
-        final LessonEditDto lesson = new LessonEditDto();
-        lesson.setName("lesson name");
+        final LessonEditDto lesson = buildLesson();
         courseDto.getLessons().add(lesson);
         return courseDto;
+    }
+
+    private LessonEditDto buildLesson() {
+        final LessonEditDto lesson = new LessonEditDto();
+        lesson.setName("lesson name");
+        lesson.setDescription("lesson description");
+        lesson.setSchedule(new ScheduleDto());
+        return lesson;
     }
 }

@@ -101,7 +101,7 @@ public class CourseController {
     @Deprecated
     private Schedule fakeSchedule() {
         final Schedule schedule = new Schedule();
-        schedule.setDuration(120);
+        //        schedule.setDuration(120);
         schedule.setStart(DateTime.now());
         return schedule;
     }

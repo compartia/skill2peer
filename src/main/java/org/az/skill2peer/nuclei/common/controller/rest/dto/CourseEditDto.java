@@ -11,15 +11,11 @@ public class CourseEditDto {
 
     private Integer id;
 
-    private final List<LessonEditDto> lessons = new ArrayList<LessonEditDto>();
-
-    //    private List<Lesson> lessons = new ArrayList<Lesson>();
+    private List<LessonEditDto> lessons = new ArrayList<LessonEditDto>();
 
     private String name;
 
     private CourseStatus status;
-
-    //    private SortedSet<Skill> skills;
 
     private String summary;
 
@@ -27,6 +23,8 @@ public class CourseEditDto {
      * comma-separated tags
      */
     private String tags;
+
+    //    private SortedSet<Skill> skills;
 
     public CourseEditDto() {
         //   lessons.add(new Lesson());
@@ -44,26 +42,9 @@ public class CourseEditDto {
         return lessons;
     }
 
-    //    public List<Lesson> getLessons() {
-    // return lessons;
-    //    }
-
-    //    public Location getLocation() {
-    //        return getFirstLesson().getLocation();
-    //    }
-
     public String getName() {
         return name;
     }
-
-    //
-    //    public Schedule getSchedule() {
-    //        return getFirstLesson().getSchedule();
-    //    }
-
-    //    public SortedSet<Skill> getSkills() {
-    //        return skills;
-    //    }
 
     public CourseStatus getStatus() {
         return status;
@@ -85,21 +66,13 @@ public class CourseEditDto {
         this.id = id;
     }
 
-    //    public void setLessons(final List<Lesson> lessons) {
-    //        this.lessons = lessons;
-    //    }
+    public void setLessons(final List<LessonEditDto> lessons) {
+        this.lessons = lessons;
+    }
 
     public void setName(final String name) {
         this.name = name;
     }
-
-    //    public void setSchedule(final Schedule schedule) {
-    //        getFirstLesson().setSchedule(schedule);
-    //    }
-
-    //    public void setSkills(final SortedSet<Skill> skills) {
-    //        this.skills = skills;
-    //    }
 
     public void setStatus(final CourseStatus status) {
         this.status = status;
@@ -113,10 +86,4 @@ public class CourseEditDto {
         this.tags = tags;
     }
 
-    //    private Lesson getFirstLesson() {
-    //        if (lessons.isEmpty()) {
-    //            lessons.add(new Lesson());
-    //        }
-    //        return lessons.get(0);
-    //    }
 }
