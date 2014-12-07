@@ -3,6 +3,7 @@ package org.az.skill2peer.nuclei.common.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,13 +32,13 @@ public class Lesson extends BaseEntity<Integer> {
     private Integer id;
 
     @Valid
-    @ManyToOne(targetEntity = Location.class, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
-    @ManyToOne(targetEntity = Schedule.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     @Valid
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     private Schedule schedule;
 
     @Column(name = "description")

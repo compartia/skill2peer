@@ -1,4 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 	<course id="2" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
+	<lesson id="21" course_id="2" version="0" location_id="1"/>
+	<lesson id="22" course_id="2" version="0" location_id="1"/>
 </dataset>

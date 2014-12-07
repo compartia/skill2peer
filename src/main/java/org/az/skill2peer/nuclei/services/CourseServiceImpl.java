@@ -71,9 +71,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     @Override
     @Transactional(readOnly = false)
     public void deleteCourse(final Integer courseId) {
-        final Course draft = getCourse(courseId);
-        assertNotPublished(draft);
-        em.remove(draft);
+        final Course draftCourse = getCourse(courseId);
+        assertNotPublished(draftCourse);
+        em.remove(draftCourse);
         em.flush();
     }
 

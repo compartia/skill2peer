@@ -3,11 +3,18 @@
 	<user_accounts id="1111" creation_time="2014-02-20 11:13:28" email="facebook@socialuser.com" first_name="Facebook"
 		last_name="User" modification_time="2014-02-20 11:13:28" role="ROLE_USER" sign_in_provider="FACEBOOK" version="0" />
 
+
+
 	<course id="71" title="title" summary="summary" description="description" status="PUBLISHED" author="1111"
 		version="1"></course>
+
+
 	<course id="72" title="title" summary="summary" description="description" status="DRAFT" author="1111"
 		published_version_id="71" version="1"></course>
-		
-	<lesson id="1" course_id="72" description="1" />
+
+
+	<location id="1" description="description" version="0" />
+	<lesson id="1" course_id="72" description="1" location_id="1" version="0" />
+
 
 </dataset>

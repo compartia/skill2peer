@@ -68,7 +68,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     //XXX:
     private SortedSet<User> lectors;
 
-    @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @Valid
     private List<Lesson> lessons;
