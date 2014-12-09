@@ -26,6 +26,10 @@ public class Location extends BaseEntity<Integer> {
     @Size(max = 1000)
     private String description;
 
+    private Float longitude;
+
+    private Float latitude;
+
     public String getDescription() {
         return description;
     }
@@ -35,12 +39,28 @@ public class Location extends BaseEntity<Integer> {
         return id;
     }
 
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
     public void setDescription(final String description) {
         this.description = description;
     }
 
     public void setId(final Integer id) {
         this.id = id;
+    }
+
+    public void setLatitude(final Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(final Float longitude) {
+        this.longitude = longitude;
     }
 
 }

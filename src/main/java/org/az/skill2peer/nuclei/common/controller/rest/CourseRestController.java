@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
-import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.services.CourseService;
@@ -34,6 +33,7 @@ public class CourseRestController {
     EntityManager em;
 
     @Autowired
+    @Deprecated
     Mapper mapper;
 
     @Autowired
@@ -68,7 +68,7 @@ public class CourseRestController {
     @ResponseBody
     public CourseEditDto save(@RequestBody @Valid final CourseEditDto courseDto) {
         LOGGER.debug("course saved " + courseDto.getId());
-        Course course;
+        CourseEditDto course;
 
         if (courseDto.getId() != null) {
             //update existing
@@ -77,9 +77,7 @@ public class CourseRestController {
             course = courseService.createCourse(courseDto);
         }
 
-        final CourseEditDto ret = new CourseEditDto();
-        mapper.map(course, ret);
-        return ret;
+        return course;
     }
 
 }
