@@ -6,7 +6,9 @@ import org.az.skill2peer.nuclei.model.UserBuilder;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.SocialMediaService;
 import org.az.skill2peer.nuclei.user.model.User;
+import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityUtilTest {
@@ -22,6 +24,16 @@ public class SecurityUtilTest {
     private static final String PASSWORD = "password";
 
     @Test
+    public void logInUser_UserRegisteredByUsingFormRegistration_LocaleShouldBeSet() {
+        final User user = new UserBuilder().email(EMAIL).firstName(FIRST_NAME).id(ID).lastName(LAST_NAME)
+                .password(PASSWORD).build();
+
+        SecurityUtil.logInUser(user);
+
+        Assert.assertEquals("RU", LocaleContextHolder.getLocale().getCountry());
+    }
+
+    @Test
     public void logInUser_UserRegisteredByUsingFormRegistration_ShouldAddUserDetailsToSecurityContext() {
         final User user = new UserBuilder().email(EMAIL).firstName(FIRST_NAME).id(ID).lastName(LAST_NAME)
                 .password(PASSWORD).build();
@@ -30,6 +42,7 @@ public class SecurityUtilTest {
 
         assertThat(SecurityContextHolder.getContext()).loggedInUserIs(user).loggedInUserHasPassword(PASSWORD)
                 .loggedInUserIsRegisteredByUsingNormalRegistration();
+
     }
 
     @Test

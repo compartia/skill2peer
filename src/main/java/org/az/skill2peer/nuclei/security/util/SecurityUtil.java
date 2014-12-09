@@ -1,9 +1,12 @@
 package org.az.skill2peer.nuclei.security.util;
 
+import java.util.Locale;
+
 import org.az.skill2peer.nuclei.security.dto.SocialUserDetails;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -37,7 +40,10 @@ public class SecurityUtil {
 
         LOGGER.info("User: {} has been logged in.", userDetails);
 
-        //        LocaleContextHolder.setLocale(Locale.);
+        //XXX: read it from user settings
+        final Locale ruLocale = new Locale.Builder().setLanguage("ru").setRegion("RU").build();
+
+        LocaleContextHolder.setLocale(ruLocale);
 
     }
 
