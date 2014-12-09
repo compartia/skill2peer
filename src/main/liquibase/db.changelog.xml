@@ -171,6 +171,8 @@
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="description" type="text" />
+			<column name="longitude" type="real" />
+			<column name="latitude" type="real" />
 			
 			<!-- ==== -->
 			<column name="creation_time" type="datetime" />
@@ -207,21 +209,6 @@
 	</changeSet>
 	
 	
-	<!-- <changeSet id="create_schedule_table_" author="az">
-		<createTable tableName="schedule">
-			
-			<column name="start_time" type="datetime"/>
-			<column name="id" autoIncrement="true" type="int" incrementBy="1">
-				<constraints nullable="false" primaryKey="true" />
-			</column>
-			<column name="end_time" type="datetime"/>
-			<column name="repeat" type="text"/>
-			====
-			<column name="creation_time" type="datetime" />
-			<column name="modification_time" type="datetime" />
-			<column name="version" type="bigint" />
-			
-		</createTable>
-	</changeSet> -->
+	 
 
 </databaseChangeLog>

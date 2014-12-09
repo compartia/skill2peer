@@ -50,7 +50,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "create-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void createCourse() throws Exception {
         final CourseEditDto courseDto = buildCourseDto();
-        final Course c = service.createCourse(courseDto);
+        final CourseEditDto c = service.createCourse(courseDto);
 
         Assert.assertNotNull(c.getId());
     }

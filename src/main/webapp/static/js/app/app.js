@@ -2,7 +2,7 @@
 
 define(
 //
-[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource', 'flatui', 'angular-file-upload' ],
+[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource', /* 'flatui', */'angular-file-upload' ],
 //
 function(angular, filters, services, directives, controllers) {
 
