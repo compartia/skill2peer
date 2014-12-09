@@ -42,7 +42,6 @@ public class SecurityUtil {
 
         //XXX: read it from user settings
         final Locale ruLocale = new Locale.Builder().setLanguage("ru").setRegion("RU").build();
-
         LocaleContextHolder.setLocale(ruLocale);
 
     }
