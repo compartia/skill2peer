@@ -1,0 +1,291 @@
+.container {
+	margin-top:44px;
+}
+
+.page-header-wrap {
+	background:$header-bg;
+
+	.page-header {
+
+	}
+
+	.course-time-info {
+
+	}
+}
+
+.page-header {
+	display:table;
+	margin:0;
+	padding:0;
+	min-height:338px;
+	border:0;
+	width:100%;
+
+	.page-header-inner {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+}
+
+
+.breadcrumb {
+	border-radius: 0;
+	li a {
+		color:$breadcrumb-color;
+	}
+}
+
+.header-toolbar {
+	margin:30px 0;
+	border:1px solid $gray-lighter;
+	@include clearfix;
+
+	.header-toolbar-item {
+		float:left;
+	}
+	.friends-counter {
+		float:right;
+	}
+}
+
+.header-toolbar-item {
+	padding:0 10px;
+	height: 44px;
+	line-height: 44px;
+	border-right:1px solid $gray-lighter;
+
+	&.btn-group {
+		padding:0; 
+		border:0;
+	}
+	&.friends-counter {
+		border:0;
+		border-left:1px solid $gray-lighter;
+	}
+
+	.btn-social-icon {
+		height:44px;
+		width:42px;
+		color:$social-color;
+		background:none;
+		border-radius:0;
+		border:0;
+		border-right:1px solid $gray-lighter;
+
+		:first-child {
+			line-height: 44px;
+		}
+	}
+}
+
+.friends-counter {
+	color:$gray-light;
+	em {
+		font-size: $font-size-large;
+		font-style: normal;
+	}
+}
+.navigate-link {
+	&:after {
+		content:">";
+		font-size:1.2em;
+		padding:0 0 0 3px;
+	}	
+}
+
+
+.course-time-info {
+	background: $panel-bg;
+}
+.course-dates {
+	padding: 11px 0;
+	text-align:center;
+	text-transform:uppercase;
+	border-bottom:2px solid $panel-border;
+
+	.course-dates-wrap {
+		display:table;
+		margin:0 auto;
+	}
+	.course-date,
+	.course-duration {
+		display:table-cell;
+		padding: 0 12px;
+		height: 86px;
+		vertical-align: middle;
+	}
+}
+
+.course-date {
+	em {
+		display: block;
+	  	font-family:"texgyreherosregular";
+		font-size:3.571em;
+		font-style: normal;
+	}
+}
+.course-duration {
+	position: relative;
+	height:100%;
+	color:$light-text-color;
+	
+	.course-duration-wrap {
+		position: relative;
+		display: block;
+		padding: 7px 0;
+		background: $panel-bg;
+	}
+
+	em {
+		display: block;
+		font-style: normal;
+	}
+	&:before {
+		content:"";
+		display: block;
+		position: absolute;
+		height: 100%;
+		top: 0;
+		right: 50%;	
+		border-left:2px solid $panel-border;
+	}
+}
+
+.course-time-place {
+	display: table;
+	width: 100%;
+
+	.course-time {
+		display: table-cell;
+		width:145px;
+		vertical-align: top;
+	}
+	.course-options-wrap {
+		display: table-cell;
+		vertical-align: top;
+	}
+}
+
+.course-time {
+	position: relative;
+	padding:8px 12px;
+
+	color:$time-panel-color;
+	text-transform:uppercase;
+	font-family:"robotoblack";
+
+	background:$light-panel-bg;
+	border-left:1px solid $panel-border;
+	border-bottom:1px solid $panel-border;
+	
+	&:after {
+		position: absolute;
+		content: '';
+		top: 51px;
+		right: -10px;
+		width: 0;
+		height: 0;
+		border-left: 10px solid $light-panel-bg;
+		border-right: 0px solid transparent;
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+	}
+}
+
+.course-timetable {
+	list-style:none;
+	padding:0;
+	margin:0;
+	
+	li {
+		margin:0 0 -2px;
+		padding:7px;
+
+		&.active {
+			padding:5px;
+			color:$accent-color;
+			border:2px solid $accent-color; 
+		}
+	}
+	.course-timerange {
+		color:$light-text-color;
+		font-family:"robotoregular";
+	}
+}
+
+.course-options-wrap {
+	.btn {
+		padding: 8px 16px 7px;
+		border:0;
+		border-radius:0;
+		text-transform: uppercase;
+		font-family: "texgyreherosregular";
+		font-size: 1.286em;
+	}
+	.btn-lg {
+		padding: 18px 16px;
+		font-family: "robotomedium";
+		font-size: 1.286em;
+	}
+	.btn-group {
+		display: table;
+		width:100%;
+
+		.btn {
+			float:none;
+			display: table-cell;
+		}
+		.btn-like{
+			width:59px;
+		}
+	}
+}
+
+.course-place-wrap {
+	display: table;
+	padding:15px;
+	min-height:130px;
+	vertical-align: middle;
+
+	.glyphicon,
+	.course-place {
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.glyphicon {
+		padding:0 10px 0 0;
+		color:$light-text-color;
+	}
+}
+.course-address {
+	color:$light-text-color;
+}
+
+
+.star-rating {
+	line-height:32px;
+	font-size:1.25em;
+	cursor: pointer;
+}
+
+.badge-info {
+	padding:0;
+	width: 20px;
+	height: 20px;
+	border:2px solid grey;
+	font-size: 15px;
+
+	&:before {
+		content:"?";
+	}
+	span {
+		display: none;
+	}
+	&,
+	.panel-default>.panel-heading & {
+		background:transparent;
+		color:grey;
+	}
+}
