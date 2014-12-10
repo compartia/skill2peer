@@ -1,26 +1,40 @@
-.container {
-	margin-top:44px;
+// Common
+img {
+	max-width:100%;
+	height:auto;
+}
+.desktop-view,
+.page-header.desktop-view {
+	display:none;
 }
 
+.container {
+	margin-top: 15px;
+}
 .page-header-wrap {
-	background:$header-bg;
-
+	&,
 	.page-header {
-
+		background:$header-bg;
 	}
-
-	.course-time-info {
-
+	.featured-img {
+		max-height: 300px;
+		overflow: hidden;
 	}
+}
+
+.featured-img img {
+	max-width:100%;
+	height:auto;
+	max-height: inherit;
 }
 
 .page-header {
 	display:table;
 	margin:0;
-	padding:0;
-	min-height:338px;
-	border:0;
+	padding: 30px 20px;
 	width:100%;
+	border:0;
+	text-align:center;
 
 	.page-header-inner {
 		display: table-cell;
@@ -41,28 +55,31 @@
 	margin:30px 0;
 	border:1px solid $gray-lighter;
 	@include clearfix;
+}
+
+.header-toolbar-wrap {
+	display:block;
+	border-bottom:1px solid $gray-lighter;
+	@include clearfix;
 
 	.header-toolbar-item {
 		float:left;
+		border-left:1px solid $gray-lighter;
 	}
-	.friends-counter {
-		float:right;
+	.header-toolbar-item:first-child {
+		border-left:none;
 	}
 }
 
 .header-toolbar-item {
-	padding:0 10px;
+	padding:0 8px;
 	height: 44px;
 	line-height: 44px;
-	border-right:1px solid $gray-lighter;
+	
 
 	&.btn-group {
 		padding:0; 
 		border:0;
-	}
-	&.friends-counter {
-		border:0;
-		border-left:1px solid $gray-lighter;
 	}
 
 	.btn-social-icon {
@@ -72,14 +89,19 @@
 		background:none;
 		border-radius:0;
 		border:0;
-		border-right:1px solid $gray-lighter;
+		border-left:1px solid $gray-lighter;
 
+		&:first-child {
+			border-left:none;
+		}
 		:first-child {
 			line-height: 44px;
 		}
 	}
 }
-
+.btn-social-icon:hover {
+	color: #a5a5a5;
+}
 .friends-counter {
 	color:$gray-light;
 	em {
@@ -88,10 +110,16 @@
 	}
 }
 .navigate-link {
+	position: relative;
+	padding: 0 13px 0 0;
+
 	&:after {
+		position: absolute;
+		right: 0;
+		top:0;
 		content:">";
 		font-size:1.2em;
-		padding:0 0 0 3px;
+		line-height: 1.2em;
 	}	
 }
 
@@ -121,7 +149,7 @@
 .course-date {
 	em {
 		display: block;
-	  	font-family:"texgyreherosregular";
+	  	font-family:"robotoregular";
 		font-size:3.571em;
 		font-style: normal;
 	}
@@ -170,11 +198,11 @@
 
 .course-time {
 	position: relative;
-	padding:8px 12px;
+	padding: 8px 5px 7px;
 
 	color:$time-panel-color;
 	text-transform:uppercase;
-	font-family:"robotoblack";
+	font-family:"robotomedium";
 
 	background:$light-panel-bg;
 	border-left:1px solid $panel-border;
@@ -200,13 +228,17 @@
 	margin:0;
 	
 	li {
-		margin:0 0 -2px;
+		margin:-2px 0 0 0;
 		padding:7px;
 
 		&.active {
 			padding:5px;
 			color:$accent-color;
 			border:2px solid $accent-color; 
+		}
+
+		&:first-child {
+			margin-top:0;
 		}
 	}
 	.course-timerange {
@@ -221,7 +253,7 @@
 		border:0;
 		border-radius:0;
 		text-transform: uppercase;
-		font-family: "texgyreherosregular";
+		font-family: "robotoregular";
 		font-size: 1.286em;
 	}
 	.btn-lg {
@@ -246,7 +278,7 @@
 .course-place-wrap {
 	display: table;
 	padding:15px;
-	min-height:130px;
+	height:130px;
 	vertical-align: middle;
 
 	.glyphicon,

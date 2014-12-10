@@ -3,13 +3,26 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {
+	.mobile-view {
+		display:none;
+	}
+	.desktop-view {
+		display:block;
+	}
+
+	.container {
+		margin-top:44px;
+	}
 	.page-header-wrap {
 		padding:0 0 0 390px;
 		@include clearfix;
-
+		
+		.featured-img,
 		.page-header {
 			float:right;
 			width:100%;
+			height: 338px;
+			max-height:inherit;
 		}
 
 		.course-time-info {
@@ -18,11 +31,39 @@
 			margin:0 0 0 -390px;
 		}
 	}
+
+	.page-header.desktop-view {
+		display: table;
+	}
+	.header-toolbar {
+		.header-toolbar-wrap {
+			float:left;
+		}
+		.friends-counter {
+			float:right;
+		}
+	}
+	.header-toolbar-item {
+		padding-right:10px;
+		padding-left:10px;
+		
+		&.friends-counter {
+			border:0;
+			border-left:1px solid $gray-lighter;
+		}
+	}
+	.header-toolbar-wrap {
+		border-bottom:0;
+	}
+
+	.course-time {
+		padding-right:12px;
+		padding-left:12px;
+	}
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
-
 
 }
 
