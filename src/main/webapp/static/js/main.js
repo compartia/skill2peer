@@ -9,6 +9,8 @@ require.config({
 		controllers : '/static/js/app/controllers',
 		services : '/static/js/app/controllers/courseServices',
 		autocomplete : '/static/js/vendor/ngAutocomplete',
+		//dropzone : '/static/js/bower_components/dropzone/downloads/dropzone-amd-module.min',
+		// 'dropzone-directive' : '/static/js/vendor/dropzone-directive',
 		'angular-file-upload' : '/static/js/bower_components/angular-file-upload/angular-file-upload'
 	},
 	shim : {

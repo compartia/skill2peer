@@ -1,6 +1,6 @@
 define(
 //
-[ 'autocomplete' ],
+[ 'autocomplete'],
 //
 function onReady() {
 
