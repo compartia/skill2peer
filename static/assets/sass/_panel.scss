@@ -1,0 +1,121 @@
+.panel {
+	border:0;
+	@include box-shadow(0);
+
+	& > .list-group, 
+	& >.panel-collapse > .list-group {
+		padding:0 2px 2px;
+	}
+	.list-group-item {
+		margin:2px 0 0;
+		border:0;
+
+		&:first-child {
+			margin-top:0;
+		}
+	}
+}
+.panel-group .panel-heading+.panel-collapse>.list-group,
+.panel-group .panel-heading+.panel-collapse>.panel-body {
+	border-top:0;
+}
+
+.panel .panel .panel-heading {
+	padding:0 2px 2px;
+	background: transparent;
+	border-bottom:0;
+	text-align:left;
+
+	a {
+		display: block;
+		padding: 8px 15px 13px 23%;
+		background: $panel-panel-heading-bg;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+		.icon-expand-collapse:before {
+			content: "\f107";
+		}
+		&.collapsed .icon-expand-collapse:before {
+			content: "\f106";
+		}
+	}
+	h4 {
+		font-family: "robotoregular";
+		text-transform: none;
+		font-size: 1.143em;
+	}
+	.fa {
+		font-size: 1.500em;
+		margin-right: 11px;
+	}
+
+}
+.panel-group .panel + .panel {
+	margin-top:0;
+}
+
+.panel-heading {
+	position: relative;
+	text-align:center;
+	border-bottom:2px solid $panel-body-border;
+
+	h3,
+	h4 {
+		margin:0;
+		text-transform:uppercase;
+		font-family:"robotobold";
+		font-size:1.357em;
+	}
+}
+
+.panel-heading {
+	.badge-info {
+		position: absolute;
+		right:15px;
+		top:15px;
+	}
+}
+
+.badge-info {
+	padding:0 0 0 2px;
+	width: 22px;
+	height: 22px;
+	border:2px solid $badge-color;
+	font-size: 1.214em;
+	text-align: center;
+	cursor:pointer;
+
+	&:before {
+		content:"?";
+	}
+	span {
+		display: none;
+	}
+	&,
+	.panel-default>.panel-heading & {
+		background:transparent;
+		color:$badge-color;
+	}
+}
+
+.lecturer-group {
+	.lecturer-name {
+		margin-top: 11px;
+		font-size:1.143em;			
+	}
+	.img-wrap {
+		float:left;
+		margin: 0 16px 0 37px;
+		width:79px;
+		height:79px;
+		border-radius:50%;
+		overflow: hidden;
+	}
+	.star-rating {
+		font-size:0.857em;
+	}
+}

@@ -11,6 +11,21 @@ img {
 .container {
 	margin-top: 15px;
 }
+.sections-wrap {
+	@include clearfix;
+
+	.section {
+		float:right;
+		width:68.8%;
+	}
+	.section-sidebar {
+		float:left;
+		width:29%;
+	}
+}
+
+
+
 .page-header-wrap {
 	&,
 	.page-header {
@@ -109,20 +124,6 @@ img {
 		font-style: normal;
 	}
 }
-.navigate-link {
-	position: relative;
-	padding: 0 13px 0 0;
-
-	&:after {
-		position: absolute;
-		right: 0;
-		top:0;
-		content:">";
-		font-size:1.2em;
-		line-height: 1.2em;
-	}	
-}
-
 
 .course-time-info {
 	background: $panel-bg;
@@ -295,29 +296,42 @@ img {
 	color:$light-text-color;
 }
 
+.star-rating-wrap {
+	text-align:center;
+	
+	.star-rating,
+	.total-rating {
+		display: inline-block;
+	}
+	.total-rating {
 
+	}
+}
 .star-rating {
-	line-height:32px;
+	margin:0 0 6px;
 	font-size:1.25em;
+	line-height: 1.3em;
 	cursor: pointer;
+
+	.fa {
+		margin:0 0 0 3px;
+		color:$link-color;
+
+		&:first-child {
+			margin-left:0;
+		}
+		&.disabled {
+			color:$star-disabled-color;
+		}
+	}
 }
 
-.badge-info {
-	padding:0;
-	width: 20px;
-	height: 20px;
-	border:2px solid grey;
-	font-size: 15px;
-
-	&:before {
-		content:"?";
-	}
-	span {
-		display: none;
-	}
-	&,
-	.panel-default>.panel-heading & {
-		background:transparent;
-		color:grey;
-	}
+.navigate-link .fa-angle-right {
+	position: relative;
+	top: -1px;
+	margin:0 0 0 6px;
+	line-height: .85em;
+	vertical-align: middle;
+	font-size: 1.643em;
 }
+
