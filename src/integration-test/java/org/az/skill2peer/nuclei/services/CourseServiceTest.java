@@ -2,9 +2,9 @@ package org.az.skill2peer.nuclei.services;
 
 import java.util.List;
 
+import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
@@ -49,7 +49,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @DatabaseSetup(value = "create-course.xml")
     @ExpectedDatabase(value = "create-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void createCourse() throws Exception {
-        final CourseEditDto courseDto = buildCourseDto();
+        final CourseEditDto courseDto = TestUtil.makeCourseDto();
         final CourseEditDto c = service.createCourse(courseDto);
 
         Assert.assertNotNull(c.getId());
@@ -137,7 +137,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         editableCourse.setDescription("description edited");
         final LessonEditDto lessonEditDto = editableCourse.getLessons().get(0);
 
-        editableCourse.getLessons().add(buildLesson());
+        editableCourse.getLessons().add(TestUtil.makeLesson());
 
         lessonEditDto.getLocation().setDescription("description_edited");
         service.updateCourse(editableCourse);
@@ -153,28 +153,9 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "edit-draft-course.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void updatePublishedCourse_shouldFail() throws Exception {
 
-        final CourseEditDto dto = buildCourseDto();
+        final CourseEditDto dto = TestUtil.makeCourseDto();
         dto.setId(71);
         service.updateCourse(dto);
 
-    }
-
-    private CourseEditDto buildCourseDto() {
-        final CourseEditDto courseDto = new CourseEditDto();
-        courseDto.setName("title");
-        courseDto.setDescription("description");
-        courseDto.setSummary("summary");
-
-        final LessonEditDto lesson = buildLesson();
-        courseDto.getLessons().add(lesson);
-        return courseDto;
-    }
-
-    private LessonEditDto buildLesson() {
-        final LessonEditDto lesson = new LessonEditDto();
-        lesson.setName("lesson name");
-        lesson.setDescription("lesson description");
-        lesson.setSchedule(new ScheduleDto());
-        return lesson;
     }
 }
