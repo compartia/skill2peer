@@ -5916,9 +5916,9 @@ img {
   overflow: hidden; }
 
 .featured-img img {
-  max-width: 100%;
-  height: auto;
-  max-height: inherit; }
+  max-height: 100%;
+  width: auto;
+  max-width: inherit; }
 
 .page-header {
   display: table;

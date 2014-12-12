@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<div class="container" itemscope itemtype="http://schema.org/Event">
+	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
 		<div class="page-header-wrap">
 			<header class="page-header">
 				<div class="page-header-inner">
@@ -38,13 +38,13 @@
 			<div class="course-time-info">
 				<div class="course-dates">
 					<div class="course-dates-wrap">
-						<time class="course-date" datetime="2014-10-27" itemprop="startDate" content="2016-04-21"><em>27</em> октября</time>
+						<time class="course-date" datetime="2014-10-27" itemprop="startDate" content="2014-10-27"><em>27</em> октября</time>
 						<span class="course-duration" itemprop="duration">
 							<span class="course-duration-wrap">
 								<em>160</em> часов
 							</span>
 						</span>
-						<time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2016-04-30"><em>30</em> октября</time>
+						<time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2014-10-30"><em>30</em> октября</time>
 					</div>
 				</div>
 				<div class="course-time-place">
@@ -109,6 +109,40 @@
 			</div>	
         	<div class="header-toolbar-item friends-counter"><a href="#"><em>25</em> друзей</a> уже записалось</div>
 		</div>
+		<ul class="course-lessons">
+			<li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+				<h3 class="name" itemprop="name">Вводная часть</h3>
+				<div class="lesson-time">
+					<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><em>ВТ</em>, 27 октября,2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
+				</div>
+				<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+					<span itemprop="streetAddress">Басманный пер. 5</span>
+			    </div>
+			    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lesson-info-1">
+				  simple collapsible
+				</button>
+
+				<div id="lesson-info-1" class="collapse">
+					В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+				</div>
+			</li>
+			<li itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+				<h3 class="name" itemprop="name">Часть II</h3>
+				<div class="lesson-time">
+					<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><em>ВТ</em>, 27 октября,2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
+				</div>
+				<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+					<span itemprop="streetAddress">Басманный пер. 5</span>
+			    </div>
+			    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lesson-info-2">
+				  simple collapsible
+				</button>
+
+				<div id="lesson-info-2" class="collapse">
+					В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+				</div>
+			</li>
+		</ul>
 
 		<div class="course-description-wrap">
 			<aside class="course-info">
