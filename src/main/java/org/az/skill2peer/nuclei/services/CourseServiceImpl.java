@@ -58,6 +58,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     public CourseEditDto createCourse(final CourseEditDto courseDto) {
         final Course course = new Course();
         mapper.map(courseDto, course);
+        if (course.getLessons().isEmpty()) {
+            course.getLessons().add(new Lesson());
+        }
 
         course.setAuthor(getCurrentUser());
         course.setId(null);

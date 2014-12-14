@@ -1,6 +1,6 @@
 define(
 //
-[ 'autocomplete'],
+[ 'autocomplete' ],
 //
 function onReady() {
 
@@ -18,6 +18,15 @@ function onReady() {
 		$scope.placeSearchOptions.location = spb;
 		$scope.placeSearchOptions.radius = radius;
 		$scope.course = new Courses({});
+		$scope.course.lessons = [ {
+			"id" : null
+		// ,
+		// schedule : {
+		// dateTime : {
+		// startDateStr : "/Date('2015-10-01')"
+		// }
+		// }
+		} ];
 
 		$scope.save = function() {
 			var savedCourse = Courses.save($scope.course);

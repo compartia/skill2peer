@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.ReadableDateTime;
 
 @Entity
 @Table(name = "schedule")
@@ -49,6 +51,10 @@ public class Schedule extends BaseEntity<Integer> {
     @Override
     public Integer getId() {
         return id;
+    }
+
+    public ReadableDateTime getNextEvent() {
+        return CalendarUtils.getNextEvent(this);
     }
 
     public DateTime getStart() {

@@ -9,27 +9,37 @@ import java.util.Set;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
+import org.joda.time.ReadableDateTime;
 import org.joda.time.format.DateTimeFormat;
 
-import com.google.ical.compat.jodatime.LocalDateIterable;
-import com.google.ical.compat.jodatime.LocalDateIteratorFactory;
+import com.google.ical.compat.jodatime.DateTimeIterable;
+import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 public class CalendarUtils {
 
-    public static LocalDate getNextEvent(final Schedule schedule) {
+    public static DateTime getNextEvent(final Schedule schedule) {
 
         try {
-            LocalDateIterable dateIterable;
-            dateIterable = LocalDateIteratorFactory.createLocalDateIterable(schedule
-                    .getiCalString(),
-                    schedule.getStart().toLocalDate(),
-                    false);
+            DateTimeIterable dateIterable;
 
-            final LocalDate next = dateIterable.iterator().next();
-            return next;
+            final String rdata = schedule.getiCalString();
+            final ReadableDateTime start = schedule.getStart();
+            final DateTimeZone tzid = schedule.getStart().getZone();
+            dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                    rdata, start, tzid, false);
+
+            //                    .createLocalDateIterable(schedule
+            //                    .getiCalString(),
+            //                    schedule.getStart().toLocalDate(),
+            //                    false);
+
+            final ReadableDateTime next = dateIterable.iterator().next();
+            return next.toDateTime();
         } catch (final ParseException e) {
             throw new RuntimeException(e);
         }
@@ -37,8 +47,8 @@ public class CalendarUtils {
     }
 
     public static Period getPeriodToNextEvent(final Schedule schedule) {
-        final LocalDate nextEvent = getNextEvent(schedule);
-        final Period period = Period.fieldDifference(LocalDate.now(), nextEvent);
+        final ReadableDateTime nextEvent = getNextEvent(schedule);
+        final Period period = Period.fieldDifference(LocalDate.now(), nextEvent.toDateTime().toLocalDateTime());
         return period;
     }
 
@@ -50,11 +60,10 @@ public class CalendarUtils {
 
         final ArrayList<EventDto> ret = new ArrayList<EventDto>();
         for (final Schedule sc : scs) {
-            final LocalDate nextEvent = sc.getNextEvent();
+            final ReadableDateTime nextEvent = sc.getNextEvent();
             final EventDto eventDto = new EventDto();
 
             final LocalDateTime nextEventDayTime = new LocalDateTime(nextEvent);
-            nextEventDayTime.withHourOfDay(sc.getStart().getHourOfDay());
             eventDto.setStart(nextEventDayTime);
             eventDto.setDayShortName(DateTimeFormat.forPattern("EE").print(nextEventDayTime));
             ret.add(eventDto);

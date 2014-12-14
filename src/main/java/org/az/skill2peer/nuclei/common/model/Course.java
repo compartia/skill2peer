@@ -1,6 +1,8 @@
 package org.az.skill2peer.nuclei.common.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 
 import javax.persistence.CascadeType;
@@ -132,6 +134,14 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
     public Schedule getSchedule() {
         return getFirstLesson().getSchedule();
+    }
+
+    public Set<Schedule> getSchedules() {
+        final HashSet<Schedule> ret = new HashSet<>();
+        for (final Lesson l : lessons) {
+            ret.add(l.getSchedule());
+        }
+        return ret;
     }
 
     public SortedSet<Skill> getSkills() {

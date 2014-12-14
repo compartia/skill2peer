@@ -14,14 +14,18 @@ import org.springframework.context.i18n.LocaleContextHolder;
 public class ScheduleDto {
     private static final String DATE_FORMAT_MONTH = "MMMM";
 
-    private DateTime start;
-
     /**
      * duration in minutes;
      */
     private int duration;
 
+    private DateTimeEditDto dateTime;
+
     private String next;
+
+    public DateTimeEditDto getDateTime() {
+        return dateTime;
+    }
 
     public int getDuration() {
         return duration;
@@ -34,7 +38,7 @@ public class ScheduleDto {
     }
 
     public DateTime getEnd() {
-        final DateTime s = new DateTime(start);
+        final DateTime s = new DateTime(dateTime.toDateTime());
         return s.plus(Period.minutes(duration));
     }
 
@@ -46,28 +50,16 @@ public class ScheduleDto {
         return next;
     }
 
-    public DateTime getStart() {
-        return start;
+    public String getStartMonth() {
+        return this.dateTime.toDateTime().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
     }
 
-    public String getStartMonth() {
-        return start.toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+    public void setDateTime(final DateTimeEditDto dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setDuration(final int duration) {
         this.duration = duration;
     }
 
-    public void setNext(final String next) {
-        this.next = next;
-    }
-
-    //    public int getStartDay(){
-    //        DateTime time=new DateTime(start);
-    //        time.getDayOfMonth();
-    //    }
-
-    public void setStart(final DateTime start) {
-        this.start = start;
-    }
 }

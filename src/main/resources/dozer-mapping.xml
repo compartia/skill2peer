@@ -4,7 +4,22 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
 	<configuration>
+		<copy-by-references>
+			<copy-by-reference>org.joda.time.DateTime</copy-by-reference>
+		</copy-by-references>
 	</configuration>
+	
+	 
+
+ 	<mapping>
+ 		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Schedule</class-b>
+		<field custom-converter="org.az.skill2peer.nuclei.common.mapping.DateConverter">
+			<a>dateTime</a>
+			<b>start</b>
+		</field>
+	</mapping> 
+
 
 	<mapping map-id="lesson-edit">
 		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>

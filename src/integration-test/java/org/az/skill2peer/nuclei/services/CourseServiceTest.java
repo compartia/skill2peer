@@ -49,7 +49,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @DatabaseSetup(value = "create-course.xml")
     @ExpectedDatabase(value = "create-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void createCourse() throws Exception {
-        final CourseEditDto courseDto = TestUtil.makeCourseDto();
+        final CourseEditDto courseDto = TestUtil.makeCourseEditDto();
         final CourseEditDto c = service.createCourse(courseDto);
 
         Assert.assertNotNull(c.getId());
@@ -137,7 +137,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         editableCourse.setDescription("description edited");
         final LessonEditDto lessonEditDto = editableCourse.getLessons().get(0);
 
-        editableCourse.getLessons().add(TestUtil.makeLesson());
+        editableCourse.getLessons().add(TestUtil.makeLessonEditDto());
 
         lessonEditDto.getLocation().setDescription("description_edited");
         service.updateCourse(editableCourse);
@@ -153,7 +153,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "edit-draft-course.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void updatePublishedCourse_shouldFail() throws Exception {
 
-        final CourseEditDto dto = TestUtil.makeCourseDto();
+        final CourseEditDto dto = TestUtil.makeCourseEditDto();
         dto.setId(71);
         service.updateCourse(dto);
 
