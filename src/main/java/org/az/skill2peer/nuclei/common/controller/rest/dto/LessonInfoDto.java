@@ -12,7 +12,7 @@ public class LessonInfoDto {
 
     private Integer id;
 
-    private ScheduleDto schedule;
+    private ScheduleInfoDto schedule;
 
     private String name;
 
@@ -38,7 +38,7 @@ public class LessonInfoDto {
         return price;
     }
 
-    public ScheduleDto getSchedule() {
+    public ScheduleInfoDto getSchedule() {
         return schedule;
     }
 
@@ -70,7 +70,7 @@ public class LessonInfoDto {
         this.price = price;
     }
 
-    public void setSchedule(final ScheduleDto schedule) {
+    public void setSchedule(final ScheduleInfoDto schedule) {
         this.schedule = schedule;
     }
 

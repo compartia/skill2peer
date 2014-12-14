@@ -17,8 +17,9 @@
 
 <body>
 	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
+
 		<div class="page-header-wrap">
-			<header class="page-header">
+			<header class="page-header mobile-view">
 				<div class="page-header-inner">
 					<ol class="breadcrumb">
 			            <li>
@@ -29,22 +30,23 @@
 			            </li>
 			            <li class="active">Конкурсы</li>
 			        </ol>
-
 			        <h1 itemprop="name">Сценарий жанрового кино</h1>
 			    </div>
-
 		    </header><!-- /Page-header -->
 
+			<div class="featured-img">
+				<img src="static/images/test-profile.jpg" alt="Сценарий жанрового кино"/>
+			</div>
 			<div class="course-time-info">
 				<div class="course-dates">
 					<div class="course-dates-wrap">
-						<time class="course-date" datetime="2014-10-27" itemprop="startDate" content="2014-10-27"><em>27</em> октября</time>
+						<time class="course-date" datetime="2014-10-27" itemprop="startDate" content="2016-04-21"><em>27</em> октября</time>
 						<span class="course-duration" itemprop="duration">
 							<span class="course-duration-wrap">
 								<em>160</em> часов
 							</span>
 						</span>
-						<time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2014-10-30"><em>30</em> октября</time>
+						<time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2016-04-30"><em>30</em> октября</time>
 					</div>
 				</div>
 				<div class="course-time-place">
@@ -89,10 +91,27 @@
 						</div>	
 					</div>
 				</div>
-			</div><!-- /Course-time-info -->
-		</div><!-- /Page-hedaer-wrap -->
+			</div><!-- /Course-info -->
+		</div>
 		
-		<div class="header-toolbar">
+		<header class="page-header desktop-view">
+			<div class="page-header-inner">
+				<ol class="breadcrumb">
+		            <li>
+		                <a href="#">Курсы</a>
+		            </li>
+		            <li>
+		            	<a href="#">Искусство</a>
+		            </li>
+		            <li class="active">Конкурсы</li>
+		        </ol>
+
+		        <h1 itemprop="name">Сценарий жанрового кино</h1>
+		    </div>
+
+	    </header><!-- /Page-header -->
+
+		 <div class="header-toolbar">
 		 	<div class="header-toolbar-wrap">
 				<div class="header-toolbar-item btn-group" role="group">
 					<a href="#" class="btn btn-social-icon btn-sm btn-vk">
@@ -105,27 +124,27 @@
 					 	<i class="fa fa-twitter"></i>
 					</a>
 				</div>
-				<div class="header-toolbar-item">
-					<a href="#" class="navigate-link">Посоветовать другу<i class="fa fa-angle-right"></i></a>
-				</div>
+				<div class="header-toolbar-item"><a href="#" class="navigate-link">Посоветовать другу</a></div>
 			</div>	
         	<div class="header-toolbar-item friends-counter"><a href="#"><em>25</em> друзей</a> уже записалось</div>
 		</div>
 
-		<div class="sections-wrap">
-			<aside class="section-sidebar">
+		<div class="course-description-wrap">
+			<aside class="course-info">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3>Преподаватели</h3>
 					</div>
 
 
-					<div class="panel-group lecturer-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 					  <div class="panel panel-default">
 					    <div class="panel-heading" role="tab" id="headingOne">
+					      <h4 class="panel-title">
 					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					          <h4><i class="fa icon-expand-collapse"></i>Анна Тарабрина</i></h4>
+					          <h4>Анна Тарабрина</h4>
 					        </a>
+					      </h4>
 					    </div>
 					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 					      <div class="panel-body">
@@ -136,11 +155,11 @@
 								<span class="fa fa-star" data-rating="1"></span>
 								<span class="fa fa-star" data-rating="2"></span>
 								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
+								<span class="fa fa-star-o" data-rating="4"></span>
+								<span class="fa fa-star-o" data-rating="5"></span>
 								<!-- <input type="hidden" name="whatever" class="rating-value" value="3"> -->
 							</div>
-							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+							<a href="#">Задать вопрос</a>
 
 					        <p class="lecturer-description">
 								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
@@ -150,9 +169,11 @@
 					  </div>
 					  <div class="panel panel-default">
 					    <div class="panel-heading" role="tab" id="headingTwo">
+					      <h4 class="panel-title">
 					        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					          <h4><i class="fa icon-expand-collapse"></i>Василий Васильев</h4>
+					          <h4>Василий Васильев</h4>
 					        </a>
+					      </h4>
 					    </div>
 					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 					      <div class="panel-body">
@@ -163,11 +184,11 @@
 								<span class="fa fa-star" data-rating="1"></span>
 								<span class="fa fa-star" data-rating="2"></span>
 								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
+								<span class="fa fa-star-o" data-rating="4"></span>
+								<span class="fa fa-star-o" data-rating="5"></span>
 								<!-- <input type="hidden" name="whatever" class="rating-value" value="3"> -->
 							</div>
-							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+							<a href="#" class="navigate-link">Задать вопрос</a>
 
 					        <p class="lecturer-description">
 								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
@@ -177,9 +198,11 @@
 					  </div>
 					  <div class="panel panel-default">
 					    <div class="panel-heading" role="tab" id="headingThree">
+					      <h4 class="panel-title">
 					        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					          <h4><i class="fa icon-expand-collapse"></i>Семен Семенов</h4>
+					          <h4>Семен Семенов</h4>
 					        </a>
+					      </h4>
 					    </div>
 					    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 					      <div class="panel-body">
@@ -190,10 +213,10 @@
 								<span class="fa fa-star" data-rating="1"></span>
 								<span class="fa fa-star" data-rating="2"></span>
 								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
+								<span class="fa fa-star-o" data-rating="4"></span>
+								<span class="fa fa-star-o" data-rating="5"></span>
 							</div>
-							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+							<a href="#" class="navigate-link">Задать вопрос</a>
 
 					        <p class="lecturer-description">
 								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
@@ -213,18 +236,16 @@
 					</div>
 
 					<div class="panel-body">
-						<div class="star-rating-wrap">
-							<span class="total-rating">67</span>
-							<div class="star-rating active"> 
-								<span class="fa fa-star" data-rating="1"></span>
-								<span class="fa fa-star" data-rating="2"></span>
-								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
-								<input type="hidden" name="whatever" class="rating-value" value="3">
-							</div>
+						<span class="total-rating">67</span>
+						<div class="star-rating active"> 
+							<span class="fa fa-star" data-rating="1"></span>
+							<span class="fa fa-star" data-rating="2"></span>
+							<span class="fa fa-star" data-rating="3"></span>
+							<span class="fa fa-star-o" data-rating="4"></span>
+							<span class="fa fa-star-o" data-rating="5"></span>
+							<input type="hidden" name="whatever" class="rating-value" value="3">
 						</div>
-						<a href="#" class="navigate-link">Посоветовать другу<i class="fa fa-angle-right"></i></a>
+						<a href="#" class="navigate-link">Посоветовать другу</a>
 					</div>
 				</div>
 
@@ -247,7 +268,7 @@
 
 			</aside><!-- /Sidebar -->
 
-			<section class="section course-description">
+			<section class="course-description">
 				<p>Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
 				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.</p>
 				<p>Курс включает два занятия по четыре академических часа.</p>
@@ -285,134 +306,73 @@
 					</li>
 				</ul>
 			</section><!-- /Course-description -->
-		</div><!-- /sections-wrap -->
-		
-		<div class="sections-wrap">
-			<aside class="section-sidebar">
-				<div class="panel panel-default">
-				  <!-- Default panel contents -->
-				  <div class="panel-heading"><h3>Уроки</h3></div>
+		</div><!-- /Course-description-wrap -->
 
-				  <!-- List group -->
-				  <ul class="list-group course-lessons">
-				    <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
-				    	<h3 class="name" itemprop="name">Вводная часть</h3>
-						<div class="lesson-time">
-							<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><em>ВТ</em>, 27 октября,2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
-						</div>
-						<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-							<span itemprop="streetAddress">Басманный пер. 5</span>
-					    </div>
-					    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lesson-info-1">
-						  simple collapsible
-						</button>
+		<div class="comments-list-wrap">
+			<h2>Отзывы</h2>
+			<div class="comments-list">
+				<div class="comment-block">
+					<p>Программа рассчитана на обучение с нуля и базируется на классической 
+					русской школе академического рисунка. Курс поможет раскрыть 
+					внутренние возможности слушателя в изобразительном искусстве.</p>
 
-						<div id="lesson-info-1" class="collapse">
-							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
-						</div>
-				    </li>
-				     <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
-				    	<h3 class="name" itemprop="name">Часть II</h3>
-						<div class="lesson-time">
-							<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><em>ВТ</em>, 27 октября,2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
-						</div>
-						<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-							<span itemprop="streetAddress">Басманный пер. 5</span>
-					    </div>
-					    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lesson-info-2">
-						  simple collapsible
-						</button>
-
-						<div id="lesson-info-2" class="collapse">
-							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
-						</div>
-				    </li>
-				     <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
-				    	<h3 class="name" itemprop="name">Часть III</h3>
-						<div class="lesson-time">
-							<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><em>ВТ</em>, 27 октября,2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
-						</div>
-						<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-							<span itemprop="streetAddress">Басманный пер. 5</span>
-					    </div>
-					    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lesson-info-3">
-						  simple collapsible
-						</button>
-
-						<div id="lesson-info-3" class="collapse">
-							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
-						</div>
-				    </li>
-				  </ul>
-				</div>
-			</aside>
-
-			<section class="section comments-list-wrap">
-				<h2>Отзывы</h2>
-				<div class="comments-list">
-					<div class="comment-block">
-						<p>Программа рассчитана на обучение с нуля и базируется на классической 
-						русской школе академического рисунка. Курс поможет раскрыть 
-						внутренние возможности слушателя в изобразительном искусстве.</p>
-
-						<div class="comment-info">
-							<time datetime="2014-10-22">22 октября</time>
-							<a href="#" class="comment-author">
-								<span class="comment-author-name">klipdass</span>
-								<div class="img-wrap">
-									<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="comment-block">
-						<p>Программа рассчитана на обучение с нуля и базируется на классической 
-						русской школе академического рисунка. Курс поможет раскрыть 
-						внутренние возможности слушателя в изобразительном искусстве.</p>
-
-						<div class="comment-info">
-							<time datetime="2014-10-22">22 октября</time>
-							<a href="#" class="comment-author">
-								<span class="comment-author-name">klipdass</span>
-								<div class="img-wrap">
-									<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="comment-block">
-						<p>Программа рассчитана на обучение с нуля и базируется на классической 
-						русской школе академического рисунка. Курс поможет раскрыть 
-						внутренние возможности слушателя в изобразительном искусстве.</p>
-
-						<div class="comment-info">
-							<time datetime="2014-10-22">22 октября</time>
-							<a href="#" class="comment-author">
-								<span class="comment-author-name">klipdass</span>
-								<div class="img-wrap">
-									<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="comment-block">
-						<p>Программа рассчитана на обучение с нуля и базируется на классической 
-						русской школе академического рисунка. Курс поможет раскрыть 
-						внутренние возможности слушателя в изобразительном искусстве.</p>
-
-						<div class="comment-info">
-							<time datetime="2014-10-22">22 октября</time>
-							<a href="#" class="comment-author">
-								<span class="comment-author-name">klipdass</span>
-								<div class="img-wrap">
-									<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-								</div>
-							</a>
-						</div>
+					<div class="comment-info">
+						<time datetime="2014-10-22">22 октября</time>
+						<a href="#" class="comment-author">
+							<span class="comment-author-name">klipdass</span>
+							<div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+						</a>
 					</div>
 				</div>
-			</section><!-- comments-list-wrap -->
-		</div><!-- sections-wrap -->
+				<div class="comment-block">
+					<p>Программа рассчитана на обучение с нуля и базируется на классической 
+					русской школе академического рисунка. Курс поможет раскрыть 
+					внутренние возможности слушателя в изобразительном искусстве.</p>
+
+					<div class="comment-info">
+						<time datetime="2014-10-22">22 октября</time>
+						<a href="#" class="comment-author">
+							<span class="comment-author-name">klipdass</span>
+							<div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="comment-block">
+					<p>Программа рассчитана на обучение с нуля и базируется на классической 
+					русской школе академического рисунка. Курс поможет раскрыть 
+					внутренние возможности слушателя в изобразительном искусстве.</p>
+
+					<div class="comment-info">
+						<time datetime="2014-10-22">22 октября</time>
+						<a href="#" class="comment-author">
+							<span class="comment-author-name">klipdass</span>
+							<div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="comment-block">
+					<p>Программа рассчитана на обучение с нуля и базируется на классической 
+					русской школе академического рисунка. Курс поможет раскрыть 
+					внутренние возможности слушателя в изобразительном искусстве.</p>
+
+					<div class="comment-info">
+						<time datetime="2014-10-22">22 октября</time>
+						<a href="#" class="comment-author">
+							<span class="comment-author-name">klipdass</span>
+							<div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div><!-- comments-list-wrap -->
 		
 		<div class="related-courses-wrap">    
 			<h2>Подобные курсы</h2>
