@@ -12,7 +12,7 @@ public class LessonEditDto {
 
     private Integer id;
 
-    private ScheduleDto schedule;
+    private ScheduleEditDto schedule;
 
     private String name;
 
@@ -38,7 +38,7 @@ public class LessonEditDto {
         return price;
     }
 
-    public ScheduleDto getSchedule() {
+    public ScheduleEditDto getSchedule() {
         return schedule;
     }
 
@@ -70,7 +70,7 @@ public class LessonEditDto {
         this.price = price;
     }
 
-    public void setSchedule(final ScheduleDto schedule) {
+    public void setSchedule(final ScheduleEditDto schedule) {
         this.schedule = schedule;
     }
 

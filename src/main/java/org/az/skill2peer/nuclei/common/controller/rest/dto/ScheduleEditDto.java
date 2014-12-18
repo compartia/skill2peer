@@ -11,7 +11,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @author Artem Zaborskiy
  *
  */
-public class ScheduleDto {
+public class ScheduleEditDto {
     private static final String DATE_FORMAT_MONTH = "MMMM";
 
     /**

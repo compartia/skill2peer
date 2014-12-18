@@ -3,7 +3,16 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormat;
+import org.springframework.context.i18n.LocaleContextHolder;
+
 public class CourseInfoDto {
+
+    /**
+     *  : duration of the entire course
+     */
+    private int totalDuration;
 
     private UserInfoDto author;
 
@@ -17,7 +26,7 @@ public class CourseInfoDto {
 
     private Integer id;
 
-    private ScheduleDto schedule;
+    private ScheduleInfoDto schedule;
 
     private String name;
 
@@ -53,7 +62,7 @@ public class CourseInfoDto {
         return price;
     }
 
-    public ScheduleDto getSchedule() {
+    public ScheduleInfoDto getSchedule() {
         return schedule;
     }
 
@@ -63,6 +72,12 @@ public class CourseInfoDto {
 
     public String getSummary() {
         return summary;
+    }
+
+    public String getTotalDurationAsString() {
+        final Period period = Period.minutes(totalDuration);
+        return PeriodFormat.wordBased(LocaleContextHolder.getLocale())
+                .print(period.normalizedStandard(period.getPeriodType()));
     }
 
     public boolean isSingleLesson() {
@@ -97,19 +112,23 @@ public class CourseInfoDto {
         this.price = price;
     }
 
-    public void setSchedule(final ScheduleDto schedule) {
+    public void setSchedule(final ScheduleInfoDto schedule) {
         this.schedule = schedule;
+    }
+
+    public void setSkills(final String skills) {
+        this.skills = skills;
     }
 
     //    private SortedSet<User> lectors;
     //
     //    private List<Lesson> lessons = new ArrayList<Lesson>();
 
-    public void setSkills(final String skills) {
-        this.skills = skills;
-    }
-
     public void setSummary(final String summary) {
         this.summary = summary;
+    }
+
+    public void setTotalDuration(final int duration) {
+        this.totalDuration = duration;
     }
 }

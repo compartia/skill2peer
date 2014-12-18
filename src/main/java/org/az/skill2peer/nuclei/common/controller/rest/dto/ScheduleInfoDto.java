@@ -1,8 +1,6 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
@@ -20,14 +18,8 @@ public class ScheduleInfoDto {
 
     private DateTime end;
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public String getDurationAsString() {
-        final Period period = Period.minutes(duration);
-        return PeriodFormat.wordBased(LocaleContextHolder.getLocale())
-                .print(period.normalizedStandard(period.getPeriodType()));
+    public String getDurationAsString() {//XXX: implement
+        return "XXX: duration";
     }
 
     public DateTime getEnd() {
@@ -35,19 +27,31 @@ public class ScheduleInfoDto {
     }
 
     public String getEndMonth() {
-        return getEnd().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+        if (getEnd() != null) {
+            return getEnd().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+        } else {
+            return null;
+        }
     }
 
     public String getNext() {
         return next;
     }
 
+    public DateTime getStart() {
+        return start;
+    }
+
     public String getStartMonth() {
         return start.toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
     }
 
-    public void setDuration(final int duration) {
-        this.duration = duration;
+    public void setEnd(final DateTime end) {
+        this.end = end;
+    }
+
+    public void setStart(final DateTime start) {
+        this.start = start;
     }
 
 }

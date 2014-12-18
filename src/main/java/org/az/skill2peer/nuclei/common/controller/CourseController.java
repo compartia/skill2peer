@@ -2,11 +2,10 @@ package org.az.skill2peer.nuclei.common.controller;
 
 import org.az.skill2peer.nuclei.Urls;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.DateTimeEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CourseService;
 import org.joda.time.DateTime;
@@ -108,14 +107,15 @@ public class CourseController {
     }
 
     @Deprecated
-    private ScheduleDto fakeScheduleDto() {
-        final ScheduleDto schedule = new ScheduleDto();
-        schedule.setDuration(120);
-        final DateTimeEditDto dateTime = new DateTimeEditDto();
-        dateTime.setHours(2);
-        dateTime.setMinutes(45);
-        dateTime.setStartDateStr("2017-12-10T21:00:00.000Z");
-        schedule.setDateTime(dateTime);
+    private ScheduleInfoDto fakeScheduleDto() {
+        final ScheduleInfoDto schedule = new ScheduleInfoDto();
+        schedule.setStart(new DateTime(2015, 12, 12, 17, 40));
+        // schedule.setStart(start);Duration(120);
+        //
+        //        dateTime.setHours(2);
+        //        dateTime.setMinutes(45);
+        //        dateTime.setStartDateStr("2017-12-10T21:00:00.000Z");
+
         return schedule;
     }
 
