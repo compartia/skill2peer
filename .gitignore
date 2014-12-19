@@ -7,3 +7,4 @@
 /src/main/webapp/static/js/bower_components/
 
 *.prefs
+/.classpath
