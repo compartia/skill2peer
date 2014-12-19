@@ -1,6 +1,8 @@
 package org.az.skill2peer.user.controller;
 
 import static org.az.skill2peer.nuclei.common.Urls.USER_REGISTER;
+import static org.az.skill2peer.nuclei.common.Urls.USER_REGISTRATION_FORM;
+import static org.az.skill2peer.nuclei.common.Urls.USER_REGISTRATION_FORM_JSP;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
@@ -46,8 +48,11 @@ import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 /**
- * @author Petri Kainulainen
+ *
+ * @author Artem Zaborskiy
+ *
  */
+
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
@@ -149,8 +154,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM,
                         allOf(
                                 hasProperty(WebTestConstants.FORM_FIELD_EMAIL,
@@ -185,8 +190,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, isEmptyOrNullString()),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, isEmptyOrNullString()),
@@ -229,8 +234,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, is(MALFORMED_EMAIL)),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, is(FIRST_NAME)),
@@ -268,8 +273,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, is(EMAIL)),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, is(FIRST_NAME)),
@@ -312,8 +317,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, is(email)),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, is(firstName)),
@@ -415,8 +420,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM,
                         allOf(
                                 hasProperty(WebTestConstants.FORM_FIELD_EMAIL,
@@ -471,8 +476,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, isEmptyOrNullString()),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, isEmptyOrNullString()),
@@ -530,8 +535,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, is(MALFORMED_EMAIL)),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, is(FIRST_NAME)),
@@ -591,8 +596,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(WebTestConstants.SESSION_ATTRIBUTE_USER_FORM, new RegistrationForm())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute(WebTestConstants.MODEL_ATTRIBUTE_USER_FORM, allOf(
                         hasProperty(WebTestConstants.FORM_FIELD_EMAIL, is(email)),
                         hasProperty(WebTestConstants.FORM_FIELD_FIRST_NAME, is(firstName)),
@@ -621,8 +626,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
     public void showRegistrationForm_NormalRegistration_ShouldRenderRegistrationPageWithEmptyForm() throws Exception {
         mockMvc.perform(get(USER_REGISTER))
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute("user", allOf(
                         hasProperty("email", isEmptyOrNullString()),
                         hasProperty("firstName", isEmptyOrNullString()),
@@ -651,8 +656,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(ProviderSignInAttempt.SESSION_ATTRIBUTE, socialSignIn)
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute("user", allOf(
                         hasProperty("email", is(EMAIL)),
                         hasProperty("firstName", is(FIRST_NAME)),
@@ -678,8 +683,8 @@ public class ITRegistrationControllerTest extends AbstractControllerIntegrationT
                 .sessionAttr(ProviderSignInAttempt.SESSION_ATTRIBUTE, socialSignIn)
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("user/registrationForm"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/user/registrationForm.jsp"))
+                .andExpect(view().name(USER_REGISTRATION_FORM))
+                .andExpect(forwardedUrl(USER_REGISTRATION_FORM_JSP))
                 .andExpect(model().attribute("user", allOf(
                         hasProperty("email", isEmptyOrNullString()),
                         hasProperty("firstName", isEmptyOrNullString()),

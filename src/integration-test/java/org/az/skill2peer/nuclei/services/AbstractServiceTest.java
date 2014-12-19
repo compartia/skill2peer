@@ -1,6 +1,7 @@
 package org.az.skill2peer.nuclei.services;
 
 import org.az.skill2peer.ColumnSensingFlatXMLDataSetLoader;
+import org.az.skill2peer.config.ServicesTestContext;
 import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.az.skill2peer.nuclei.config.PersistenceContext;
 import org.az.skill2peer.nuclei.config.Skill2PeerApplicationContext;

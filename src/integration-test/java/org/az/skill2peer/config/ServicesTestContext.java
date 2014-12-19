@@ -1,9 +1,13 @@
-package org.az.skill2peer.nuclei.services;
+package org.az.skill2peer.config;
 
 import static org.mockito.Mockito.mock;
 
 import org.az.skill2peer.nuclei.common.controller.CourseController;
 import org.az.skill2peer.nuclei.common.controller.S3Plugin;
+import org.az.skill2peer.nuclei.services.CalendarService;
+import org.az.skill2peer.nuclei.services.CalendarServiceImpl;
+import org.az.skill2peer.nuclei.services.CourseService;
+import org.az.skill2peer.nuclei.services.CourseServiceImpl;
 import org.az.skill2peer.nuclei.user.service.UserService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
