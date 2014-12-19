@@ -59,6 +59,18 @@ public class CourseMappingTest {
     }
 
     @Test
+    public void testCourseMappingToDto() {
+        final int numberOfLessons = 48;
+        final Course source = TestUtil.makeCourse(numberOfLessons);
+        final CourseInfoDto target = new CourseInfoDto();
+
+        mapper.map(source, target);
+
+        Assert.assertEquals(numberOfLessons, target.getLessons().size());
+        Assert.assertEquals("48 часов", target.getTotalDurationAsString());
+    }
+
+    @Test
     public void testDtoFromSchedule() {
         final ScheduleEditDto s2 = new ScheduleEditDto();
         final Schedule s1 = new Schedule();
@@ -77,12 +89,12 @@ public class CourseMappingTest {
         schedule.setEnd(schedule.getStart().plusMinutes(10));
 
         final Schedule schedule2 = source.getLessons().get(1).getSchedule();
-        schedule2.setEnd(schedule2.getStart().plusMinutes(10));
+        schedule2.setEnd(schedule2.getStart().plusMinutes(5 * 60 + 5));
 
         final CourseInfoDto target = new CourseInfoDto();
         mapper.map(source, target);
 
-        Assert.assertEquals("20 минут", target.getTotalDurationAsString());
+        Assert.assertEquals("5 часов 15 минут", target.getTotalDurationAsString());
 
     }
 
@@ -128,7 +140,7 @@ public class CourseMappingTest {
         {
             schedule2.setEnd(schedule2.getStart().plusMinutes(2 + 19 * 60));
             mapper.map(source, target);
-            Assert.assertEquals("21 час ", target.getTotalDurationAsString());
+            Assert.assertEquals("21 час 2 минуты", target.getTotalDurationAsString());
         }
 
         {
@@ -150,6 +162,7 @@ public class CourseMappingTest {
 
     @Test
     public void testScheduleToInfoDtoMapping() {
+
         final ScheduleInfoDto target = new ScheduleInfoDto();
         final Schedule source = TestUtil.makeSchedule();
         source.setEnd(source.getStart().plusHours(2).plusMinutes(32));

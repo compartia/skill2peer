@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.az.skill2peer.common.controller.AbstractControllerIntegrationTest;
-import org.az.skill2peer.nuclei.Urls;
+import org.az.skill2peer.nuclei.common.Urls;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

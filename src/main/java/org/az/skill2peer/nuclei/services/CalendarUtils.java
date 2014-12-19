@@ -21,20 +21,48 @@ import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.TimeFormat;
+import org.ocpsoft.prettytime.impl.DurationImpl;
+import org.ocpsoft.prettytime.units.Hour;
 import org.ocpsoft.prettytime.units.JustNow;
+import org.ocpsoft.prettytime.units.Minute;
 
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 public class CalendarUtils {
-    public static String getDurationAsString(final Locale locale, final Date from, final Date to) {
+    public static String formatHoursDuration(final Locale locale, final int minutes) {
+
+        final int hoursNum = (minutes - minutes % 60) / 60;
+        final int minutesNum = minutes % 60;
+
+        final PrettyTime p = new PrettyTime(locale);
+
+        final DurationImpl durationHrs = new DurationImpl();
+        durationHrs.setQuantity(hoursNum);
+        durationHrs.setUnit(p.getUnit(Hour.class));
+
+        final TimeFormat hrsFormat = p.getFormat(durationHrs.getUnit());
+        String result = hrsFormat.formatUnrounded(durationHrs);
+
+        if (minutesNum > 0) {
+            final DurationImpl durationMins = new DurationImpl();
+            durationMins.setQuantity(minutesNum);
+            durationMins.setUnit(p.getUnit(Minute.class));
+            final TimeFormat minsFormat = p.getFormat(durationMins.getUnit());
+            result = result + " " + minsFormat.formatUnrounded(durationMins);
+        }
+
+        return result;
+
+    }
+
+    public static String formatPeriod(final Locale locale, final Date from, final Date to) {
 
         if (from == null || to == null) {
             return "";
         }
 
         final PrettyTime p = new PrettyTime(from, locale);
-
         final List<Duration> durations = p.calculatePreciseDuration(to);
 
         final StringBuilder builder = new StringBuilder();
@@ -105,6 +133,31 @@ public class CalendarUtils {
         }
         return ret;
 
+    }
+
+    private static String hours_en(final String hours) {
+        if (hours.endsWith("1")) {
+            return "hour";
+        }
+
+        return "hours";
+    }
+
+    private static String hours_ru(final int n) {
+
+        final int pluralIdx = (n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2
+                && n % 10 <= 4
+                && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
+
+        if (pluralIdx == 0) {
+            return "час";
+        }
+
+        if (pluralIdx == 1) {
+            return "часа";
+        }
+
+        return "часов";
     }
 
     public static final Comparator<Schedule> SCHEDULE_COMPARATOR = new Comparator<Schedule>() {

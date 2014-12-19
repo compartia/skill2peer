@@ -132,7 +132,9 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return publishedVersion;
     }
 
+    @Deprecated
     public Schedule getSchedule() {
+        //XXX: its not the first lesson!!!
         return getFirstLesson().getSchedule();
     }
 

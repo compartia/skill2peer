@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.az.skill2peer.nuclei.services.CalendarUtils;
-import org.joda.time.DateTime;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 public class CourseInfoDto {
@@ -78,12 +77,13 @@ public class CourseInfoDto {
         if (totalDuration == null) {
             return "";
         }
-        final DateTime from = new DateTime();
-        DateTime to = new DateTime(from);
-        to = to.plusMinutes(totalDuration);
-        return CalendarUtils.getDurationAsString(LocaleContextHolder.getLocale(),
-                from.toDate(),
-                to.toDate());
+        //        final DateTime from = new DateTime();
+        //        DateTime to = new DateTime(from);
+        //        to = to.plusMinutes(totalDuration);
+        return CalendarUtils.formatHoursDuration(LocaleContextHolder.getLocale(), totalDuration);
+        //        return CalendarUtils.formatPeriod(LocaleContextHolder.getLocale(),
+        //                from.toDate(),
+        //                to.toDate());
 
     }
 

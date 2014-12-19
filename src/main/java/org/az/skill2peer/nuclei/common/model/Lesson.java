@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -36,6 +37,7 @@ public class Lesson extends BaseEntity<Integer> {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
+    @NotNull
     @Valid
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id")

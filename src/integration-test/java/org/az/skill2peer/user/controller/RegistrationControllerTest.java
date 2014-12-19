@@ -1,6 +1,6 @@
 package org.az.skill2peer.user.controller;
 
-import static org.az.skill2peer.nuclei.Urls.USER_REGISTER;
+import static org.az.skill2peer.nuclei.common.Urls.USER_REGISTER;
 import static org.az.skill2peer.nuclei.security.SecurityContextAssert.assertThat;
 import static org.az.skill2peer.nuclei.user.RegistrationFormAssert.assertThatRegistrationForm;
 import static org.az.skill2peer.nuclei.user.TestProviderSignInAttemptAssert.assertThatSignIn;
@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.az.skill2peer.config.UnitTestContext;
 import org.az.skill2peer.nuclei.TestUtil;
-import org.az.skill2peer.nuclei.Urls;
 import org.az.skill2peer.nuclei.WebTestConstants;
+import org.az.skill2peer.nuclei.common.Urls;
 import org.az.skill2peer.nuclei.config.WebAppContext;
 import org.az.skill2peer.nuclei.model.UserBuilder;
 import org.az.skill2peer.nuclei.user.dto.RegistrationForm;

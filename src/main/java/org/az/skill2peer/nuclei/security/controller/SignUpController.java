@@ -1,6 +1,6 @@
 package org.az.skill2peer.nuclei.security.controller;
 
-import static org.az.skill2peer.nuclei.Urls.USER_REGISTER;
+import static org.az.skill2peer.nuclei.common.Urls.USER_REGISTER;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

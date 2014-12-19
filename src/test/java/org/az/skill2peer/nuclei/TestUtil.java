@@ -58,7 +58,7 @@ public class TestUtil {
         //        schedule.setDuration(120);
         //        final LocalDate now = LocalDate.now();
         schedule.setStart(new DateTime(2018, 11, 30, 23, 00));
-        schedule.setEnd(new DateTime(2021, 4, 5, 17, 35));
+        schedule.setEnd(schedule.getStart().plusMinutes(60));
 
         schedule.setiCalString("RRULE:FREQ=DAILY;"
                 + "INTERVAL=1;"

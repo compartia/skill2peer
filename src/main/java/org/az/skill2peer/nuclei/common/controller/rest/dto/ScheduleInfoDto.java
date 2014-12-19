@@ -2,6 +2,7 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
@@ -27,7 +28,10 @@ public class ScheduleInfoDto {
         if (start == null || end == null) {
             return "";
         }
-        return CalendarUtils.getDurationAsString(LocaleContextHolder.getLocale(), start.toDate(), end.toDate());
+        return CalendarUtils.formatHoursDuration(LocaleContextHolder.getLocale(), Minutes
+                .minutesBetween(start, end)
+                .getMinutes());
+        //        return CalendarUtils.formatPeriod(LocaleContextHolder.getLocale(), start.toDate(), end.toDate());
 
     }
 

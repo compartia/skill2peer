@@ -1,6 +1,6 @@
 package org.az.skill2peer.nuclei.common.controller;
 
-import org.az.skill2peer.nuclei.Urls;
+import org.az.skill2peer.nuclei.common.Urls;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
