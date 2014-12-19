@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.joda.time.ReadableDateTime;
 
 @Entity
@@ -32,11 +33,21 @@ public class Schedule extends BaseEntity<Integer> {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime end;
 
+    @Column(name = "repeat")
+    private String iCalString;
+
     //    @Column(name = "duration")
     //    private Integer duration;
 
-    @Column(name = "repeat")
-    private String iCalString;
+    public Integer getDuration() {
+        if (start == null || end == null) {
+            return null;
+        }
+        //        final Period p = new Period(start, end);
+        //        return p.toStandardMinutes().getMinutes();
+        //
+        return Minutes.minutesBetween(start, end).getMinutes();
+    }
 
     /* methods */
 

@@ -156,6 +156,19 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return summary;
     }
 
+    public Integer getTotalDuration() {
+        int totalDuration = 0;
+        for (final Lesson l : lessons) {
+            final Integer duration = l.getDuration();
+            if (duration != null) {
+                totalDuration += duration;
+            } else {
+                return null;
+            }
+        }
+        return totalDuration;
+    }
+
     public boolean isSingleLesson() {
         return this.lessons.size() == 1;
     }

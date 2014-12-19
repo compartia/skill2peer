@@ -21,6 +21,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.TimeFormat;
+import org.ocpsoft.prettytime.units.JustNow;
 
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
@@ -32,12 +33,9 @@ public class CalendarUtils {
             return "";
         }
 
-        final PrettyTime p = new PrettyTime(locale);
-        p.setReference(from);
+        final PrettyTime p = new PrettyTime(from, locale);
 
         final List<Duration> durations = p.calculatePreciseDuration(to);
-
-        String result = null;
 
         final StringBuilder builder = new StringBuilder();
         Duration duration = null;
@@ -47,18 +45,16 @@ public class CalendarUtils {
             format = p.getFormat(duration.getUnit());
 
             final boolean isLast = (i == durations.size() - 1);
-            if (!isLast) {
+            if (!(duration.getUnit() instanceof JustNow)) {
                 builder.append(format.formatUnrounded(duration));
-                builder.append(" ");
+                if (!isLast) {
+                    builder.append(" ");
+                }
             }
-            else {
-                builder.append(format.format(duration));
-            }
+
         }
-        result = builder.toString();
 
-        return result;
-
+        return builder.toString();
     }
 
     public static DateTime getNextEvent(final Schedule schedule) {

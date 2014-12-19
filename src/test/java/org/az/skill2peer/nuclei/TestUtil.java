@@ -1,14 +1,30 @@
 package org.az.skill2peer.nuclei;
 
+import java.util.ArrayList;
+
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DateTimeEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
+import org.az.skill2peer.nuclei.common.model.Course;
+import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 public class TestUtil {
+
+    public static Course makeCourse(final int lessons) {
+        final Course course = new Course();
+        course.setName("title");
+        course.setDescription("description");
+        course.setSummary("summary");
+        course.setLessons(new ArrayList<Lesson>());
+        for (int f = 0; f < lessons; f++) {
+            final Lesson lesson = makeLesson();
+            course.getLessons().add(lesson);
+        }
+        return course;
+    }
 
     public static CourseEditDto makeCourseEditDto() {
         final CourseEditDto courseDto = new CourseEditDto();
@@ -19,6 +35,14 @@ public class TestUtil {
         final LessonEditDto lesson = makeLessonEditDto();
         courseDto.getLessons().add(lesson);
         return courseDto;
+    }
+
+    public static Lesson makeLesson() {
+        final Lesson lesson = new Lesson();
+
+        lesson.setDescription("lesson description");
+        lesson.setSchedule(makeSchedule());
+        return lesson;
     }
 
     public static LessonEditDto makeLessonEditDto() {
@@ -32,18 +56,20 @@ public class TestUtil {
     public static Schedule makeSchedule() {
         final Schedule schedule = new Schedule();
         //        schedule.setDuration(120);
-        final LocalDate now = LocalDate.now();
-        schedule.setStart(new DateTime(now.getYear() + 1, 11, 25, 10, 00));
+        //        final LocalDate now = LocalDate.now();
+        schedule.setStart(new DateTime(2018, 11, 30, 23, 00));
+        schedule.setEnd(new DateTime(2021, 4, 5, 17, 35));
+
         schedule.setiCalString("RRULE:FREQ=DAILY;"
                 + "INTERVAL=1;"
                 + "UNTIL=20230430T083000Z;");
         schedule.setId(1);
-        schedule.setEnd(new DateTime(2021, 11, 25, 10, 00));
+
         return schedule;
     }
 
-    public static ScheduleDto makeScheduleDto() {
-        final ScheduleDto scheduleDto = new ScheduleDto();
+    public static ScheduleEditDto makeScheduleDto() {
+        final ScheduleEditDto scheduleDto = new ScheduleEditDto();
         //
         //        scheduleDto.setHours(10);
         //        scheduleDto.setMinutes(10);

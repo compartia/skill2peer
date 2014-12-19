@@ -51,6 +51,10 @@ public class Lesson extends BaseEntity<Integer> {
         return description;
     }
 
+    public Integer getDuration() {
+        return schedule.getDuration();
+    }
+
     @Override
     public Integer getId() {
         return id;

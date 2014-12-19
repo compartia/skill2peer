@@ -3,8 +3,8 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.Period;
-import org.joda.time.format.PeriodFormat;
+import org.az.skill2peer.nuclei.services.CalendarUtils;
+import org.joda.time.DateTime;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 public class CourseInfoDto {
@@ -12,7 +12,7 @@ public class CourseInfoDto {
     /**
      *  : duration of the entire course
      */
-    private int totalDuration;
+    private Integer totalDuration;
 
     private UserInfoDto author;
 
@@ -75,9 +75,16 @@ public class CourseInfoDto {
     }
 
     public String getTotalDurationAsString() {
-        final Period period = Period.minutes(totalDuration);
-        return PeriodFormat.wordBased(LocaleContextHolder.getLocale())
-                .print(period.normalizedStandard(period.getPeriodType()));
+        if (totalDuration == null) {
+            return "";
+        }
+        final DateTime from = new DateTime();
+        DateTime to = new DateTime(from);
+        to = to.plusMinutes(totalDuration);
+        return CalendarUtils.getDurationAsString(LocaleContextHolder.getLocale(),
+                from.toDate(),
+                to.toDate());
+
     }
 
     public boolean isSingleLesson() {
@@ -128,7 +135,7 @@ public class CourseInfoDto {
         this.summary = summary;
     }
 
-    public void setTotalDuration(final int duration) {
+    public void setTotalDuration(final Integer duration) {
         this.totalDuration = duration;
     }
 }
