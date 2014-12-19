@@ -13,9 +13,12 @@
 	<UserConnection />
 
 	<course id="1" title="title" summary="summary" description="description" status="PUBLISHED" author="1111" version="1" />
-	<lesson id="11" course_id="1" version="0"/>
-	<lesson id="12" course_id="1" version="0"/>
-	<lesson id="13" course_id="1" version="0"/>
+	<schedule id="1" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+	<lesson id="11" course_id="1" version="0" schedule_id="1"/>
+	<lesson id="12" course_id="1" version="0" schedule_id="1"/>
+	<lesson id="13" course_id="1" version="0" schedule_id="1"/>
+	
+	
 
 	<enrollment id="1" user_id="1112" course_id="1"/>
 	<enrollment id="2" user_id="1113" course_id="1"/>

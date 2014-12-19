@@ -44,6 +44,15 @@
 			<b>lessons</b>
 		</field>
 	</mapping>
+	
+	<mapping map-id="schedule-copy-publish">
+		<class-a>org.az.skill2peer.nuclei.common.model.Schedule</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Schedule</class-b>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+	</mapping>
 
 	<mapping map-id="lesson-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
@@ -52,6 +61,10 @@
 			<a>id</a>
 			<b>id</b>
 		</field-exclude>
+		<field map-id="schedule-copy-publish">
+			<a>schedule</a>
+			<b>schedule</b>
+		</field>
 	</mapping>
 
 	<mapping map-id="course-copy-publish">
@@ -61,6 +74,7 @@
 			<a>lessons</a>
 			<b>lessons</b>
 		</field>
+		
 		<field-exclude>
 			<a>id</a>
 			<b>id</b>

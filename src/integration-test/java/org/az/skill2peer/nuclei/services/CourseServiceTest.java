@@ -7,6 +7,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
+import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.junit.Assert;
@@ -14,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -35,13 +35,17 @@ public class CourseServiceTest extends AbstractServiceTest {
     @DatabaseSetup(value = "delete-course.xml")
     @ExpectedDatabase(value = "delete-course.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void cloneCourse() throws Exception {
-
-        Assert.assertTrue(TransactionSynchronizationManager.isActualTransactionActive());
-
+        final Course course = service.getCourse(1);
         final Course cloneCourse = service.cloneCourse(1);
 
         Assert.assertNotNull(cloneCourse.getLessons());
         Assert.assertTrue(!cloneCourse.getLessons().isEmpty());
+
+        final Lesson lesson1 = course.getLessons().get(0);
+        final Lesson lesson2 = cloneCourse.getLessons().get(0);
+        Assert.assertTrue(lesson1 != lesson2);
+        Assert.assertTrue(lesson1.getSchedule() != lesson2.getSchedule());
+
     }
 
     @Transactional

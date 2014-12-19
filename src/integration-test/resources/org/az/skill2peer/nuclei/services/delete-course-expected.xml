@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 	<course id="2" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
-	<lesson id="21" course_id="2" version="0" location_id="1"/>
-	<lesson id="22" course_id="2" version="0" location_id="1"/>
+	
+	 
+    <schedule id="2" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+    <schedule id="3" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+    
+    
+	<lesson id="21" course_id="2" version="0" location_id="1" schedule_id="2"/>
+	<lesson id="22" course_id="2" version="0" location_id="1" schedule_id="3"/>
 </dataset>
