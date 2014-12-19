@@ -1,0 +1,9 @@
+/target/
+/Skill2Peer DB rollback.launch
+/Skill2Peer DB tests rollback.launch
+/Skill2Peer DB tests.launch
+/Skill2Peer DB.launch
+/static/
+/src/main/webapp/static/js/bower_components/
+
+*.prefs
