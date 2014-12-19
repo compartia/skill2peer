@@ -1,6 +1,7 @@
 package org.az.skill2peer.common.controller;
 
 import org.az.skill2peer.config.UnitTestContext;
+import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.az.skill2peer.nuclei.config.PersistenceContext;
 import org.az.skill2peer.nuclei.config.SecurityContext;
 import org.az.skill2peer.nuclei.config.Skill2PeerApplicationContext;
@@ -19,6 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
         WebAppContext.class,
         Skill2PeerApplicationContext.class,
         SecurityContext.class,
+        DozerConfig.class,
         PersistenceContext.class,
         SocialContext.class })
 @WebAppConfiguration
