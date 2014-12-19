@@ -6,9 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ *
+ * @author Artem Zaborskiy
+ *
+ */
 @Configuration
-//@PropertySource("classpath:application.properties")
-//@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class DozerConfig {
 
     @Bean

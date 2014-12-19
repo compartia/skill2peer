@@ -256,7 +256,6 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     }
 
     @Transactional(propagation = Propagation.MANDATORY)
-    @Deprecated
     Course getCourse(final Integer courseId) {
         Preconditions.checkNotNull(courseId);
         return repo.findOne(courseId);
