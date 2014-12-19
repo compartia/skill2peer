@@ -28,10 +28,10 @@
 		</c:if>
 					
 		
-		<button type="button" class="btn btn-danger" 
-			data-toggle="collapse" data-target="#lesson-info-1">simple collapsible</button>
+		<button type="button" class="btn" 
+			data-toggle="collapse" data-target="#lesson-info-${lesson.id}">simple collapsible</button>
 
-		<div id="lesson-info-1" class="collapse">${lesson.summary} ${lesson.description}</div>
+		<div id="lesson-info-${lesson.id}" class="collapse">${lesson.summary} ${lesson.description}</div>
 	</li>
 
 
