@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
@@ -16,11 +18,48 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.joda.time.ReadableDateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.ocpsoft.prettytime.Duration;
+import org.ocpsoft.prettytime.PrettyTime;
+import org.ocpsoft.prettytime.TimeFormat;
 
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 public class CalendarUtils {
+    public static String getDurationAsString(final Locale locale, final Date from, final Date to) {
+
+        if (from == null || to == null) {
+            return "";
+        }
+
+        final PrettyTime p = new PrettyTime(locale);
+        p.setReference(from);
+
+        final List<Duration> durations = p.calculatePreciseDuration(to);
+
+        String result = null;
+
+        final StringBuilder builder = new StringBuilder();
+        Duration duration = null;
+        TimeFormat format = null;
+        for (int i = 0; i < durations.size(); i++) {
+            duration = durations.get(i);
+            format = p.getFormat(duration.getUnit());
+
+            final boolean isLast = (i == durations.size() - 1);
+            if (!isLast) {
+                builder.append(format.formatUnrounded(duration));
+                builder.append(" ");
+            }
+            else {
+                builder.append(format.format(duration));
+            }
+        }
+        result = builder.toString();
+
+        return result;
+
+    }
 
     public static DateTime getNextEvent(final Schedule schedule) {
 

@@ -1,5 +1,6 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -18,8 +19,16 @@ public class ScheduleInfoDto {
 
     private DateTime end;
 
-    public String getDurationAsString() {//XXX: implement
-        return "XXX: duration";
+    /**
+     * something like "2 часа 32 минуты"
+     * @return
+     */
+    public String getDurationAsString() {
+        if (start == null || end == null) {
+            return "";
+        }
+        return CalendarUtils.getDurationAsString(LocaleContextHolder.getLocale(), start.toDate(), end.toDate());
+
     }
 
     public DateTime getEnd() {

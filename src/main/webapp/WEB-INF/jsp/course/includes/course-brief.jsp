@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+
+course brief
 <div>
 	<span>${course.schedule.start.dayOfMonth}</span> - <span>${course.schedule.end.dayOfMonth}</span>
 </div>
@@ -26,8 +28,8 @@
 
 	<dt>Длительность</dt>
 	<dd>
-		<i itemprop="duration" content="${course.schedule.durationAsString}"></i> ${course.schedule.durationAsString}
-	</dd>
+ 		<i itemprop="duration" content="${course.schedule.durationAsString}"></i> ${course.schedule.durationAsString}
+ 	</dd>
 
 	<dt>Место</dt>
 	<dd>

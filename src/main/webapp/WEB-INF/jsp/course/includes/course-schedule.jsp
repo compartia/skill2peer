@@ -4,13 +4,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+ <!-- List group -->
+<ul class="list-group course-lessons">
+				  
+				  
 <c:forEach var="lesson" items="${course.lessons}">
-	<div class="lesson">
-		<h4>${lesson.name}<small>-${lesson.id}</small>
-		</h4>
-		<div>${lesson.schedule.start}</div>
-		<div>${lesson.schedule.durationAsString}</div>
-		<div>${lesson.summary}</div>
-		<div>${lesson.description}</div>
-	</div>
+
+	<li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+		<h3 class="name" itemprop="name">${lesson.name} ${lesson.id}</h3>
+		<div class="lesson-time">
+			<time datetime="${lesson.schedule.start}" itemprop="startDate" content="${lesson.schedule.start}">
+				<em>ВТ</em>, ${lesson.schedule.start}
+			</time>
+			
+			-
+			<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">${lesson.schedule.end}</time>
+		</div>
+		${lesson.schedule.durationAsString}
+		<c:if test="${lesson.location != null}">
+			<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+				<span itemprop="streetAddress">${lesson.location}</span>
+			</div>
+		</c:if>
+					
+		
+		<button type="button" class="btn btn-danger" 
+			data-toggle="collapse" data-target="#lesson-info-1">simple collapsible</button>
+
+		<div id="lesson-info-1" class="collapse">${lesson.summary} ${lesson.description}</div>
+	</li>
+
+
 </c:forEach>
+
+</ul>
