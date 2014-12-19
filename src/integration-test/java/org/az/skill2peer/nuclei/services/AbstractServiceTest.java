@@ -1,6 +1,7 @@
 package org.az.skill2peer.nuclei.services;
 
 import org.az.skill2peer.ColumnSensingFlatXMLDataSetLoader;
+import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.az.skill2peer.nuclei.config.PersistenceContext;
 import org.az.skill2peer.nuclei.config.Skill2PeerApplicationContext;
 import org.junit.runner.RunWith;
@@ -20,11 +21,11 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @SpringApplicationConfiguration(classes = {
         ServicesTestContext.class,
         Skill2PeerApplicationContext.class,
+        DozerConfig.class,
         PersistenceContext.class })
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-        // DbUnitTestExecutionListener.class
         TransactionDbUnitTestExecutionListener.class
 })
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
