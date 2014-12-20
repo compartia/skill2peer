@@ -54,7 +54,6 @@ public class CourseController {
     private void fakeCourseData(final CourseInfoDto course) {
         course.setLocation(fakeLocation());
         course.setPrice(fakePrice());
-        course.setSchedule(fakeScheduleDto());
 
         //        course.getLessons().add(fakeLesson(1));
         //        course.getLessons().add(fakeLesson(2));

@@ -20,6 +20,8 @@ public class ScheduleInfoDto {
 
     private DateTime end;
 
+    private DateTime nextEvent;
+
     /**
      * something like "2 часа 32 минуты"
      * @return
@@ -51,6 +53,10 @@ public class ScheduleInfoDto {
         return next;
     }
 
+    public DateTime getNextEvent() {
+        return nextEvent;
+    }
+
     public DateTime getStart() {
         return start;
     }
@@ -61,6 +67,10 @@ public class ScheduleInfoDto {
 
     public void setEnd(final DateTime end) {
         this.end = end;
+    }
+
+    public void setNextEvent(final DateTime nextEvent) {
+        this.nextEvent = nextEvent;
     }
 
     public void setStart(final DateTime start) {

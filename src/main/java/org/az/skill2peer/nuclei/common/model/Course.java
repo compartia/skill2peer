@@ -26,6 +26,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 
 import com.google.common.base.Preconditions;
@@ -132,11 +134,11 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return publishedVersion;
     }
 
-    @Deprecated
-    public Schedule getSchedule() {
-        //XXX: its not the first lesson!!!
-        return getFirstLesson().getSchedule();
-    }
+    //    @Deprecated
+    //    public Schedule getSchedule() {
+    //        //XXX: its not the first lesson!!!
+    //        return getFirstLesson().getSchedule();
+    //    }
 
     public Set<Schedule> getSchedules() {
         final HashSet<Schedule> ret = new HashSet<>();
@@ -169,6 +171,10 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
             }
         }
         return totalDuration;
+    }
+
+    public List<EventDto> getWeekSchedule() {
+        return CalendarUtils.getWeekSchedule(getSchedules());
     }
 
     public boolean isSingleLesson() {

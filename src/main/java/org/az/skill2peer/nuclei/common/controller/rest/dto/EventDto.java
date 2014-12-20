@@ -1,6 +1,6 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 
 public class EventDto {
     /**
@@ -8,19 +8,19 @@ public class EventDto {
      */
     private String dayShortName;
 
-    private LocalDateTime start;
+    private DateTime start;
 
-    private LocalDateTime end;
+    private DateTime end;
 
     public String getDayShortName() {
         return dayShortName;
     }
 
-    public LocalDateTime getEnd() {
+    public DateTime getEnd() {
         return end;
     }
 
-    public LocalDateTime getStart() {
+    public DateTime getStart() {
         return start;
     }
 
@@ -28,11 +28,11 @@ public class EventDto {
         this.dayShortName = dayShortName;
     }
 
-    public void setEnd(final LocalDateTime end) {
+    public void setEnd(final DateTime end) {
         this.end = end;
     }
 
-    public void setStart(final LocalDateTime start) {
+    public void setStart(final DateTime start) {
         this.start = start;
     }
 }

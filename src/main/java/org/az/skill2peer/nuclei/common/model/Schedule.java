@@ -12,7 +12,6 @@ import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
-import org.joda.time.ReadableDateTime;
 
 @Entity
 @Table(name = "schedule")
@@ -64,7 +63,7 @@ public class Schedule extends BaseEntity<Integer> {
         return id;
     }
 
-    public ReadableDateTime getNextEvent() {
+    public DateTime getNextEvent() {
         return CalendarUtils.getNextEvent(this);
     }
 

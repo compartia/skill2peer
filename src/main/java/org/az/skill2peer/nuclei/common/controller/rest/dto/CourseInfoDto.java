@@ -1,6 +1,8 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.az.skill2peer.nuclei.services.CalendarUtils;
@@ -33,6 +35,13 @@ public class CourseInfoDto {
 
     private List<LessonInfoDto> lessons = new ArrayList<LessonInfoDto>();
 
+    public static final Comparator<LessonInfoDto> SCHEDULE_COMPARATOR = new Comparator<LessonInfoDto>() {
+        @Override
+        public int compare(final LessonInfoDto s1, final LessonInfoDto s2) {
+            return s1.getSchedule().getNextEvent().compareTo(s2.getSchedule().getNextEvent());
+        }
+    };
+
     public UserInfoDto getAuthor() {
         return author;
     }
@@ -62,7 +71,15 @@ public class CourseInfoDto {
     }
 
     public ScheduleInfoDto getSchedule() {
-        return schedule;
+        final ScheduleInfoDto s = new ScheduleInfoDto();
+
+        final ArrayList<LessonInfoDto> scs = new ArrayList<LessonInfoDto>(getLessons());
+        Collections.sort(scs, SCHEDULE_COMPARATOR);
+
+        s.setNextEvent(scs.get(0).getSchedule().getNextEvent());
+        s.setStart(scs.get(0).getSchedule().getNextEvent());
+        s.setEnd(scs.get(scs.size() - 1).getSchedule().getEnd());
+        return s;
     }
 
     public String getSkills() {

@@ -10,13 +10,11 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.StringUtils;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.Period;
 import org.joda.time.ReadableDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
@@ -88,6 +86,12 @@ public class CalendarUtils {
     }
 
     public static DateTime getNextEvent(final Schedule schedule) {
+        final String repeatRules = schedule.getiCalString();
+
+        if (StringUtils.isEmpty(repeatRules) || schedule.getStart() == null) {
+            return schedule.getStart();
+        }
+
         final TimeZone tz = LocaleContextHolder.getTimeZone();
         final DateTimeZone timeZone = DateTimeZone.forTimeZone(tz);
 
@@ -95,33 +99,20 @@ public class CalendarUtils {
             DateTimeIterable dateIterable;
 
             dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                    schedule.getiCalString(), schedule.getStart(), timeZone, true);
-
-            //                    .createLocalDateIterable(schedule
-            //                    .getiCalString(),
-            //                    schedule.getStart().toLocalDate(),
-            //                    false);
+                    repeatRules, schedule.getStart(), timeZone, true);
 
             final DateTime next = new DateTime(dateIterable.iterator().next());
-
             final DateTime dt = next.withZone(timeZone);
 
-            return dt;//dt.withHourOfDay(schedule.getStart().getHourOfDay());
+            return dt;
         } catch (final ParseException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public static Period getPeriodToNextEvent(final Schedule schedule) {
-        final ReadableDateTime nextEvent = getNextEvent(schedule);
-        final Period period = Period.fieldDifference(LocalDate.now(), nextEvent.toDateTime().toLocalDateTime());
-        return period;
-    }
-
     public static List<EventDto> getWeekSchedule(final Set<Schedule> schedules) {
         final ArrayList<Schedule> scs = new ArrayList<Schedule>(schedules);
-
         Collections.sort(scs, SCHEDULE_COMPARATOR);
         //        final LocalDate firstEvent = scs.get(0).getNextEvent();
 
@@ -130,38 +121,12 @@ public class CalendarUtils {
             final ReadableDateTime nextEvent = sc.getNextEvent();
             final EventDto eventDto = new EventDto();
 
-            final LocalDateTime nextEventDayTime = new LocalDateTime(nextEvent);
-            eventDto.setStart(nextEventDayTime);
-            eventDto.setDayShortName(DateTimeFormat.forPattern("EE").print(nextEventDayTime));
+            eventDto.setStart(nextEvent.toDateTime());
+            eventDto.setDayShortName(DateTimeFormat.forPattern("EE").print(nextEvent));
             ret.add(eventDto);
         }
         return ret;
 
-    }
-
-    private static String hours_en(final String hours) {
-        if (hours.endsWith("1")) {
-            return "hour";
-        }
-
-        return "hours";
-    }
-
-    private static String hours_ru(final int n) {
-
-        final int pluralIdx = (n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2
-                && n % 10 <= 4
-                && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
-
-        if (pluralIdx == 0) {
-            return "час";
-        }
-
-        if (pluralIdx == 1) {
-            return "часа";
-        }
-
-        return "часов";
     }
 
     public static final Comparator<Schedule> SCHEDULE_COMPARATOR = new Comparator<Schedule>() {
