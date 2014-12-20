@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
@@ -25,6 +26,7 @@ import org.ocpsoft.prettytime.impl.DurationImpl;
 import org.ocpsoft.prettytime.units.Hour;
 import org.ocpsoft.prettytime.units.JustNow;
 import org.ocpsoft.prettytime.units.Minute;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
@@ -86,23 +88,25 @@ public class CalendarUtils {
     }
 
     public static DateTime getNextEvent(final Schedule schedule) {
+        final TimeZone tz = LocaleContextHolder.getTimeZone();
+        final DateTimeZone timeZone = DateTimeZone.forTimeZone(tz);
 
         try {
             DateTimeIterable dateIterable;
 
-            final String rdata = schedule.getiCalString();
-            final ReadableDateTime start = schedule.getStart();
-            final DateTimeZone tzid = schedule.getStart().getZone();
             dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                    rdata, start, tzid, false);
+                    schedule.getiCalString(), schedule.getStart(), timeZone, true);
 
             //                    .createLocalDateIterable(schedule
             //                    .getiCalString(),
             //                    schedule.getStart().toLocalDate(),
             //                    false);
 
-            final ReadableDateTime next = dateIterable.iterator().next();
-            return next.toDateTime();
+            final DateTime next = new DateTime(dateIterable.iterator().next());
+
+            final DateTime dt = next.withZone(timeZone);
+
+            return dt;//dt.withHourOfDay(schedule.getStart().getHourOfDay());
         } catch (final ParseException e) {
             throw new RuntimeException(e);
         }

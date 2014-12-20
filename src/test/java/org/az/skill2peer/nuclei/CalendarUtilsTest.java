@@ -5,11 +5,17 @@ import java.util.Locale;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.ReadableDateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import com.google.ical.values.DateValueImpl;
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
+import com.google.ical.values.Weekday;
 
 public class CalendarUtilsTest {
 
@@ -40,16 +46,71 @@ public class CalendarUtilsTest {
     public void getNextEvent() throws Exception {
         final Schedule schedule = TestUtil.makeSchedule();
         schedule.setStart(new DateTime(2020, 11, 25, 11, 00));
-        schedule.setiCalString("RRULE:FREQ=DAILY;"
-                + "INTERVAL=1;"
-                //                + "UNTIL=20230430T083000Z;"
-                + "");
+
+        final RRule rr = new RRule();
+        {
+            rr.setFreq(Frequency.DAILY);
+            rr.setUntil(new DateValueImpl(2020, 1, 2));
+            rr.setWkSt(Weekday.MO);
+            Assert.assertEquals("RRULE:FREQ=DAILY;WKST=MO;UNTIL=20200102", rr.toIcal());
+        }
+
+        schedule.setiCalString(rr.toIcal());
 
         final ReadableDateTime nextEvent = schedule.getNextEvent();
         System.out.println();
         Assert.assertTrue(nextEvent.toDateTime().isAfter(DateTime.now()));
         Assert.assertEquals(25, nextEvent.getDayOfMonth());
         Assert.assertEquals(schedule.getStart().getHourOfDay(), nextEvent.getHourOfDay());
+        Assert.assertEquals(schedule.getStart().getMinuteOfHour(), nextEvent.getMinuteOfHour());
+    }
+
+    @Test
+    public void getNextEvent2() throws Exception {
+        final Schedule schedule = TestUtil.makeSchedule();
+        schedule.setStart(new DateTime(2020, 11, 25, 23, 55));
+
+        final RRule rr = new RRule();
+        {
+            rr.setFreq(Frequency.DAILY);
+            rr.setUntil(new DateValueImpl(2024, 1, 2));
+            rr.setWkSt(Weekday.MO);
+            Assert.assertEquals("RRULE:FREQ=DAILY;WKST=MO;UNTIL=20240102", rr.toIcal());
+        }
+
+        schedule.setiCalString(rr.toIcal());
+
+        final ReadableDateTime nextEvent = schedule.getNextEvent();
+        System.out.println();
+        Assert.assertTrue(nextEvent.toDateTime().isAfter(DateTime.now()));
+        Assert.assertEquals(25, nextEvent.getDayOfMonth());
+        Assert.assertEquals(schedule.getStart().getHourOfDay(), nextEvent.getHourOfDay());
+        Assert.assertEquals(schedule.getStart().getMinuteOfHour(), nextEvent.getMinuteOfHour());
+    }
+
+    @Test
+    public void getNextEvent3() throws Exception {
+        final Schedule schedule = TestUtil.makeSchedule();
+        schedule.setStart(new DateTime(2020, 11, 25, 00, 05,
+                DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone())));
+
+        final RRule rr = new RRule();
+        {
+            rr.setFreq(Frequency.DAILY);
+            rr.setUntil(new DateValueImpl(2024, 1, 2));
+            rr.setWkSt(Weekday.MO);
+
+            Assert.assertEquals("RRULE:FREQ=DAILY;WKST=MO;UNTIL=20240102", rr.toIcal());
+        }
+
+        schedule.setiCalString(rr.toIcal());
+
+        final ReadableDateTime nextEvent = schedule.getNextEvent();
+        System.out.println();
+        Assert.assertTrue(nextEvent.toDateTime().isAfter(DateTime.now()));
+        Assert.assertEquals(25, nextEvent.getDayOfMonth());
+        Assert.assertEquals(schedule.getStart().getHourOfDay(), nextEvent.getHourOfDay());
+        Assert.assertEquals(schedule.getStart().getMinuteOfHour(), nextEvent.getMinuteOfHour());
     }
 
     @Test
