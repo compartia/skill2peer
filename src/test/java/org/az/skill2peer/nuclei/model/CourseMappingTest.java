@@ -170,8 +170,8 @@ public class CourseMappingTest {
         compareSchedules(target, source);
 
         Assert.assertEquals("2 часа 32 минуты", target.getDurationAsString());
-        Assert.assertEquals("Ноябрь", target.getStartMonth());
-        Assert.assertEquals("Декабрь", target.getEndMonth());
+        Assert.assertEquals("ноября", target.getStartMonth());
+        Assert.assertEquals("декабря", target.getEndMonth());
 
         target.setEnd(null);
         Assert.assertEquals("", target.getDurationAsString());
