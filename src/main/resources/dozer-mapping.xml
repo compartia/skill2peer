@@ -6,6 +6,7 @@
 	<configuration>
 		<copy-by-references>
 			<copy-by-reference>org.joda.time.DateTime</copy-by-reference>
+			<copy-by-reference>org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto</copy-by-reference>
 		</copy-by-references>
 	</configuration>
 	 

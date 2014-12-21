@@ -52,12 +52,12 @@
 						<ul class="course-timetable">
 							<c:forEach var="dayEvents" items="${course.weekSchedule}">
 								<c:if test="${dayEvents.events.isEmpty()}">
-									<li>${dayEvents.dayShortName}</li>
+									<li>${dayEvents.dayShortName} ${dayEvents.events.size()}</li>
 								</c:if>
 								<c:if test="${!dayEvents.events.isEmpty()}">
 									<li class="active">${dayEvents.dayShortName}
 										<c:forEach var="event" items="${dayEvents.events}">
-											<span class="course-timerange">${event.start}</span>
+											<span class="course-timerange">${event.start.hourOfDay}:${event.start.minuteOfHour} - ${event.end.hourOfDay}:${event.end.minuteOfHour}</span>
 										</c:forEach>
 									</li>
 								</c:if>

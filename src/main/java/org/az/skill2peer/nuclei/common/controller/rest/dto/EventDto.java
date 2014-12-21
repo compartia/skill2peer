@@ -5,6 +5,9 @@ import org.joda.time.DateTime;
 public class EventDto {
     /**
      * Mo, Su, Sa, Th, etc
+
+     * @deprecated because this value should be derived via start or from group of events
+     * @param dayShortName
      */
     @Deprecated
     private String dayShortName;
@@ -15,8 +18,8 @@ public class EventDto {
 
     private String name;
 
-    @Deprecated
     public String getDayShortName() {
+        //XXX: calculate it
         return dayShortName;
     }
 
@@ -32,6 +35,10 @@ public class EventDto {
         return start;
     }
 
+    /**
+     * @deprecated because this value should be derived via start or from group of events
+     * @param dayShortName
+     */
     @Deprecated
     public void setDayShortName(final String dayShortName) {
         this.dayShortName = dayShortName;

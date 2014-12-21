@@ -1,7 +1,11 @@
 package org.az.skill2peer.nuclei.common.model;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +34,21 @@ import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 @SequenceGenerator(name = "schedule_id_seq", sequenceName = "schedule_id_seq")
 public class Schedule extends BaseEntity<Integer> {
 
+    public static EventDto buidEventDto(final DateTime from, final DateTime to, final DateTimeZone timeZone) {
+
+        final EventDto eventDto = new EventDto();
+        eventDto.setStart(from.withZone(timeZone));
+        if (to != null) {
+            eventDto.setEnd(to.withZone(timeZone));
+        }
+
+        final String dayname = DayOfWeek
+                .of(from.getDayOfWeek())
+                .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
+        eventDto.setDayShortName(dayname);
+        return eventDto;
+    }
+
     private static final long serialVersionUID = 4873701983319765707L;
 
     @Id
@@ -44,11 +63,13 @@ public class Schedule extends BaseEntity<Integer> {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime end;
 
+    //    @Column(name = "duration")
+    //    private Integer duration;
+
     @Column(name = "repeat")
     private String iCalString;
 
-    //    @Column(name = "duration")
-    //    private Integer duration;
+    /* methods */
 
     public Integer getDuration() {
         if (start == null || end == null) {
@@ -57,10 +78,71 @@ public class Schedule extends BaseEntity<Integer> {
         return Minutes.minutesBetween(start, end).getMinutes();
     }
 
-    /* methods */
-
     public DateTime getEnd() {
         return end;
+    }
+
+    public List<EventDto> getEventsWithinPeriod(final DateTime from, final DateTime to) {
+
+        final List<EventDto> result = new ArrayList<EventDto>();
+        if (getStart() == null) {
+            /**
+             * schedule is not defined, return empty list
+             */
+            return result;
+        } else {
+
+            final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+
+            if (StringUtils.isEmpty(getiCalString())) {
+                /**
+                 * recurrence is not defined, make single event if it is in range
+                 */
+                if (getStart().isAfter(from) && getStart().isBefore(to)) {
+                    result.add(buidEventDto(getStart(), getEnd(), timeZone));
+                }
+
+                return result;
+            } else {
+
+                /**
+                 * this is recurrent event
+                 */
+
+                try {
+
+                    final DateTime iteratorStart = applyTime(from);
+
+                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                            getiCalString(),
+                            iteratorStart,
+                            timeZone,
+                            true);
+
+                    final DateTimeIterator iterator = dateIterable.iterator();
+                    while (iterator.hasNext()) {
+
+                        final DateTime dt = iterator.next().withZone(timeZone);
+
+                        if (dt.isBefore(to)) {
+
+                            DateTime eventEnd = null;
+                            if (getDuration() != null) {
+                                eventEnd = dt.plusMinutes(getDuration());
+                            }
+                            result.add(buidEventDto(dt, eventEnd, timeZone));
+
+                        } else {
+                            break;
+                        }
+                    }
+
+                } catch (final ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return result;
+        }
     }
 
     public String getiCalString() {
@@ -80,6 +162,7 @@ public class Schedule extends BaseEntity<Integer> {
         return start;
     }
 
+    @Deprecated
     public List<DayEventsDto> getWeekSchedule() {
         DateTime nextEvent = getNextEvent();
         if (nextEvent == null) {
@@ -88,69 +171,23 @@ public class Schedule extends BaseEntity<Integer> {
         return getWeekSchedule(nextEvent);
     }
 
+    @Deprecated
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
         final List<DayEventsDto> events = CalendarUtils.makeWeekPattern(week);
 
         final DateTime weekStart = events.get(0).getFirst().getStart().withMillisOfDay(0);
         final DateTime weekEnd = events.get(6).getFirst().getStart().withHourOfDay(23).withMinuteOfHour(59);
 
-        if (getStart() == null) {
-            /**
-             * schedule is not defined
-             */
-            return events;
-        } else {
+        final List<EventDto> eventsWithinPeriod = getEventsWithinPeriod(weekStart, weekEnd);
 
-            final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
-
-            if (StringUtils.isEmpty(getiCalString())) {
-                /**
-                 * recurrence is not defined, make single event
-                 */
-                final DayEventsDto eventDto = events.get(getStart().getDayOfWeek() - 1);
-                eventDto.getFirst().setEnd(getEnd().withZone(timeZone));
-                eventDto.getFirst().setStart(getStart().withZone(timeZone));
-                return events;
-            } else {
-
-                /**
-                 * recurrence is defined
-                 */
-
-                try {
-
-                    final DateTime iteratorStart = applyTime(weekStart);
-
-                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                            getiCalString(),
-                            iteratorStart,
-                            timeZone,
-                            true);
-
-                    final DateTimeIterator iterator = dateIterable.iterator();
-                    while (iterator.hasNext()) {
-
-                        final DateTime dt = iterator.next().withZone(timeZone);
-
-                        if (dt.isBefore(weekEnd)) {
-
-                            final DayEventsDto dayEvents = events.get(dt.getDayOfWeek() - 1);
-                            final EventDto event = dayEvents.getFirst();
-
-                            event.setStart(dt);
-                            event.setEnd(dt.plusMinutes(getDuration()));
-
-                        } else {
-                            break;
-                        }
-                    }
-
-                } catch (final ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            return events;
+        for (final EventDto e : eventsWithinPeriod) {
+            final Set<EventDto> set = events.get(e.getStart().getDayOfWeek() - 1).getEvents();
+            set.clear();
+            set.add(e);
         }
+
+        return events;
+
     }
 
     public void setEnd(final DateTime end) {

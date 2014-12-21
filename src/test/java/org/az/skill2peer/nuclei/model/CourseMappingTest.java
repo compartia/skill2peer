@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
@@ -69,6 +70,15 @@ public class CourseMappingTest {
         Assert.assertEquals(numberOfLessons, target.getLessons().size());
         Assert.assertEquals("48 часов", target.getTotalDurationAsString());
         Assert.assertEquals(7, target.getWeekSchedule().size());
+
+        for (final DayEventsDto d : source.getWeekSchedule()) {
+            Assert.assertEquals(1, d.getEvents().size());
+        }
+
+        for (final DayEventsDto d : target.getWeekSchedule()) {
+            Assert.assertEquals(1, d.getEvents().size());
+        }
+
     }
 
     @Test
