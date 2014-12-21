@@ -14,6 +14,7 @@ import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.dozer.Mapper;
+import org.joda.time.DateTimeConstants;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -136,7 +137,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
 
-        int dw = 5;
+        int dw = DateTimeConstants.SATURDAY;
         final DayEventsDto events = weekSchedule.get(dw - 1);
         Assert.assertEquals(1, events.getEvents().size());
         final EventDto first = events.getEvents().first();

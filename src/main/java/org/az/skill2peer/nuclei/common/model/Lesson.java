@@ -22,6 +22,8 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Preconditions;
+
 /**
  * a course consists of lessons
  *
@@ -64,6 +66,19 @@ public class Lesson extends BaseEntity<Integer> {
         return schedule.getDuration();
     }
 
+    public List<EventDto> getEventsWithinWeek(final DateTime week) {
+        Preconditions.checkNotNull(week);
+
+        final List<EventDto> eventsWithinPeriod = schedule.getEventsWithinWeek(week);
+        for (final EventDto e : eventsWithinPeriod) {
+            /**
+             * applying events names
+             */
+            e.setName(getName());
+        }
+        return eventsWithinPeriod;
+    }
+
     @Override
     public Integer getId() {
         return id;
@@ -81,12 +96,9 @@ public class Lesson extends BaseEntity<Integer> {
         return schedule;
     }
 
+    @Deprecated
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
-        final List<EventDto> eventsWithinPeriod = schedule.getEventsWithinWeek(week);
-
-        for (final EventDto e : eventsWithinPeriod) {
-            e.setName(getName());
-        }
+        final List<EventDto> eventsWithinPeriod = getEventsWithinWeek(week);
         return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
     }
 

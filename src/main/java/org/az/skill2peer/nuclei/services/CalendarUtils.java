@@ -142,29 +142,47 @@ public class CalendarUtils {
 
     }
 
-    public static DateTimeIterator getProperIterator(final Schedule schedule) throws ParseException {
-        final DateTime scheduleStart = schedule.getStart();
-        final String repeatRules = schedule.getiCalString();
-        final TimeZone tz = LocaleContextHolder.getTimeZone();
-        final DateTimeZone timeZone = DateTimeZone.forTimeZone(tz);
+    public static DateTimeIterator getProperIterator(final DateTime now,
+            final String repeatRules,
+            final DateTime scheduleStart,
+            final DateTimeZone timeZone) throws ParseException {
 
-        DateTime start = DateTime
-                .now()
-                .withHourOfDay(scheduleStart.getHourOfDay())
-                .withMinuteOfHour(scheduleStart.getMinuteOfHour());
+        DateTime start = now;
+        String exdate = "";
         if (start.isBefore(scheduleStart)) {
-            start = scheduleStart.minusDays(1);
+
+            start = scheduleStart;
         }
-        final String exdate = ISODateTimeFormat.basicDateTimeNoMillis().print(start.toLocalDateTime());
+        else {
+            /**
+            * this hack is required to skip the first date of the
+            * sequence which does not match the rrule.
+            */
+            start = now
+                    .withHourOfDay(scheduleStart.getHourOfDay())
+                    .withMinuteOfHour(scheduleStart.getMinuteOfHour()).minusDays(1);
+            exdate = "\nEXDATE:" + ISODateTimeFormat.basicDateTimeNoMillis().print(start.toLocalDateTime());
+        }
 
         final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                repeatRules + "\nEXDATE:" + exdate,
+                repeatRules + "\n" + exdate,
                 start,
                 timeZone,
                 true);
 
         final DateTimeIterator iterator = dateIterable.iterator();
         return iterator;
+    }
+
+    /**
+     * @deprecated because Util class must not refer entities
+     */
+    @Deprecated
+    public static DateTimeIterator getProperIterator(final Schedule schedule) throws ParseException {
+        return getProperIterator(DateTime.now(),
+                schedule.getiCalString(),
+                schedule.getStart(),
+                DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
     }
 
     @Deprecated
@@ -202,24 +220,12 @@ public class CalendarUtils {
     }
 
     public static List<DayEventsDto> makeWeekPattern() {
-        //        final DateTime weekStart = week.withDayOfWeek(DateTimeConstants.MONDAY);
-
         final ArrayList<DayEventsDto> ret = new ArrayList<DayEventsDto>(7);
 
-        //        DateTime day = weekStart;
         for (int f = 0; f < 7; f++) {
             final DayEventsDto de = new DayEventsDto();
-            //            final EventDto e = new EventDto();
-            //
-            final String dayname = getDayShortNameLocal(f);
-            //            e.setDayShortName(dayname);
-            de.setDayShortName(dayname);
-            //            e.setStart(day);
-            //
-            //            de.addEvent(e);
+            de.setDayShortName(getDayShortNameLocal(f));
             ret.add(de);
-
-            //            day = day.plusDays(1);
         }
         return ret;
     }

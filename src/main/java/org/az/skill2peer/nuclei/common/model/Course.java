@@ -181,14 +181,19 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
 
         final Lesson firstLesson = scs.get(0);
-
-        return getWeekSchedule(firstLesson.getSchedule().getNextEvent());
+        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
+        if (nextEvent != null) {
+            return getWeekSchedule(nextEvent);
+        } else {
+            return CalendarUtils.makeWeekPattern();
+        }
     }
 
     public List<DayEventsDto> getWeekSchedule(final DateTime weekStart) {
+        Preconditions.checkNotNull(weekStart);
         final List<EventDto> allEvents = new ArrayList<EventDto>();
         for (final Lesson lesson : lessons) {
-            final List<EventDto> eventsWithinWeek = lesson.getSchedule().getEventsWithinWeek(weekStart);
+            final List<EventDto> eventsWithinWeek = lesson.getEventsWithinWeek(weekStart);
             allEvents.addAll(eventsWithinWeek);
         }
 

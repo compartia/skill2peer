@@ -5,7 +5,6 @@ import java.util.Locale;
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
@@ -70,15 +69,6 @@ public class CourseMappingTest {
         Assert.assertEquals(numberOfLessons, target.getLessons().size());
         Assert.assertEquals("48 часов", target.getTotalDurationAsString());
         Assert.assertEquals(7, target.getWeekSchedule().size());
-
-        for (final DayEventsDto d : source.getWeekSchedule()) {
-            Assert.assertEquals(1, d.getEvents().size());
-        }
-
-        for (final DayEventsDto d : target.getWeekSchedule()) {
-            Assert.assertEquals(1, d.getEvents().size());
-        }
-
     }
 
     @Test
@@ -106,24 +96,6 @@ public class CourseMappingTest {
         mapper.map(source, target);
 
         Assert.assertEquals("5 часов 15 минут", target.getTotalDurationAsString());
-
-    }
-
-    @Test
-    public void testDurationMapping2() {
-        final Course source = TestUtil.makeCourse(2);
-
-        final Schedule schedule = source.getLessons().get(0).getSchedule();
-        schedule.setEnd(schedule.getStart().plusMinutes(10));
-
-        final Schedule schedule2 = source.getLessons().get(1).getSchedule();
-        schedule2.setEnd(null);
-        schedule2.setStart(null);
-
-        final CourseInfoDto target = new CourseInfoDto();
-        mapper.map(source, target);
-
-        Assert.assertEquals("", target.getTotalDurationAsString());
 
     }
 
@@ -159,6 +131,24 @@ public class CourseMappingTest {
             mapper.map(source, target);
             Assert.assertEquals("21 час 10 минут", target.getTotalDurationAsString());
         }
+    }
+
+    @Test
+    public void testDurationMappingUndefinedSchedule() {
+        final Course source = TestUtil.makeCourse(2);
+
+        final Schedule schedule = source.getLessons().get(0).getSchedule();
+        schedule.setEnd(schedule.getStart().plusMinutes(10));
+
+        final Schedule schedule2 = source.getLessons().get(1).getSchedule();
+        schedule2.setEnd(null);
+        schedule2.setStart(null);
+
+        final CourseInfoDto target = new CourseInfoDto();
+        mapper.map(source, target);
+
+        Assert.assertEquals("", target.getTotalDurationAsString());
+
     }
 
     @Test

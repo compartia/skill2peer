@@ -13,7 +13,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
@@ -23,6 +22,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import com.google.common.base.Preconditions;
 import com.google.ical.compat.jodatime.DateTimeIterator;
 
 @Entity
@@ -99,8 +99,8 @@ public class Schedule extends BaseEntity<Integer> {
                     //                            iteratorStart,
                     //                            timeZone,
                     //                            true);
-                    //                    
-                    //                    
+                    //
+                    //
                     //
                     //                    final DateTimeIterator iterator = dateIterable.iterator();
 
@@ -132,6 +132,7 @@ public class Schedule extends BaseEntity<Integer> {
     }
 
     public List<EventDto> getEventsWithinWeek(final DateTime week) {
+        Preconditions.checkNotNull(week);
         final DateTime weekStart = week.withDayOfWeek(DateTimeConstants.MONDAY).withMillisOfDay(0);
         final DateTime weekEnd = week.withDayOfWeek(DateTimeConstants.SUNDAY).withHourOfDay(23).withMinuteOfHour(59);
 
@@ -155,23 +156,6 @@ public class Schedule extends BaseEntity<Integer> {
         return start;
     }
 
-    @Deprecated
-    public List<DayEventsDto> getWeekSchedule() {
-        DateTime nextEvent = getNextEvent();
-        if (nextEvent == null) {
-            nextEvent = DateTime.now();
-        }
-        return getWeekSchedule(nextEvent);
-    }
-
-    @Deprecated
-    public List<DayEventsDto> getWeekSchedule(final DateTime week) {
-
-        final List<EventDto> eventsWithinPeriod = getEventsWithinWeek(week);
-        return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
-
-    }
-
     public void setEnd(final DateTime end) {
         this.end = end;
     }
@@ -188,10 +172,4 @@ public class Schedule extends BaseEntity<Integer> {
         this.start = start;
     }
 
-    private DateTime applyTime(final DateTime weekStart) {
-        final DateTime iteratorStart = getStart().withDate(weekStart.getYear(),
-                weekStart.getMonthOfYear(),
-                weekStart.getDayOfMonth());
-        return iteratorStart;
-    }
 }
