@@ -40,17 +40,12 @@ public class RepositoryUserDetailsServiceTest {
     @Mock
     private UserRepository repositoryMock;
 
-    @Before
-    public void setUp() {
-        service = new RepositoryUserDetailsService(repositoryMock);
-    }
-
     @Test
     public void loadByUsername_UserNotFound_ShouldThrowException() {
         when(repositoryMock.findByEmail(EMAIL)).thenReturn(null);
 
         catchException(service).loadUserByUsername(EMAIL);
-        Assertions.assertThat(caughtException()).isExactlyInstanceOf(UsernameNotFoundException.class)
+        Assertions.assertThat((Throwable)caughtException()).isExactlyInstanceOf(UsernameNotFoundException.class)
                 .hasMessage("No user found with username: " + EMAIL).hasNoCause();
 
         verify(repositoryMock, times(1)).findByEmail(EMAIL);
@@ -89,5 +84,10 @@ public class RepositoryUserDetailsServiceTest {
 
         verify(repositoryMock, times(1)).findByEmail(EMAIL);
         verifyNoMoreInteractions(repositoryMock);
+    }
+
+    @Before
+    public void setUp() {
+        service = new RepositoryUserDetailsService(repositoryMock);
     }
 }

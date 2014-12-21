@@ -104,7 +104,7 @@ public class RepositoryUserServiceTest {
 
         catchException(service).registerNewUserAccount(registration);
 
-        Assertions.assertThat(caughtException())
+        Assertions.assertThat((Throwable)caughtException())
                 .isExactlyInstanceOf(DuplicateEmailException.class)
                 .hasMessage("The email address: " + EMAIL + " is already in use.")
                 .hasNoCause();
@@ -161,7 +161,7 @@ public class RepositoryUserServiceTest {
 
         catchException(service).registerNewUserAccount(registration);
 
-        Assertions.assertThat(caughtException())
+        Assertions.assertThat((Throwable)caughtException())
                 .isExactlyInstanceOf(DuplicateEmailException.class)
                 .hasMessage("The email address: " + EMAIL + " is already in use.")
                 .hasNoCause();

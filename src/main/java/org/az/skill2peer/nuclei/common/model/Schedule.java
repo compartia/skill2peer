@@ -100,7 +100,7 @@ public class Schedule extends BaseEntity<Integer> {
              */
             return events;
         } else {
-            //            final TimeZone tz = ;
+
             final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
 
             if (StringUtils.isEmpty(getiCalString())) {

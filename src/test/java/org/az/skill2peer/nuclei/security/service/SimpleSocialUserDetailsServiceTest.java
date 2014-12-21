@@ -35,25 +35,6 @@ public class SimpleSocialUserDetailsServiceTest {
     @Mock
     private UserDetailsService userDetailsServicemock;
 
-    @Before
-    public void setUp() {
-        service = new SimpleSocialUserDetailsService(userDetailsServicemock);
-    }
-
-    @Test
-    public void loadByUserId_UserDetailsNotFound_ShouldThrowException() {
-        when(userDetailsServicemock.loadUserByUsername(USER_ID)).thenThrow(new UsernameNotFoundException(""));
-
-        catchException(service).loadUserByUserId(USER_ID);
-
-        assertThat(caughtException())
-                .isExactlyInstanceOf(UsernameNotFoundException.class)
-                .hasNoCause();
-
-        verify(userDetailsServicemock, times(1)).loadUserByUsername(USER_ID);
-        verifyNoMoreInteractions(userDetailsServicemock);
-    }
-
     @Test
     public void loadByUserId_UserDetailsFound_ShouldReturnTheFoundUserDetails() {
         final SocialUserDetails found = SocialUserDetails.getBuilder()
@@ -71,5 +52,24 @@ public class SimpleSocialUserDetailsServiceTest {
 
         verify(userDetailsServicemock, times(1)).loadUserByUsername(USER_ID);
         verifyNoMoreInteractions(userDetailsServicemock);
+    }
+
+    @Test
+    public void loadByUserId_UserDetailsNotFound_ShouldThrowException() {
+        when(userDetailsServicemock.loadUserByUsername(USER_ID)).thenThrow(new UsernameNotFoundException(""));
+
+        catchException(service).loadUserByUserId(USER_ID);
+
+        assertThat((Throwable)caughtException())
+                .isExactlyInstanceOf(UsernameNotFoundException.class)
+                .hasNoCause();
+
+        verify(userDetailsServicemock, times(1)).loadUserByUsername(USER_ID);
+        verifyNoMoreInteractions(userDetailsServicemock);
+    }
+
+    @Before
+    public void setUp() {
+        service = new SimpleSocialUserDetailsService(userDetailsServicemock);
     }
 }
