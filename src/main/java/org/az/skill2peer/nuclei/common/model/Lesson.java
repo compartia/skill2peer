@@ -1,5 +1,7 @@
 package org.az.skill2peer.nuclei.common.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,9 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
+import org.joda.time.DateTime;
 
 /**
  * a course consists of lessons
@@ -66,8 +71,20 @@ public class Lesson extends BaseEntity<Integer> {
         return location;
     }
 
+    public String getName() {
+        return "XXX: Lesson.getName() is undefined";
+    }
+
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    public List<DayEventsDto> getWeekSchedule(final DateTime week) {
+        final List<DayEventsDto> ret = schedule.getWeekSchedule();
+        for (final DayEventsDto e : ret) {
+            e.getFirst().setName(getName());
+        }
+        return ret;
     }
 
     public void setDescription(final String description) {
@@ -85,5 +102,4 @@ public class Lesson extends BaseEntity<Integer> {
     public void setSchedule(final Schedule schedule) {
         this.schedule = schedule;
     }
-
 }

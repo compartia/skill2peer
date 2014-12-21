@@ -1,7 +1,10 @@
 package org.az.skill2peer.nuclei;
 
+import java.util.List;
 import java.util.Locale;
 
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
@@ -111,6 +114,86 @@ public class CalendarUtilsTest {
         Assert.assertEquals(25, nextEvent.getDayOfMonth());
         Assert.assertEquals(schedule.getStart().getHourOfDay(), nextEvent.getHourOfDay());
         Assert.assertEquals(schedule.getStart().getMinuteOfHour(), nextEvent.getMinuteOfHour());
+    }
+
+    @Test
+    public void getWeekSchedule() {
+        final Schedule schedule = new Schedule();
+        final DateTimeZone tz = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+        schedule.setStart(new DateTime(2014, 11, 10, 13, 40, tz));
+        schedule.setEnd(new DateTime(2014, 11, 10, 18, 40, tz));
+        {
+            final RRule rr = new RRule();
+            rr.setFreq(Frequency.DAILY);
+            rr.setUntil(new DateValueImpl(2024, 1, 2));
+            rr.setWkSt(Weekday.MO);
+            schedule.setiCalString(rr.toIcal());
+        }
+
+        final List<DayEventsDto> weekSchedule = schedule.getWeekSchedule(new DateTime(2014, 11, 25, 18, 40));
+        Assert.assertEquals(7, weekSchedule.size());
+        int dw = 1;
+        for (final DayEventsDto events : weekSchedule) {
+            Assert.assertEquals(1, events.getEvents().size());
+            final EventDto first = events.getFirst();
+
+            Assert.assertEquals(tz, first.getStart().getZone());
+            Assert.assertEquals(tz, first.getEnd().getZone());
+
+            Assert.assertEquals(dw, first.getStart().getDayOfWeek());
+
+            Assert.assertEquals(18, first.getEnd().getHourOfDay());
+            Assert.assertEquals(13, first.getStart().getHourOfDay());
+
+            dw++;
+        }
+    }
+
+    @Test
+    public void getWeekScheduleNoRepeat() {
+        final Schedule schedule = new Schedule();
+        final DateTimeZone tz = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+        schedule.setStart(new DateTime(2014, 11, 12, 13, 40, tz));
+        schedule.setEnd(new DateTime(2014, 11, 12, 18, 40, tz));
+
+        final List<DayEventsDto> weekSchedule = schedule.getWeekSchedule(new DateTime(2014, 11, 10, 18, 40));
+        Assert.assertEquals(7, weekSchedule.size());
+        final int dw = 1;
+
+        //WED
+        final DayEventsDto dayEventsDto = weekSchedule.get(2);
+        Assert.assertEquals("Ср", dayEventsDto.getDayShortName());
+        final EventDto first = dayEventsDto.getFirst();
+        Assert.assertEquals(tz, first.getStart().getZone());
+        Assert.assertEquals(13, first.getStart().getHourOfDay());
+        Assert.assertEquals(18, first.getEnd().getHourOfDay());
+
+        //        for (final DayEventsDto events : weekSchedule) {
+        //            Assert.assertEquals(1, events.getEvents().size());
+        //            final EventDto first = events.getFirst();
+        //
+        //            Assert.assertEquals(tz, first.getStart().getZone());
+        //            Assert.assertEquals(tz, first.getEnd().getZone());
+        //
+        //            Assert.assertEquals(dw, first.getStart().getDayOfWeek());
+        //
+        //            Assert.assertEquals(18, first.getEnd().getHourOfDay());
+        //            Assert.assertEquals(13, first.getStart().getHourOfDay());
+        //
+        //            dw++;
+        //        }
+    }
+
+    @Test
+    public void makeWeekPattern() {
+        final List<DayEventsDto> wp = CalendarUtils.makeWeekPattern(new DateTime(2014, 11, 26, 18, 40));
+        Assert.assertEquals(7, wp.size());
+
+        Assert.assertEquals("Пн", wp.get(0).getDayShortName());
+        Assert.assertEquals("Вс", wp.get(6).getDayShortName());
+
+        Assert.assertEquals(24, wp.get(0).getFirst().getStart().getDayOfMonth());
+        Assert.assertEquals(30, wp.get(6).getFirst().getStart().getDayOfMonth());
     }
 
     @Test

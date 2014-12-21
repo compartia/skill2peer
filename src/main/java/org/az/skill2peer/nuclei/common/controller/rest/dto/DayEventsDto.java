@@ -1,0 +1,39 @@
+package org.az.skill2peer.nuclei.common.controller.rest.dto;
+
+import java.util.Comparator;
+import java.util.TreeSet;
+
+public class DayEventsDto {
+    /**
+     * Mo, Su, Sa, Th, etc
+     */
+    private String dayShortName;
+
+    private final TreeSet<EventDto> events = new TreeSet<EventDto>(new Comparator<EventDto>() {
+        @Override
+        public int compare(final EventDto o1, final EventDto o2) {
+            return o1.getStart().compareTo(o2.getStart());
+        }
+    });
+
+    public void addEvent(final EventDto e) {
+        events.add(e);
+    }
+
+    public String getDayShortName() {
+        return dayShortName;
+    }
+
+    public TreeSet<EventDto> getEvents() {
+        return events;
+    }
+
+    public EventDto getFirst() {
+        return events.first();
+    }
+
+    public void setDayShortName(final String dayShortName) {
+        this.dayShortName = dayShortName;
+    }
+
+}

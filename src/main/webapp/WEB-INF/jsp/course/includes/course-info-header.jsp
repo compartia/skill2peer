@@ -50,21 +50,21 @@
 				<div class="course-time-place">
 					<div class="course-time">
 						<ul class="course-timetable">
-							<li>Пн</li>
-							<li class="active">
-								Вт
-								<span class="course-timerange">15.00-17.00</span>
-							</li>
-							<li>Ср</li>
-							<li class="active">
-								Чт
-								<span class="course-timerange">14.00-16.00</span>
-							</li>
-							<li>Пт</li>
-							<li>Сб</li>
-							<li>Вс</li>
+							<c:forEach var="dayEvents" items="${course.weekSchedule}">
+								<c:if test="${dayEvents.events.isEmpty()}">
+									<li>${dayEvents.dayShortName}</li>
+								</c:if>
+								<c:if test="${!dayEvents.events.isEmpty()}">
+									<li class="active">${dayEvents.dayShortName}
+										<c:forEach var="event" items="${dayEvents.events}">
+											<span class="course-timerange">${event.start}</span>
+										</c:forEach>
+									</li>
+								</c:if>
+							</c:forEach>
 						</ul>
 					</div>
+					
 					<div class="course-options-wrap">
 					
 						<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">

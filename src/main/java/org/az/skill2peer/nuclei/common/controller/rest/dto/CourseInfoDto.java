@@ -33,6 +33,8 @@ public class CourseInfoDto {
 
     private String summary;
 
+    private List<DayEventsDto> weekSchedule;
+
     private List<LessonInfoDto> lessons = new ArrayList<LessonInfoDto>();
 
     public static final Comparator<LessonInfoDto> SCHEDULE_COMPARATOR = new Comparator<LessonInfoDto>() {
@@ -104,6 +106,10 @@ public class CourseInfoDto {
 
     }
 
+    public List<DayEventsDto> getWeekSchedule() {
+        return weekSchedule;
+    }
+
     public boolean isSingleLesson() {
         return this.lessons.size() == 1;
     }
@@ -144,15 +150,19 @@ public class CourseInfoDto {
         this.skills = skills;
     }
 
-    //    private SortedSet<User> lectors;
-    //
-    //    private List<Lesson> lessons = new ArrayList<Lesson>();
-
     public void setSummary(final String summary) {
         this.summary = summary;
     }
 
+    //    private SortedSet<User> lectors;
+    //
+    //    private List<Lesson> lessons = new ArrayList<Lesson>();
+
     public void setTotalDuration(final Integer duration) {
         this.totalDuration = duration;
+    }
+
+    public void setWeekSchedule(final List<DayEventsDto> weekSchedule) {
+        this.weekSchedule = weekSchedule;
     }
 }

@@ -68,6 +68,7 @@ public class CourseMappingTest {
 
         Assert.assertEquals(numberOfLessons, target.getLessons().size());
         Assert.assertEquals("48 часов", target.getTotalDurationAsString());
+        Assert.assertEquals(7, target.getWeekSchedule().size());
     }
 
     @Test

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
@@ -135,12 +135,12 @@ public class CourseServiceTest extends AbstractServiceTest {
     //@Transactional
     @Test
     @DatabaseSetup(value = "course-schedule-1.xml")
-    public void getWeekScheduel() throws Exception {
+    public void getCourseWeekScheduel() throws Exception {
 
         final Course course = service.getCourse(1);
         Assert.assertEquals(3, course.getSchedules().size());
 
-        final List<EventDto> weekSchedule = course.getWeekSchedule();
+        final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
     }
 

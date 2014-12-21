@@ -1,8 +1,9 @@
 package org.az.skill2peer.nuclei.common.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 
 import javax.persistence.CascadeType;
@@ -26,9 +27,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 import com.google.common.base.Preconditions;
 
@@ -140,8 +143,8 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     //        return getFirstLesson().getSchedule();
     //    }
 
-    public Set<Schedule> getSchedules() {
-        final HashSet<Schedule> ret = new HashSet<>();
+    public Collection<Schedule> getSchedules() {
+        final ArrayList<Schedule> ret = new ArrayList<Schedule>();
         for (final Lesson l : lessons) {
             ret.add(l.getSchedule());
         }
@@ -173,8 +176,23 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return totalDuration;
     }
 
-    public List<EventDto> getWeekSchedule() {
-        return CalendarUtils.getWeekSchedule(getSchedules());
+    public List<DayEventsDto> getWeekSchedule() {
+        return getWeekSchedule(DateTime.now().withDayOfWeek(DateTimeConstants.MONDAY));
+    }
+
+    public List<DayEventsDto> getWeekSchedule(final DateTime weekStart) {
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
+
+        final List<DayEventsDto> events = CalendarUtils.makeWeekPattern(weekStart);
+        for (final Lesson sc : scs) {
+            final List<DayEventsDto> lessonEvents = sc.getWeekSchedule(weekStart);
+            for (int i = 0; i < 7; i++) {
+                events.get(i).getEvents().addAll(lessonEvents.get(i).getEvents());
+            }
+        }
+
+        return events;
     }
 
     public boolean isSingleLesson() {
