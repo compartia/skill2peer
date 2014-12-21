@@ -5,12 +5,14 @@ import java.util.List;
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,6 +120,35 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertTrue(!course.getLessons().isEmpty());
     }
 
+    //@Transactional
+    @Test
+    @DatabaseSetup(value = "course-schedule-1.xml")
+    public void getCourseWeekScheduel() throws Exception {
+
+        final Course course = service.getCourse(1);
+        Assert.assertEquals(1, course.getSchedules().size());
+
+        final List<DayEventsDto> weekSchedule = course.getWeekSchedule(new DateTime(2024, 12, 14, 0, 0));
+        Assert.assertEquals(7, weekSchedule.size());
+
+        Assert.assertEquals(7, weekSchedule.size());
+        int dw = 1;
+        for (final DayEventsDto events : weekSchedule) {
+            Assert.assertEquals(1, events.getEvents().size());
+            final EventDto first = events.getFirst();
+
+            //            Assert.assertEquals(tz, first.getStart().getZone());
+            //            Assert.assertEquals(tz, first.getEnd().getZone());
+
+            Assert.assertEquals(dw, first.getStart().getDayOfWeek());
+
+            Assert.assertEquals(18, first.getEnd().getHourOfDay());
+            Assert.assertEquals(16, first.getStart().getHourOfDay());
+
+            dw++;
+        }
+    }
+
     @Transactional
     @Test
     @DatabaseSetup(value = "edit-draft-course.xml")
@@ -130,18 +161,6 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertEquals(1, lessons.size());
         final LessonEditDto lessonEditDto = lessons.get(0);
         Assert.assertEquals(1, lessonEditDto.getId().intValue());
-    }
-
-    //@Transactional
-    @Test
-    @DatabaseSetup(value = "course-schedule-1.xml")
-    public void getCourseWeekScheduel() throws Exception {
-
-        final Course course = service.getCourse(1);
-        Assert.assertEquals(3, course.getSchedules().size());
-
-        final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
-        Assert.assertEquals(7, weekSchedule.size());
     }
 
     @Transactional

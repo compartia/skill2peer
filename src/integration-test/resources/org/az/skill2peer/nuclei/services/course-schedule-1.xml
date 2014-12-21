@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<user_accounts id="1111"
+                   creation_time="2014-02-20 11:13:28"
+                   email="facebook@socialuser.com"
+                   first_name="Facebook"
+                   last_name="User"
+                   modification_time="2014-02-20 11:13:28"
+                   role="ROLE_USER"
+                   sign_in_provider="FACEBOOK"
+                   version="0"/>
+                   
+    <schedule id="1" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-14 16:00:0.0" end_time="2014-12-14 18:00:0.0" version="0"></schedule>
+  <!--   <schedule id="2" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-15 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+    <schedule id="3" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-16 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+ -->
+	<course id="1" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
+ 	
+	<location id="1" description="description_edited"  version="0"/>
+	
+	<lesson id="11" course_id="1" version="0" location_id="1" schedule_id="1"/>
+	<!-- <lesson id="21" course_id="1" version="0" location_id="1" schedule_id="2"/>
+	<lesson id="22" course_id="1" version="0" location_id="1" schedule_id="3"/>
+ -->	
+	
+	
+</dataset>
