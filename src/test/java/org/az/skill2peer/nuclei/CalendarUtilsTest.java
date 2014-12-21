@@ -135,7 +135,7 @@ public class CalendarUtilsTest {
         int dw = 1;
         for (final DayEventsDto events : weekSchedule) {
             Assert.assertEquals(1, events.getEvents().size());
-            final EventDto first = events.getFirst();
+            final EventDto first = events.getEvents().first();
 
             Assert.assertEquals(tz, first.getStart().getZone());
             Assert.assertEquals(tz, first.getEnd().getZone());
@@ -158,12 +158,11 @@ public class CalendarUtilsTest {
 
         final List<DayEventsDto> weekSchedule = schedule.getWeekSchedule(new DateTime(2014, 11, 10, 18, 40));
         Assert.assertEquals(7, weekSchedule.size());
-        final int dw = 1;
 
         //WED
         final DayEventsDto dayEventsDto = weekSchedule.get(2);
         Assert.assertEquals("Ср", dayEventsDto.getDayShortName());
-        final EventDto first = dayEventsDto.getFirst();
+        final EventDto first = dayEventsDto.getEvents().first();
         Assert.assertEquals(tz, first.getStart().getZone());
         Assert.assertEquals(13, first.getStart().getHourOfDay());
         Assert.assertEquals(18, first.getEnd().getHourOfDay());
@@ -186,14 +185,12 @@ public class CalendarUtilsTest {
 
     @Test
     public void makeWeekPattern() {
-        final List<DayEventsDto> wp = CalendarUtils.makeWeekPattern(new DateTime(2014, 11, 26, 18, 40));
-        Assert.assertEquals(7, wp.size());
+        final List<DayEventsDto> eventGoups = CalendarUtils.makeWeekPattern();
+        Assert.assertEquals(7, eventGoups.size());
 
-        Assert.assertEquals("Пн", wp.get(0).getDayShortName());
-        Assert.assertEquals("Вс", wp.get(6).getDayShortName());
+        Assert.assertEquals("Пн", eventGoups.get(0).getDayShortName());
+        Assert.assertEquals("Вс", eventGoups.get(6).getDayShortName());
 
-        Assert.assertEquals(24, wp.get(0).getFirst().getStart().getDayOfMonth());
-        Assert.assertEquals(30, wp.get(6).getFirst().getStart().getDayOfMonth());
     }
 
     @Test

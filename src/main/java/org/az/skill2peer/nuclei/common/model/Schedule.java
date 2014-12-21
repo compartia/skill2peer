@@ -1,11 +1,8 @@
 package org.az.skill2peer.nuclei.common.model;
 
 import java.text.ParseException;
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +18,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -33,21 +31,6 @@ import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 @Table(name = "schedule")
 @SequenceGenerator(name = "schedule_id_seq", sequenceName = "schedule_id_seq")
 public class Schedule extends BaseEntity<Integer> {
-
-    public static EventDto buidEventDto(final DateTime from, final DateTime to, final DateTimeZone timeZone) {
-
-        final EventDto eventDto = new EventDto();
-        eventDto.setStart(from.withZone(timeZone));
-        if (to != null) {
-            eventDto.setEnd(to.withZone(timeZone));
-        }
-
-        final String dayname = DayOfWeek
-                .of(from.getDayOfWeek())
-                .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
-        eventDto.setDayShortName(dayname);
-        return eventDto;
-    }
 
     private static final long serialVersionUID = 4873701983319765707L;
 
@@ -99,7 +82,7 @@ public class Schedule extends BaseEntity<Integer> {
                  * recurrence is not defined, make single event if it is in range
                  */
                 if (getStart().isAfter(from) && getStart().isBefore(to)) {
-                    result.add(buidEventDto(getStart(), getEnd(), timeZone));
+                    result.add(CalendarUtils.buidEventDto(getStart(), getEnd(), timeZone));
                 }
 
                 return result;
@@ -130,7 +113,7 @@ public class Schedule extends BaseEntity<Integer> {
                             if (getDuration() != null) {
                                 eventEnd = dt.plusMinutes(getDuration());
                             }
-                            result.add(buidEventDto(dt, eventEnd, timeZone));
+                            result.add(CalendarUtils.buidEventDto(dt, eventEnd, timeZone));
 
                         } else {
                             break;
@@ -143,6 +126,13 @@ public class Schedule extends BaseEntity<Integer> {
             }
             return result;
         }
+    }
+
+    public List<EventDto> getEventsWithinWeek(final DateTime week) {
+        final DateTime weekStart = week.withDayOfWeek(DateTimeConstants.MONDAY).withMillisOfDay(0);
+        final DateTime weekEnd = week.withDayOfWeek(DateTimeConstants.SUNDAY).withHourOfDay(23).withMinuteOfHour(59);
+
+        return getEventsWithinPeriod(weekStart, weekEnd);
     }
 
     public String getiCalString() {
@@ -173,20 +163,9 @@ public class Schedule extends BaseEntity<Integer> {
 
     @Deprecated
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
-        final List<DayEventsDto> events = CalendarUtils.makeWeekPattern(week);
 
-        final DateTime weekStart = events.get(0).getFirst().getStart().withMillisOfDay(0);
-        final DateTime weekEnd = events.get(6).getFirst().getStart().withHourOfDay(23).withMinuteOfHour(59);
-
-        final List<EventDto> eventsWithinPeriod = getEventsWithinPeriod(weekStart, weekEnd);
-
-        for (final EventDto e : eventsWithinPeriod) {
-            final Set<EventDto> set = events.get(e.getStart().getDayOfWeek() - 1).getEvents();
-            set.clear();
-            set.add(e);
-        }
-
-        return events;
+        final List<EventDto> eventsWithinPeriod = getEventsWithinWeek(week);
+        return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
 
     }
 

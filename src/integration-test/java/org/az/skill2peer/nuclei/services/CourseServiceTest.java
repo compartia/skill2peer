@@ -135,7 +135,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         int dw = 1;
         for (final DayEventsDto events : weekSchedule) {
             Assert.assertEquals(1, events.getEvents().size());
-            final EventDto first = events.getFirst();
+            final EventDto first = events.getEvents().first();
 
             //            Assert.assertEquals(tz, first.getStart().getZone());
             //            Assert.assertEquals(tz, first.getEnd().getZone());

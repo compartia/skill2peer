@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
 
 /**
@@ -80,11 +82,12 @@ public class Lesson extends BaseEntity<Integer> {
     }
 
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
-        final List<DayEventsDto> ret = schedule.getWeekSchedule();
-        for (final DayEventsDto e : ret) {
-            e.getFirst().setName(getName());
+        final List<EventDto> eventsWithinPeriod = schedule.getEventsWithinWeek(week);
+
+        for (final EventDto e : eventsWithinPeriod) {
+            e.setName(getName());
         }
-        return ret;
+        return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
     }
 
     public void setDescription(final String description) {

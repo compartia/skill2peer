@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,6 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
@@ -34,6 +34,21 @@ import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 public class CalendarUtils {
+
+    public static EventDto buidEventDto(final DateTime from, final DateTime to, final DateTimeZone timeZone) {
+
+        final EventDto eventDto = new EventDto();
+        eventDto.setStart(from.withZone(timeZone));
+        if (to != null) {
+            eventDto.setEnd(to.withZone(timeZone));
+        }
+
+        final String dayname = getDayShortNameLocal(from);
+
+        eventDto.setDayShortName(dayname);
+        return eventDto;
+    }
+
     public static String formatHoursDuration(final Locale locale, final int minutes) {
 
         final int hoursNum = (minutes - minutes % 60) / 60;
@@ -89,6 +104,16 @@ public class CalendarUtils {
         return builder.toString();
     }
 
+    public static String getDayShortNameLocal(final DateTime date) {
+        return getDayShortNameLocal(date.getDayOfWeek() - 1);
+    }
+
+    public static String getDayShortNameLocal(final int f) {
+        return DayOfWeek
+                .of(1 + f)
+                .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
+    }
+
     @Deprecated
     public static DateTime getNextEvent(final Schedule schedule) {
         final String repeatRules = schedule.getiCalString();
@@ -137,27 +162,38 @@ public class CalendarUtils {
 
     }
 
-    public static List<DayEventsDto> makeWeekPattern(final DateTime week) {
-        final DateTime weekStart = week.withDayOfWeek(DateTimeConstants.MONDAY);
+    public static List<DayEventsDto> groupEventsInWeek(final List<EventDto> eventsWithinPeriod) {
+        final List<DayEventsDto> events = CalendarUtils.makeWeekPattern();
+
+        for (final EventDto e : eventsWithinPeriod) {
+            final Set<EventDto> set = events.get(e.getStart().getDayOfWeek() - 1).getEvents();
+            set.clear();
+            set.add(e);
+        }
+
+        return events;
+
+    }
+
+    public static List<DayEventsDto> makeWeekPattern() {
+        //        final DateTime weekStart = week.withDayOfWeek(DateTimeConstants.MONDAY);
 
         final ArrayList<DayEventsDto> ret = new ArrayList<DayEventsDto>(7);
 
-        DateTime day = weekStart;
+        //        DateTime day = weekStart;
         for (int f = 0; f < 7; f++) {
             final DayEventsDto de = new DayEventsDto();
-            final EventDto e = new EventDto();
-
-            final String dayname = DayOfWeek
-                    .of(1 + f)
-                    .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
-            e.setDayShortName(dayname);
+            //            final EventDto e = new EventDto();
+            //
+            final String dayname = getDayShortNameLocal(f);
+            //            e.setDayShortName(dayname);
             de.setDayShortName(dayname);
-            e.setStart(day);
-
-            de.addEvent(e);
+            //            e.setStart(day);
+            //
+            //            de.addEvent(e);
             ret.add(de);
 
-            day = day.plusDays(1);
+            //            day = day.plusDays(1);
         }
         return ret;
     }

@@ -28,10 +28,6 @@ public class DayEventsDto {
         return events;
     }
 
-    public EventDto getFirst() {
-        return events.first();
-    }
-
     public void setDayShortName(final String dayShortName) {
         this.dayShortName = dayShortName;
     }
