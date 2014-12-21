@@ -32,4 +32,8 @@ public class DayEventsDto {
         this.dayShortName = dayShortName;
     }
 
+    @Override
+    public String toString() {
+        return dayShortName + " " + "events: " + events.size();
+    }
 }

@@ -10,7 +10,7 @@
                    sign_in_provider="FACEBOOK"
                    version="0"/>
                    
-    <schedule id="1" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-14 16:00:0.0" end_time="2014-12-14 18:00:0.0" version="0"></schedule>
+    <schedule id="1" repeat="RRULE:FREQ=WEEKLY;WKST=MO;UNTIL=20300102" start_time="2024-12-14 16:00:0.0" end_time="2024-12-14 18:00:0.0" version="0"></schedule>
   <!--   <schedule id="2" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-15 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
     <schedule id="3" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-16 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
  -->

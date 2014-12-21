@@ -23,9 +23,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
 
-import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIterator;
-import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 @Entity
 @Table(name = "schedule")
@@ -94,15 +92,20 @@ public class Schedule extends BaseEntity<Integer> {
 
                 try {
 
-                    final DateTime iteratorStart = applyTime(from);
+                    //                    final DateTime iteratorStart = applyTime(from);
+                    //
+                    //                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                    //                            getiCalString(),
+                    //                            iteratorStart,
+                    //                            timeZone,
+                    //                            true);
+                    //                    
+                    //                    
+                    //
+                    //                    final DateTimeIterator iterator = dateIterable.iterator();
 
-                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                            getiCalString(),
-                            iteratorStart,
-                            timeZone,
-                            true);
+                    final DateTimeIterator iterator = CalendarUtils.getProperIterator(this);
 
-                    final DateTimeIterator iterator = dateIterable.iterator();
                     while (iterator.hasNext()) {
 
                         final DateTime dt = iterator.next().withZone(timeZone);

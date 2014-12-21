@@ -2,6 +2,7 @@ package org.az.skill2peer.nuclei.common.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -31,7 +32,6 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
 
 import com.google.common.base.Preconditions;
 
@@ -177,7 +177,12 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     }
 
     public List<DayEventsDto> getWeekSchedule() {
-        return getWeekSchedule(DateTime.now().withDayOfWeek(DateTimeConstants.MONDAY));
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
+
+        final Lesson firstLesson = scs.get(0);
+
+        return getWeekSchedule(firstLesson.getSchedule().getNextEvent());
     }
 
     public List<DayEventsDto> getWeekSchedule(final DateTime weekStart) {

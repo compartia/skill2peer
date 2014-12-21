@@ -21,6 +21,7 @@ import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.ISODateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.TimeFormat;
@@ -31,6 +32,7 @@ import org.ocpsoft.prettytime.units.Minute;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.google.ical.compat.jodatime.DateTimeIterable;
+import com.google.ical.compat.jodatime.DateTimeIterator;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 
 public class CalendarUtils {
@@ -118,20 +120,19 @@ public class CalendarUtils {
     public static DateTime getNextEvent(final Schedule schedule) {
         final String repeatRules = schedule.getiCalString();
 
-        if (StringUtils.isEmpty(repeatRules) || schedule.getStart() == null) {
-            return schedule.getStart();
+        final DateTime scheduleStart = schedule.getStart();
+
+        if (StringUtils.isEmpty(repeatRules) || scheduleStart == null) {
+            return scheduleStart;
         }
 
         final TimeZone tz = LocaleContextHolder.getTimeZone();
         final DateTimeZone timeZone = DateTimeZone.forTimeZone(tz);
 
         try {
-            DateTimeIterable dateIterable;
 
-            dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                    repeatRules, schedule.getStart(), timeZone, true);
-
-            final DateTime next = new DateTime(dateIterable.iterator().next());
+            final DateTimeIterator iterator = getProperIterator(schedule);
+            final DateTime next = new DateTime(iterator.next());
             final DateTime dt = next.withZone(timeZone);
 
             return dt;
@@ -139,6 +140,31 @@ public class CalendarUtils {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public static DateTimeIterator getProperIterator(final Schedule schedule) throws ParseException {
+        final DateTime scheduleStart = schedule.getStart();
+        final String repeatRules = schedule.getiCalString();
+        final TimeZone tz = LocaleContextHolder.getTimeZone();
+        final DateTimeZone timeZone = DateTimeZone.forTimeZone(tz);
+
+        DateTime start = DateTime
+                .now()
+                .withHourOfDay(scheduleStart.getHourOfDay())
+                .withMinuteOfHour(scheduleStart.getMinuteOfHour());
+        if (start.isBefore(scheduleStart)) {
+            start = scheduleStart.minusDays(1);
+        }
+        final String exdate = ISODateTimeFormat.basicDateTimeNoMillis().print(start.toLocalDateTime());
+
+        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                repeatRules + "\nEXDATE:" + exdate,
+                start,
+                timeZone,
+                true);
+
+        final DateTimeIterator iterator = dateIterable.iterator();
+        return iterator;
     }
 
     @Deprecated

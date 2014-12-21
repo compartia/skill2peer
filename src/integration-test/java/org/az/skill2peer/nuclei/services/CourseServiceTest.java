@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
@@ -12,7 +13,7 @@ import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
-import org.joda.time.DateTime;
+import org.dozer.Mapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,9 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 public class CourseServiceTest extends AbstractServiceTest {
     @Autowired
     CourseServiceImpl service;
+
+    @Autowired
+    Mapper mapper;
 
     @Before
     public void _setUp() {
@@ -125,28 +129,25 @@ public class CourseServiceTest extends AbstractServiceTest {
     @DatabaseSetup(value = "course-schedule-1.xml")
     public void getCourseWeekScheduel() throws Exception {
 
-        final Course course = service.getCourse(1);
-        Assert.assertEquals(1, course.getSchedules().size());
+        final Course source = service.getCourse(1);
+        final CourseInfoDto course = new CourseInfoDto();
+        mapper.map(source, course);
 
-        final List<DayEventsDto> weekSchedule = course.getWeekSchedule(new DateTime(2024, 12, 14, 0, 0));
+        final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
 
-        Assert.assertEquals(7, weekSchedule.size());
-        int dw = 1;
-        for (final DayEventsDto events : weekSchedule) {
-            Assert.assertEquals(1, events.getEvents().size());
-            final EventDto first = events.getEvents().first();
+        int dw = 5;
+        final DayEventsDto events = weekSchedule.get(dw - 1);
+        Assert.assertEquals(1, events.getEvents().size());
+        final EventDto first = events.getEvents().first();
 
-            //            Assert.assertEquals(tz, first.getStart().getZone());
-            //            Assert.assertEquals(tz, first.getEnd().getZone());
+        Assert.assertEquals(dw, first.getStart().getDayOfWeek());
 
-            Assert.assertEquals(dw, first.getStart().getDayOfWeek());
+        Assert.assertEquals(18, first.getEnd().getHourOfDay());
+        Assert.assertEquals(16, first.getStart().getHourOfDay());
 
-            Assert.assertEquals(18, first.getEnd().getHourOfDay());
-            Assert.assertEquals(16, first.getStart().getHourOfDay());
+        dw++;
 
-            dw++;
-        }
     }
 
     @Transactional
