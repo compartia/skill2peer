@@ -137,12 +137,6 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return publishedVersion;
     }
 
-    //    @Deprecated
-    //    public Schedule getSchedule() {
-    //        //XXX: its not the first lesson!!!
-    //        return getFirstLesson().getSchedule();
-    //    }
-
     public Collection<Schedule> getSchedules() {
         final ArrayList<Schedule> ret = new ArrayList<Schedule>();
         for (final Lesson l : lessons) {
@@ -182,6 +176,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
         final Lesson firstLesson = scs.get(0);
         final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
+
         if (nextEvent != null) {
             return getWeekSchedule(nextEvent);
         } else {
@@ -191,6 +186,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
     public List<DayEventsDto> getWeekSchedule(final DateTime weekStart) {
         Preconditions.checkNotNull(weekStart);
+
         final List<EventDto> allEvents = new ArrayList<EventDto>();
         for (final Lesson lesson : lessons) {
             final List<EventDto> eventsWithinWeek = lesson.getEventsWithinWeek(weekStart);
@@ -199,22 +195,6 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
         return CalendarUtils.groupEventsInWeek(allEvents);
 
-        //        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
-        //        Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
-        //
-        //        List<DayEventsDto> events = null;//= CalendarUtils.makeWeekPattern(weekStart);
-        //        for (final Lesson sc : scs) {
-        //            final List<DayEventsDto> lessonEvents = sc.getWeekSchedule(weekStart);
-        //            if (events == null) {
-        //                events = lessonEvents;
-        //            } else {
-        //                for (int i = 0; i < 7; i++) {
-        //                    events.get(i).getEvents().addAll(lessonEvents.get(i).getEvents());
-        //                }
-        //            }
-        //        }
-        //
-        //        return events;
     }
 
     public boolean isSingleLesson() {

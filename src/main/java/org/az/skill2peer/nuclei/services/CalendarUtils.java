@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +18,6 @@ import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.ISODateTimeFormat;
 import org.ocpsoft.prettytime.Duration;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -45,9 +42,6 @@ public class CalendarUtils {
             eventDto.setEnd(to.withZone(timeZone));
         }
 
-        final String dayname = getDayShortNameLocal(from);
-
-        eventDto.setDayShortName(dayname);
         return eventDto;
     }
 
@@ -185,27 +179,6 @@ public class CalendarUtils {
                 DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
     }
 
-    @Deprecated
-    public static List<EventDto> getWeekSchedule(final Collection<Schedule> schedules) {
-        final ArrayList<Schedule> scs = new ArrayList<Schedule>(schedules);
-        Collections.sort(scs, SCHEDULE_COMPARATOR);
-        //        final LocalDate firstEvent = scs.get(0).getNextEvent();
-
-        final ArrayList<EventDto> ret = new ArrayList<EventDto>();
-        for (final Schedule sc : scs) {
-            final DateTime nextEvent = sc.getNextEvent();
-
-            final EventDto eventDto = new EventDto();
-            eventDto.setStart(nextEvent.toDateTime());
-            eventDto.setDayShortName(DateTimeFormat.forPattern("EE").print(nextEvent));
-            // eventDto.setName(name);
-
-            ret.add(eventDto);
-        }
-        return ret;
-
-    }
-
     public static List<DayEventsDto> groupEventsInWeek(final List<EventDto> eventsWithinPeriod) {
         final List<DayEventsDto> events = CalendarUtils.makeWeekPattern();
 
@@ -216,7 +189,6 @@ public class CalendarUtils {
         }
 
         return events;
-
     }
 
     public static List<DayEventsDto> makeWeekPattern() {

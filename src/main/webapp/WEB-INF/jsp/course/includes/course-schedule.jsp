@@ -15,10 +15,10 @@
 		<div class="btn-group btn-group-sm" role="group">
 			 
 			<c:forEach var="day" begin="0" end="6">
-				<c:if test="${lesson.schedule.start.dayOfWeek == day}">
+				<c:if test="${lesson.schedule.start.dayOfWeek == day+1}">
 					<button type="button" class="btn btn-primary"><spring:message code="days.${day}" /></button>
 				</c:if>
-				<c:if test="${lesson.schedule.start.dayOfWeek != day}">
+				<c:if test="${lesson.schedule.start.dayOfWeek != day+1}">
 					<button type="button" class="btn btn-default"><spring:message code="days.${day}" /></button>
 				</c:if>
 			</c:forEach>
