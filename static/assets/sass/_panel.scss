@@ -1,4 +1,5 @@
 .panel {
+	margin-bottom: 30px;
 	border:0;
 	@include box-shadow(0);
 
@@ -127,4 +128,57 @@
 }
 .lecturer-info {
 	@include clearfix;
+}
+
+.panel-light {
+	background:transparent;
+	
+	> .panel-heading {
+		padding-left: 0;
+		padding-right:0;
+		text-align: left;
+		border-bottom: 0;
+	}
+	> .panel-body {
+		padding: 13px 11px 0;
+		background:$panel-bg;
+	}
+}
+.comments-list {
+	@include column-count(2,16);
+}
+.comment-block {
+	display:inline-block;
+	padding: 14px 16px 9px;
+	margin-bottom:37px;
+	background:$comment-bg;
+
+	p {
+		line-height: 1.25em;
+	}
+	.img-wrap {
+		display: inline-block;
+		margin: 5px 0 -33px 8px;
+		width:48px;
+		height:48px;
+		vertical-align: top;
+		border-radius:50%;
+		overflow: hidden;
+	}
+}
+.comment-info {
+	margin-top: 26px;
+
+	.comment-author {
+		float: right;
+		font-size:1.143em;
+		font-weight: bold;
+		color:$text-color;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	time {
+		color:$light-text-color;
+	}
 }

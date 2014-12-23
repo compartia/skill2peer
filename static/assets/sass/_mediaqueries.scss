@@ -60,6 +60,20 @@
 		padding-right:12px;
 		padding-left:12px;
 	}
+
+
+	.sections-wrap {
+		@include clearfix;
+
+		.section {
+			float:right;
+			width:68.8%;
+		}
+		.section-sidebar {
+			float:left;
+			width:29%;
+		}
+	}
 }
 
 /* Medium devices (desktops, 992px and up) */

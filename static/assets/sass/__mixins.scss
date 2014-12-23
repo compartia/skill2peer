@@ -1,0 +1,16 @@
+@mixin column-count($value,$valueGap) {
+	-webkit-column-count: $value; /* Chrome, Safari, Opera */
+    -moz-column-count: $value; /* Firefox */
+    column-count: $value;
+
+    -webkit-column-gap: $valueGap + 'px';
+	-moz-column-gap: $valueGap + 'px';
+	column-gap: $valueGap + 'px';
+
+	> * {
+		-webkit-column-break-inside: avoid;
+		-moz-column-break-inside: avoid;
+		column-break-inside: avoid; 
+	}
+}
+
