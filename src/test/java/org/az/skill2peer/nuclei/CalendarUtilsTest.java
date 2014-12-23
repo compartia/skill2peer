@@ -125,7 +125,7 @@ public class CalendarUtilsTest {
 
     @Test
     public void getNextEvent() throws Exception {
-        final Schedule schedule = TestUtil.makeSchedule();
+        final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2014, 12, 20, 11, 00));
 
         final RRule rr = new RRule();
@@ -157,7 +157,7 @@ public class CalendarUtilsTest {
 
     @Test
     public void getNextEvent2() throws Exception {
-        final Schedule schedule = TestUtil.makeSchedule();
+        final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2020, 11, 25, 23, 55, timeZone));
 
         final RRule rr = new RRule();
@@ -180,7 +180,7 @@ public class CalendarUtilsTest {
 
     @Test
     public void getNextEvent3() throws Exception {
-        final Schedule schedule = TestUtil.makeSchedule();
+        final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2020, 11, 25, 00, 05, timeZone));
 
         final RRule rr = new RRule();

@@ -6,6 +6,7 @@
 
  
  <!-- List group -->
+ 
 <ul class="list-group course-lessons">
 				  
 				  
@@ -15,10 +16,10 @@
 		<div class="btn-group btn-group-sm" role="group">
 			 
 			<c:forEach var="day" begin="0" end="6">
-				<c:if test="${lesson.schedule.start.dayOfWeek == day+1}">
+				<c:if test="${lesson.schedule.nextEvent.dayOfWeek == day+1}">
 					<button type="button" class="btn btn-primary"><spring:message code="days.${day}" /></button>
 				</c:if>
-				<c:if test="${lesson.schedule.start.dayOfWeek != day+1}">
+				<c:if test="${lesson.schedule.nextEvent.dayOfWeek != day+1}">
 					<button type="button" class="btn btn-default"><spring:message code="days.${day}" /></button>
 				</c:if>
 			</c:forEach>
@@ -27,8 +28,8 @@
 		
 		
 		<div class="lesson-time">
-			<time datetime="${lesson.schedule.start}" itemprop="startDate" content="${lesson.schedule.start}">
-				<em>${lesson.schedule.start.dayOfMonth}</em> ${lesson.schedule.startMonth} ${lesson.schedule.start.hourOfDay}:${lesson.schedule.start.minuteOfHour}
+			<time datetime="${lesson.schedule.nextEvent}" itemprop="startDate" content="${lesson.schedule.nextEvent}">
+				<em>${lesson.schedule.nextEvent.dayOfMonth}</em> ${lesson.schedule.startMonth} ${lesson.schedule.nextEvent.hourOfDay}:${lesson.schedule.nextEvent.minuteOfHour}
 			</time>
 		</div>
 		<h3 class="name" itemprop="name">${lesson.name} ${lesson.id}</h3>

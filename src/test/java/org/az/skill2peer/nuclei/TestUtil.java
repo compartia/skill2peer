@@ -13,14 +13,14 @@ import org.joda.time.DateTime;
 
 public class TestUtil {
 
-    public static Course makeCourse(final int lessons) {
+    public static Course makeCourse(final int lessons, final boolean recurrent) {
         final Course course = new Course();
         course.setName("title");
         course.setDescription("description");
         course.setSummary("summary");
         course.setLessons(new ArrayList<Lesson>());
         for (int f = 0; f < lessons; f++) {
-            final Lesson lesson = makeLesson();
+            final Lesson lesson = makeLesson(recurrent);
             course.getLessons().add(lesson);
         }
         return course;
@@ -37,11 +37,11 @@ public class TestUtil {
         return courseDto;
     }
 
-    public static Lesson makeLesson() {
+    public static Lesson makeLesson(final boolean recurrent) {
         final Lesson lesson = new Lesson();
 
         lesson.setDescription("lesson description");
-        lesson.setSchedule(makeSchedule());
+        lesson.setSchedule(makeSchedule(recurrent));
         return lesson;
     }
 
@@ -53,16 +53,18 @@ public class TestUtil {
         return lesson;
     }
 
-    public static Schedule makeSchedule() {
+    public static Schedule makeSchedule(final boolean recurrent) {
         final Schedule schedule = new Schedule();
         //        schedule.setDuration(120);
         //        final LocalDate now = LocalDate.now();
         schedule.setStart(new DateTime(2018, 11, 30, 23, 00));
         schedule.setEnd(schedule.getStart().plusMinutes(60));
 
-        schedule.setiCalString("RRULE:FREQ=DAILY;"
-                + "INTERVAL=1;"
-                + "UNTIL=20230430T083000Z;");
+        if (recurrent) {
+            schedule.setiCalString("RRULE:FREQ=DAILY;"
+                    + "INTERVAL=1;"
+                    + "UNTIL=20230430T083000Z;");
+        }
         schedule.setId(1);
 
         return schedule;

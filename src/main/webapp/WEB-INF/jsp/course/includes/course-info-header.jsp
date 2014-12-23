@@ -9,16 +9,16 @@
 			<header class="page-header">
 				<div class="page-header-inner">
 					<!-- <ol class="breadcrumb">
-			            <li>
-			                <a href="#">Курсы</a>
-			            </li>
-			            <li>
-			            	<a href="#">Искусство</a>
-			            </li>
+			            <li><a href="#">Курсы</a></li>
+			            <li><a href="#">Искусство</a></li>
 			            <li class="active">Конкурсы</li>
 			        </ol> -->
 
 			        <h1 itemprop="name">${course.name}</h1>
+			        <!-- skills -->
+					<c:forTokens items="${course.skills}" delims="," var="name">
+						<a href="#" class="btn btn-default">${name}</a>
+					</c:forTokens>
 			    </div>
 
 		    </header><!-- /Page-header -->
@@ -34,25 +34,34 @@
 						<time class="course-date" datetime="${course.schedule.start}" itemprop="startDate" content="${course.schedule.start}">
 							<em>${course.schedule.start.dayOfMonth}</em> ${course.schedule.startMonth}
 						</time>
-				
- 						<c:if test="${course.schedule.end != null}">
-							<span class="course-duration" itemprop="duration">
-								<span class="course-duration-wrap">
+						
+						
+					 
+						 <c:if test="${!(course.totalDurationAsString==null && course.single)}">
+						<span class="course-duration" itemprop="duration">
+							<span class="course-duration-wrap">
+								<c:if test="${course.totalDurationAsString!=null}">
 									<em content="${course.totalDurationAsString}">${course.totalDurationAsString}</em>
-								</span>
+								</c:if>
 							</span>
-							<time class="course-date" datetime="${course.schedule.end} itemprop="endDate" content="${course.schedule.end}">
+						</span>
+						 </c:if>
+						
+ 						<c:if test="${!course.single}">
+							<time class="course-date" datetime="${course.schedule.end}" itemprop="endDate" content="${course.schedule.end}">
 								<em>${course.schedule.end.dayOfMonth}</em> ${course.schedule.endMonth}
 							</time>
 						</c:if>
 					</div>
 				</div>
+				
 				<div class="course-time-place">
+					 
 					<div class="course-time">
 						<ul class="course-timetable">
 							<c:forEach var="dayEvents" items="${course.weekSchedule}">
 								<c:if test="${dayEvents.events.isEmpty()}">
-									<li>${dayEvents.dayShortName} ${dayEvents.events.size()}</li>
+									<li>${dayEvents.dayShortName}</li>
 								</c:if>
 								<c:if test="${!dayEvents.events.isEmpty()}">
 									<li class="active">${dayEvents.dayShortName}
@@ -64,7 +73,8 @@
 							</c:forEach>
 						</ul>
 					</div>
-					
+					 
+				
 					<div class="course-options-wrap">
 					
 						<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">
