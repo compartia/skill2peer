@@ -12,6 +12,8 @@ public class LessonInfoDto {
 
     private Integer id;
 
+    private boolean recurrent;
+
     private ScheduleInfoDto schedule;
 
     private String name;
@@ -50,6 +52,10 @@ public class LessonInfoDto {
         return summary;
     }
 
+    public boolean isRecurrent() {
+        return recurrent;
+    }
+
     public void setDescription(final String description) {
         this.description = description;
     }
@@ -68,6 +74,10 @@ public class LessonInfoDto {
 
     public void setPrice(final PriceDto price) {
         this.price = price;
+    }
+
+    public void setRecurrent(final boolean recurrent) {
+        this.recurrent = recurrent;
     }
 
     public void setSchedule(final ScheduleInfoDto schedule) {

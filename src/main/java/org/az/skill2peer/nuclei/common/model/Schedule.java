@@ -44,13 +44,11 @@ public class Schedule extends BaseEntity<Integer> {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime end;
 
-    //    @Column(name = "duration")
-    //    private Integer duration;
-
     @Column(name = "repeat")
     private String iCalString;
 
-    /* methods */
+    //    @Column(name = "duration")
+    //    private Integer duration;
 
     public Integer getDuration() {
         if (start == null || end == null) {
@@ -58,6 +56,8 @@ public class Schedule extends BaseEntity<Integer> {
         }
         return Minutes.minutesBetween(start, end).getMinutes();
     }
+
+    /* methods */
 
     public DateTime getEnd() {
         return end;
@@ -154,6 +154,10 @@ public class Schedule extends BaseEntity<Integer> {
 
     public DateTime getStart() {
         return start;
+    }
+
+    public boolean isRecurrent() {
+        return StringUtils.isNotBlank(getiCalString());
     }
 
     public void setEnd(final DateTime end) {

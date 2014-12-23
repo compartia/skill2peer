@@ -158,16 +158,20 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     }
 
     public Integer getTotalDuration() {
-        int totalDuration = 0;
-        for (final Lesson l : lessons) {
-            final Integer duration = l.getDuration();
-            if (duration != null) {
-                totalDuration += duration;
-            } else {
-                return null;
+        if (isRecurrent()) {
+            return null;
+        } else {
+            int totalDuration = 0;
+            for (final Lesson l : lessons) {
+                final Integer duration = l.getDuration();
+                if (duration != null) {
+                    totalDuration += duration;
+                } else {
+                    return null;
+                }
             }
+            return totalDuration;
         }
-        return totalDuration;
     }
 
     public List<DayEventsDto> getWeekSchedule() {
@@ -195,6 +199,19 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
         return CalendarUtils.groupEventsInWeek(allEvents);
 
+    }
+
+    public boolean isRecurrent() {
+        for (final Lesson l : lessons) {
+            if (l.isRecurrent()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isSingle() {
+        return lessons.size() == 1;
     }
 
     public boolean isSingleLesson() {

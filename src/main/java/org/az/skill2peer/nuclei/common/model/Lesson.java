@@ -102,6 +102,10 @@ public class Lesson extends BaseEntity<Integer> {
         return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
     }
 
+    public boolean isRecurrent() {
+        return this.getSchedule().isRecurrent();
+    }
+
     public void setDescription(final String description) {
         this.description = description;
     }
