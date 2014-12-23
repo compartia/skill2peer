@@ -11,6 +11,7 @@
   	"requirejs": "~2.1.15",
   	"restangular":"1.4.0",
   	"angular-file-upload":"1.1.5",
-  	"dropzone": "~3.8.3"
-  	}
+  	"dropzone": "~3.8.3",
+    "moment": "~2.8.4"
+  }
 }

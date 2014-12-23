@@ -29,6 +29,10 @@ public class CourseInfoDto {
 
     private ScheduleInfoDto schedule;
 
+    private boolean recurrent;
+
+    private boolean single;
+
     private String name;
 
     private String summary;
@@ -74,13 +78,19 @@ public class CourseInfoDto {
 
     public ScheduleInfoDto getSchedule() {
         final ScheduleInfoDto s = new ScheduleInfoDto();
-
         final ArrayList<LessonInfoDto> scs = new ArrayList<LessonInfoDto>(getLessons());
         Collections.sort(scs, SCHEDULE_COMPARATOR);
+        final LessonInfoDto firstLesson = scs.get(0);
+        final LessonInfoDto lastLesson = scs.get(scs.size() - 1);
 
-        s.setNextEvent(scs.get(0).getSchedule().getNextEvent());
-        s.setStart(scs.get(0).getSchedule().getNextEvent());
-        s.setEnd(scs.get(scs.size() - 1).getSchedule().getEnd());
+        s.setNextEvent(firstLesson.getSchedule().getNextEvent());
+        if (!isRecurrent()) {
+            s.setStart(firstLesson.getSchedule().getNextEvent());
+            s.setEnd(lastLesson.getSchedule().getEnd());
+        } else {
+            s.setStart(firstLesson.getSchedule().getStart());
+        }
+
         return s;
     }
 
@@ -94,20 +104,21 @@ public class CourseInfoDto {
 
     public String getTotalDurationAsString() {
         if (totalDuration == null) {
-            return "";
+            return null;
         }
-        //        final DateTime from = new DateTime();
-        //        DateTime to = new DateTime(from);
-        //        to = to.plusMinutes(totalDuration);
         return CalendarUtils.formatHoursDuration(LocaleContextHolder.getLocale(), totalDuration);
-        //        return CalendarUtils.formatPeriod(LocaleContextHolder.getLocale(),
-        //                from.toDate(),
-        //                to.toDate());
-
     }
 
     public List<DayEventsDto> getWeekSchedule() {
         return weekSchedule;
+    }
+
+    public boolean isRecurrent() {
+        return recurrent;
+    }
+
+    public boolean isSingle() {
+        return single;
     }
 
     public boolean isSingleLesson() {
@@ -142,8 +153,16 @@ public class CourseInfoDto {
         this.price = price;
     }
 
+    public void setRecurrent(final boolean recurrent) {
+        this.recurrent = recurrent;
+    }
+
     public void setSchedule(final ScheduleInfoDto schedule) {
         this.schedule = schedule;
+    }
+
+    public void setSingle(final boolean single) {
+        this.single = single;
     }
 
     public void setSkills(final String skills) {
