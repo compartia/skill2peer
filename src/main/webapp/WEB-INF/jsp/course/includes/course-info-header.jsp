@@ -16,9 +16,16 @@
 
 			        <h1 itemprop="name">${course.name}</h1>
 			        <!-- skills -->
-					<c:forTokens items="${course.skills}" delims="," var="name">
-						<a href="#" class="btn btn-default">${name}</a>
-					</c:forTokens>
+					
+					<ul class="skills-list">
+						<c:forTokens items="${course.skills}" delims="," var="name">
+							<li>
+								<span class="label label-default">
+									<i class="glyphicon glyphicon-ok"></i>${name}
+								</span>
+							</li>
+						</c:forTokens>
+					</ul>
 			    </div>
 
 		    </header><!-- /Page-header -->

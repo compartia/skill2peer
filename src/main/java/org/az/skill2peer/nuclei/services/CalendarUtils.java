@@ -31,8 +31,48 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIterator;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
 
 public class CalendarUtils {
+
+    public static DateTimeIterator _getProperIterator(final DateTime now,
+            final String repeatRules,
+            final DateTime scheduleStart,
+            final DateTimeZone timeZone) throws ParseException {
+
+        final DateTime start = scheduleStart;
+        final String exdate = "";
+        if (scheduleStart.isAfter(now)) {
+
+            //            exdate = "\nEXDATE:"
+            //                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+        }
+        //        else {
+        //            /**
+        //            * this hack is required to skip the first date of the
+        //            * sequence which does not match the rrule.
+        //            */
+        //            start = now
+        //                    .withHourOfDay(scheduleStart.getHourOfDay())
+        //                    .withMinuteOfHour(scheduleStart.getMinuteOfHour());//.minusDays(1);
+        //            //            exdate = "\nEXDATE:"
+        //            //                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+        //
+        //        }
+        //        exdate = "\nDTSTART:"
+        //                + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+
+        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                repeatRules + "\n" + exdate,
+                start,
+                timeZone,
+                true);
+
+        final DateTimeIterator iterator = dateIterable.iterator();
+        iterator.advanceTo(now);
+        return iterator;
+    }
 
     public static EventDto buidEventDto(final DateTime from, final DateTime to, final DateTimeZone timeZone) {
 
@@ -125,7 +165,11 @@ public class CalendarUtils {
 
         try {
 
-            final DateTimeIterator iterator = getProperIterator(schedule);
+            final DateTimeIterator iterator = getProperIterator(DateTime.now(),
+                    schedule.getiCalString(),
+                    schedule.getStart(),
+                    DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
+
             final DateTime next = new DateTime(iterator.next());
             final DateTime dt = next.withZone(timeZone);
 
@@ -136,35 +180,16 @@ public class CalendarUtils {
 
     }
 
-    public static DateTimeIterator getProperIterator(final DateTime now,
+    public static DateTimeIterator getProperIterator(final DateTime today,
             final String repeatRules,
             final DateTime scheduleStart,
             final DateTimeZone timeZone) throws ParseException {
+        final DateTimeIterator iterator = createDateTimeIterator(
+                repeatRules,
+                scheduleStart,
+                timeZone);
 
-        DateTime start = now;
-        String exdate = "";
-        if (start.isBefore(scheduleStart)) {
-
-            start = scheduleStart;
-        }
-        else {
-            /**
-            * this hack is required to skip the first date of the
-            * sequence which does not match the rrule.
-            */
-            start = now
-                    .withHourOfDay(scheduleStart.getHourOfDay())
-                    .withMinuteOfHour(scheduleStart.getMinuteOfHour()).minusDays(1);
-            exdate = "\nEXDATE:" + ISODateTimeFormat.basicDateTimeNoMillis().print(start.toLocalDateTime());
-        }
-
-        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                repeatRules + "\n" + exdate,
-                start,
-                timeZone,
-                true);
-
-        final DateTimeIterator iterator = dateIterable.iterator();
+        iterator.advanceTo(today);
         return iterator;
     }
 
@@ -177,6 +202,30 @@ public class CalendarUtils {
                 schedule.getiCalString(),
                 schedule.getStart(),
                 DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
+    }
+
+    public static DateTimeIterator createDateTimeIterator(
+            final String repeatRules,
+            final DateTime scheduleStart,
+            final DateTimeZone timeZone) throws ParseException {
+
+        DateTime start = scheduleStart;
+        String exdate = "";
+        final RRule rrule = new RRule(repeatRules);
+        if (rrule.getFreq().ordinal() > Frequency.DAILY.ordinal()) {
+            start = start.minusDays(1);
+            exdate = "\nEXDATE:"
+                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+        }
+
+        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                repeatRules + exdate,
+                start,
+                timeZone,
+                true);
+
+        return dateIterable.iterator();
+
     }
 
     public static List<DayEventsDto> groupEventsInWeek(final List<EventDto> eventsWithinPeriod) {

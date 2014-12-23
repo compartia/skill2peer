@@ -1,7 +1,6 @@
 package org.az.skill2peer.nuclei;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -25,7 +24,6 @@ import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
-import com.google.ical.values.WeekdayNum;
 
 public class CalendarUtilsTest {
 
@@ -95,7 +93,7 @@ public class CalendarUtilsTest {
 
         /**saturday*/
         final DateTime start = new DateTime(2014, 12, 20, 11, 15, timeZone);
-        final DateTime today = start.minusWeeks(2);
+        final DateTime today = start.minusWeeks(2).plusHours(2);
         /** 2 weeks before*/
 
         final DateTimeIterator iter = CalendarUtils.getProperIterator(today, "RRULE:FREQ=DAILY", start, timeZone);
@@ -126,33 +124,16 @@ public class CalendarUtilsTest {
     @Test
     public void getNextEvent() throws Exception {
         final Schedule schedule = TestUtil.makeSchedule(true);
-        schedule.setStart(new DateTime(2014, 12, 20, 11, 00));
+        schedule.setStart(new DateTime(2024, 12, 21, 11, 00));
+        schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=20300102;BYDAY=MO,TH");
 
-        final RRule rr = new RRule();
-        {
-            rr.setFreq(Frequency.WEEKLY);
-            final ArrayList<WeekdayNum> wd = new ArrayList<WeekdayNum>();
-            wd.add(new WeekdayNum(0, Weekday.MO));
-            wd.add(new WeekdayNum(0, Weekday.TH));
-            rr.setByDay(wd);
-            rr.setUntil(new DateValueImpl(2030, 1, 2));
-            rr.setWkSt(Weekday.MO);
-            Assert.assertEquals("RRULE:FREQ=WEEKLY;WKST=MO;UNTIL=20300102;BYDAY=MO,TH", rr.toIcal());
-        }
+        final DateTime nextEvent = schedule.getNextEvent();
 
-        schedule.setiCalString(rr.toIcal());
-
-        final ReadableDateTime nextEvent = schedule.getNextEvent();
-
-        final DateTime now = DateTime.now();
-
-        Assert.assertEquals(1, nextEvent.getDayOfWeek());//expect MOnday
-        Assert.assertEquals(22, nextEvent.getDayOfMonth());
-
+        Assert.assertTrue(nextEvent.isAfter(DateTime.now()));
         Assert.assertEquals(schedule.getStart().getMinuteOfHour(), nextEvent.getMinuteOfHour());
         Assert.assertEquals(schedule.getStart().getHourOfDay(), nextEvent.getHourOfDay());
+        Assert.assertEquals(DateTimeConstants.MONDAY, nextEvent.getDayOfWeek());//expect MOnday
 
-        Assert.assertTrue(nextEvent.isAfter(now));
     }
 
     @Test
