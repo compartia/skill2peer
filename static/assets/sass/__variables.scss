@@ -8,6 +8,9 @@ $header-bg: #e9e9e9;
 
 $accent-color: #62b6ed;
 
+
+// $btn-default-border:$accent-color;
+
 $btn-primary-bg: #2980b9;
 $btn-primary-color:$light-color;
 
@@ -17,6 +20,15 @@ $btn-info-color:$light-color;
 $btn-like-bg:#83c8f5;
 $btn-like-color:$light-color;
 $btn-like-border:darken($btn-like-bg, 5%);
+
+//** Default label background color
+$label-default-bg:         $light-color;
+$label-default-border:     $accent-color;
+$label-default-color:      $accent-color;
+
+//** Default text color of a linked label
+$label-default-link-hover-color:darken($label-default-color, 10%);
+$label-default-link-hover-border:darken($label-default-border, 10%);
 
 //** Global text color on `<body>`.
 $text-color:            $gray-base;
@@ -71,14 +83,15 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
 
 //** By default, this inherits from the `<body>`.
 $headings-font-weight:    500;
-$headings-line-height:    1.1;
+$headings-line-height:    1.3;
 
 $border-radius-base:0;
 // $panel-heading-padding:
 
 $panel-bg:                    #f7f7f7;
 $panel-body-padding:          17px 15px;
-$panel-heading-padding:       15px 39px 13px;
+$panel-heading-padding:       13px 39px 10px;
+
 $panel-footer-padding:        $panel-heading-padding;
 $panel-border-radius:         $border-radius-base;
 $panel-default-heading-bg:    #f3f3f3;

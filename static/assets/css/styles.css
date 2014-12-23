@@ -967,7 +967,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: inherit;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.3;
   color: inherit; }
   h1 small,
   h1 .small, h2 small,
@@ -3926,9 +3926,9 @@ a.label:hover, a.label:focus {
   cursor: pointer; }
 
 .label-default {
-  background-color: #a5a5a5; }
+  background-color: white; }
   .label-default[href]:hover, .label-default[href]:focus {
-    background-color: #8b8b8b; }
+    background-color: #e6e6e6; }
 
 .label-primary {
   background-color: #2980b9; }
@@ -4361,7 +4361,7 @@ a.list-group-item-danger {
     clear: both; }
 
 .panel-heading {
-  padding: 15px 39px 13px;
+  padding: 13px 39px 10px;
   border-bottom: 1px solid transparent;
   border-top-right-radius: -1;
   border-top-left-radius: -1; }
@@ -4377,7 +4377,7 @@ a.list-group-item-danger {
     color: inherit; }
 
 .panel-footer {
-  padding: 15px 39px 13px;
+  padding: 13px 39px 10px;
   background-color: whitesmoke;
   border-top: 1px solid #dddddd;
   border-bottom-right-radius: -1;
@@ -5878,7 +5878,8 @@ button.close {
 h1 {
   font-family: "robotoregular";
   text-transform: uppercase;
-  font-weight: 800; }
+  font-weight: 800;
+  letter-spacing: 0.04em; }
 
 .btn-like {
   color: white;
@@ -5896,6 +5897,26 @@ h1 {
   .btn-like .badge {
     color: #83c8f5;
     background-color: white; }
+
+.label {
+  display: inline-block;
+  font-size: 1em;
+  font-weight: normal; }
+
+.label-default[href]:hover, .label-default[href]:focus {
+  color: #34a1e8;
+  border-color: #34a1e8;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent; }
+
+.label-default {
+  padding: 10px 16px;
+  border: 2px solid #62b6ed;
+  color: #62b6ed; }
+  .label-default .glyphicon {
+    margin: 0 10px 0 0;
+    font-weight: 100; }
 
 img {
   max-width: 100%;
@@ -6101,7 +6122,8 @@ img {
   border-radius: 0;
   text-transform: uppercase;
   font-family: "robotoregular";
-  font-size: 1.286em; }
+  font-size: 1.286em;
+  letter-spacing: .04em; }
 .course-options-wrap .btn-lg, .course-options-wrap .btn-group-lg > .btn {
   padding: 18px 16px;
   font-family: "robotomedium";
@@ -6136,6 +6158,15 @@ img {
   .star-rating-wrap .star-rating,
   .star-rating-wrap .total-rating {
     display: inline-block; }
+  .star-rating-wrap .total-rating {
+    margin: 0 12px 0 0;
+    font-size: 2em;
+    line-height: 1em; }
+  .star-rating-wrap .star-rating {
+    font-size: 1.5em;
+    vertical-align: top; }
+    .star-rating-wrap .star-rating .fa {
+      margin-left: 4px; }
 
 .star-rating {
   margin: 0 0 6px;
@@ -6157,6 +6188,30 @@ img {
   line-height: .85em;
   vertical-align: middle;
   font-size: 1.643em; }
+
+.course-description {
+  line-height: 1.2; }
+  .course-description p {
+    margin-bottom: 18px; }
+  .course-description .lead {
+    line-height: 1.1;
+    margin-top: 28px;
+    margin-bottom: 23px; }
+  .course-description h2 {
+    margin: 22px 0px 18px;
+    font-size: 16px; }
+    @media (min-width: 768px) {
+      .course-description h2 {
+        font-size: 21px; } }
+
+.skills-list {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -9px; }
+  .skills-list > li {
+    display: inline-block;
+    padding-left: 9px;
+    padding-right: 9px; }
 
 .panel {
   border: 0;
@@ -6210,12 +6265,13 @@ img {
     margin: 0;
     text-transform: uppercase;
     font-family: "robotobold";
-    font-size: 1.357em; }
+    font-size: 1.357em;
+    letter-spacing: 0.04em; }
 
 .panel-heading .badge-info {
   position: absolute;
-  right: 15px;
-  top: 15px; }
+  right: 17px;
+  top: 13px; }
 
 .badge-info {
   padding: 0 0 0 2px;
@@ -6233,18 +6289,30 @@ img {
     background: transparent;
     color: #cccccc; }
 
-.lecturer-group .lecturer-name {
-  margin-top: 11px;
-  font-size: 1.143em; }
-.lecturer-group .img-wrap {
+.lecturer-wrap .img-wrap {
   float: left;
   margin: 0 16px 0 37px;
   width: 79px;
   height: 79px;
   border-radius: 50%;
   overflow: hidden; }
-.lecturer-group .star-rating {
+.lecturer-wrap .star-rating {
   font-size: 0.857em; }
+
+.lecturer-name {
+  margin-top: 8px;
+  margin-bottom: 5px;
+  font-size: 1.143em; }
+
+.lecturer-description {
+  margin-top: 15px;
+  line-height: 1.25em; }
+
+.lecturer-info:before, .lecturer-info:after {
+  content: " ";
+  display: table; }
+.lecturer-info:after {
+  clear: both; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
