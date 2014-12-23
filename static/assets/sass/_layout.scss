@@ -12,15 +12,10 @@ img {
 	margin-top: 15px;
 }
 .sections-wrap {
-	@include clearfix;
 
-	.section {
-		float:right;
-		width:68.8%;
-	}
+	.section,
 	.section-sidebar {
-		float:left;
-		width:29%;
+		margin:0 0 30px;
 	}
 }
 
@@ -298,9 +293,12 @@ img {
 	color:$light-text-color;
 }
 
-.star-rating-wrap {
+.rating {
 	text-align:center;
-	
+}
+.star-rating-wrap {
+	margin: 0 0 6px;	
+
 	.star-rating,
 	.total-rating {
 		display: inline-block;
@@ -311,6 +309,7 @@ img {
 		line-height: 1em;
 	}
 	.star-rating {
+		margin-bottom: 0;
 		font-size: 1.5em;
 		vertical-align: top;
 
@@ -373,9 +372,30 @@ img {
 	margin-left: -9px;
 
 	> li {
-	display: inline-block;
-	padding-left: 9px;
-	padding-right: 9px;
+		display: inline-block;
+		padding-left: 9px;
+		padding-right: 9px;
 	}
 }
 
+.download-list 	{
+	@include list-unstyled;
+	margin-left: -17px;
+	margin-top: 11px;
+	text-align: center;
+
+	> li {
+		display: inline-block;
+		padding-left: 17px;
+		padding-right: 17px;
+	}
+	.glyphicon {
+		position: relative;
+		top: -3px;
+		margin-right: 12px;
+		font-size: 1.7em;
+		font-weight: normal;
+		vertical-align: middle;
+	}
+
+}

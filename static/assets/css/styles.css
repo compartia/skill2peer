@@ -5929,17 +5929,9 @@ img {
 .container {
   margin-top: 15px; }
 
-.sections-wrap:before, .sections-wrap:after {
-  content: " ";
-  display: table; }
-.sections-wrap:after {
-  clear: both; }
-.sections-wrap .section {
-  float: right;
-  width: 68.8%; }
+.sections-wrap .section,
 .sections-wrap .section-sidebar {
-  float: left;
-  width: 29%; }
+  margin: 0 0 30px; }
 
 .page-header-wrap,
 .page-header-wrap .page-header {
@@ -6153,8 +6145,11 @@ img {
 .course-address {
   color: #a5a5a5; }
 
-.star-rating-wrap {
+.rating {
   text-align: center; }
+
+.star-rating-wrap {
+  margin: 0 0 6px; }
   .star-rating-wrap .star-rating,
   .star-rating-wrap .total-rating {
     display: inline-block; }
@@ -6163,6 +6158,7 @@ img {
     font-size: 2em;
     line-height: 1em; }
   .star-rating-wrap .star-rating {
+    margin-bottom: 0;
     font-size: 1.5em;
     vertical-align: top; }
     .star-rating-wrap .star-rating .fa {
@@ -6213,7 +6209,26 @@ img {
     padding-left: 9px;
     padding-right: 9px; }
 
+.download-list {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -17px;
+  margin-top: 11px;
+  text-align: center; }
+  .download-list > li {
+    display: inline-block;
+    padding-left: 17px;
+    padding-right: 17px; }
+  .download-list .glyphicon {
+    position: relative;
+    top: -3px;
+    margin-right: 12px;
+    font-size: 1.7em;
+    font-weight: normal;
+    vertical-align: middle; }
+
 .panel {
+  margin-bottom: 30px;
   border: 0;
   -webkit-box-shadow: 0;
   box-shadow: 0; }
@@ -6314,6 +6329,59 @@ img {
 .lecturer-info:after {
   clear: both; }
 
+.panel-light {
+  background: transparent; }
+  .panel-light > .panel-heading {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: left;
+    border-bottom: 0; }
+  .panel-light > .panel-body {
+    padding: 13px 11px 0;
+    background: #f7f7f7; }
+
+.comments-list {
+  -webkit-column-count: 2;
+  /* Chrome, Safari, Opera */
+  -moz-column-count: 2;
+  /* Firefox */
+  column-count: 2;
+  -webkit-column-gap: "16px";
+  -moz-column-gap: "16px";
+  column-gap: "16px"; }
+  .comments-list > * {
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid; }
+
+.comment-block {
+  display: inline-block;
+  padding: 14px 16px 9px;
+  margin-bottom: 37px;
+  background: white; }
+  .comment-block p {
+    line-height: 1.25em; }
+  .comment-block .img-wrap {
+    display: inline-block;
+    margin: 5px 0 -33px 8px;
+    width: 48px;
+    height: 48px;
+    vertical-align: top;
+    border-radius: 50%;
+    overflow: hidden; }
+
+.comment-info {
+  margin-top: 26px; }
+  .comment-info .comment-author {
+    float: right;
+    font-size: 1.143em;
+    font-weight: bold;
+    color: black; }
+    .comment-info .comment-author:hover {
+      text-decoration: none; }
+  .comment-info time {
+    color: #a5a5a5; }
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 768px and up) */
@@ -6365,6 +6433,18 @@ img {
 
   .course-time {
     padding-right: 12px;
-    padding-left: 12px; } }
+    padding-left: 12px; }
+
+  .sections-wrap:before, .sections-wrap:after {
+    content: " ";
+    display: table; }
+  .sections-wrap:after {
+    clear: both; }
+  .sections-wrap .section {
+    float: right;
+    width: 68.8%; }
+  .sections-wrap .section-sidebar {
+    float: left;
+    width: 29%; } }
 /* Medium devices (desktops, 992px and up) */
 /* Large devices (large desktops, 1200px and up) */
