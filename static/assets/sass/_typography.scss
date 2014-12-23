@@ -2,8 +2,27 @@ h1 {
 	font-family:"robotoregular";
 	text-transform:uppercase;
 	font-weight: 800;
+	letter-spacing: 0.04em;
 }
 
 .btn-like {
 	@include button-variant($btn-like-color, $btn-like-bg, $btn-like-border);
+}
+
+.label {
+	display: inline-block;
+	font-size: 1em;
+	font-weight: normal;
+}
+
+// Add hover effects, but only for links
+.label-default[href] {
+  &:hover,
+  &:focus {
+    color: $label-default-link-hover-color;
+    border-color:$label-default-link-hover-border;
+    text-decoration: none;
+    cursor: pointer;
+    background:transparent;
+  }
 }
