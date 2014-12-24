@@ -18,7 +18,16 @@ function(angular) {
 			});
 		});
 	} ])
+    
+    .controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
+        require([ 'controllers/lessonEditController' ], function(lessonEditController) {
 
+			$injector.invoke(lessonEditController, this, {
+				'$scope' : $scope
+			});
+		});
+    
+    } ])
 	.controller('courseEditController',
 			[ '$scope', '$injector', 'FileUploader', function($scope, $injector, FileUploader) {
 
