@@ -76,6 +76,8 @@ public class TestUtil {
         //        scheduleDto.setHours(10);
         //        scheduleDto.setMinutes(10);
         scheduleDto.setDuration(125);
+        final boolean[] repeat = { true, false, false, false, false, false, false };
+        scheduleDto.setRepeatDays(repeat);
         final DateTimeEditDto dateTime = new DateTimeEditDto();
         dateTime.setHours(2);
         dateTime.setMinutes(45);

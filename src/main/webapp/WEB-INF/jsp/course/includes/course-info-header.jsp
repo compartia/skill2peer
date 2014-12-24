@@ -8,11 +8,7 @@
 	<div class="page-header-wrap">
 			<header class="page-header">
 				<div class="page-header-inner">
-					<!-- <ol class="breadcrumb">
-			            <li><a href="#">Курсы</a></li>
-			            <li><a href="#">Искусство</a></li>
-			            <li class="active">Конкурсы</li>
-			        </ol> -->
+			 
 
 			        <h1 itemprop="name">${course.name}</h1>
 			        <!-- skills -->
@@ -29,11 +25,7 @@
 			    </div>
 
 		    </header><!-- /Page-header -->
-
-			<%-- <div class="featured-img">
-				<img src="{course.imageurl}" alt="${course.name}"/>
-			</div>
-			 --%>
+ 
 			
 			<div class="course-time-info">
 				<div class="course-dates">

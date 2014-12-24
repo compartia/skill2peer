@@ -12,7 +12,8 @@ require.config({
 		//dropzone : '/static/js/bower_components/dropzone/downloads/dropzone-amd-module.min',
 		// 'dropzone-directive' : '/static/js/vendor/dropzone-directive',
 		'angular-file-upload' : '/static/js/bower_components/angular-file-upload/angular-file-upload',
-        'moment' : '/static/js/bower_components/moment/min/moment.min'
+        'moment' : '/static/js/bower_components/moment/min/moment.min',
+        'bootstrap':'/static/js/vendor/ui-bootstrap-custom-build/ui-bootstrap-custom-0.12.0.min'
         
 	},
 	shim : {

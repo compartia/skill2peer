@@ -53,7 +53,11 @@ public class CourseMappingTest {
         final LessonEditDto lessonEditDto = c.getLessons().get(0);
         final Lesson lesson = course.getLessons().get(0);
 
-        Assert.assertEquals(Integer.valueOf(125), course.getTotalDuration());
+        Assert.assertEquals("RRULE:FREQ=WEEKLY;BYDAY=MO", lesson.getSchedule().getiCalString());
+        /**
+         * total duration is undefined because course has recurrent lessons
+         */
+        Assert.assertEquals(null, course.getTotalDuration());
 
         compareLessons(lessonEditDto, lesson);
     }

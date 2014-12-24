@@ -1,9 +1,16 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import java.util.ArrayList;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
+import com.google.ical.values.Weekday;
+import com.google.ical.values.WeekdayNum;
 
 /**
  *
@@ -18,6 +25,8 @@ public class ScheduleEditDto {
      * duration in minutes;
      */
     private int duration;
+
+    private boolean[] repeatDays = new boolean[7];
 
     private DateTimeEditDto dateTime;
 
@@ -46,8 +55,26 @@ public class ScheduleEditDto {
         return getEnd().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
     }
 
+    public String getiCalString() {
+        final RRule r = new RRule();
+
+        final ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+        for (int f = 0; f < repeatDays.length; f++) {
+            if (repeatDays[f]) {
+                days.add(new WeekdayNum(0, Weekday.values()[(f + 1) % 7]));
+            }
+        }
+        r.setByDay(days);
+        r.setFreq(Frequency.WEEKLY);
+        return r.toIcal();
+    }
+
     public String getNext() {
         return next;
+    }
+
+    public boolean[] getRepeatDays() {
+        return repeatDays;
     }
 
     public String getStartMonth() {
@@ -60,6 +87,10 @@ public class ScheduleEditDto {
 
     public void setDuration(final int duration) {
         this.duration = duration;
+    }
+
+    public void setRepeatDays(final boolean[] repeatDays) {
+        this.repeatDays = repeatDays;
     }
 
 }
