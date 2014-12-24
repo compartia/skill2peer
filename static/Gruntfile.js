@@ -9,8 +9,12 @@ module.exports = function (grunt) {
     },
     watch: {
       css: {
-        files: 'assets/sass/*.scss',
+        files: ['assets/sass/*.scss'],
         tasks: ['sass','cssmin']
+      },
+      html: {
+        files: 'assets/html/*.html',
+        tasks: ['includes']
       }
     },
     sass: {
@@ -26,6 +30,16 @@ module.exports = function (grunt) {
           'static/css/styles_min.css': 'assets/css/*.css',
         }
       }
+    },
+    includes: {
+      files: {
+        src: 'assets/html/*.html', // Source files
+        dest: 'static/html/', // Destination directory
+        flatten: true,
+        options: {
+          silent: true
+        }
+      }
     }
   });
 
@@ -33,7 +47,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-includes');
 
-  grunt.registerTask('default',['connect','sass', 'cssmin', 'watch']);
+  grunt.registerTask('default',['connect','sass', 'cssmin', 'includes', 'watch']);
 
 };

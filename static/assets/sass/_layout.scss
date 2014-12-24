@@ -1,4 +1,4 @@
-// Common
+/* Common */
 img {
 	max-width:100%;
 	height:auto;
@@ -18,9 +18,45 @@ img {
 		margin:0 0 30px;
 	}
 }
+/* NavBar */
+.navbar-brand {
+	padding-top:0;
+	padding-bottom: 0;
 
+	img {
+		max-height:50px;
+	}
+}
+.dropdown-toggle {
+	> .fa {
+		margin-right: 5px;
+		font-size: 1.2em;
+	}
+}
+.dropdown-menu > li .btn {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: 400;
+	line-height: $line-height-base;
+    color: $dropdown-link-color;
+	white-space: nowrap;
+	width:100%;
+	text-align:left;
+	border:none;
+	outline:none;
 
+	&:focus, 
+	&:hover {
+		text-decoration: none;
+		color: $dropdown-link-hover-color;
+    	background-color: $dropdown-link-hover-bg;
+		border:none;
+		outline:none;
+	}
+}
 
+/* Page header */
 .page-header-wrap {
 	&,
 	.page-header {
@@ -373,6 +409,7 @@ img {
 
 	> li {
 		display: inline-block;
+		margin: 0 0 10px;
 		padding-left: 9px;
 		padding-right: 9px;
 	}

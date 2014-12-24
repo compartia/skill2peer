@@ -1,0 +1,68 @@
+		<!-- NAVBAR -->
+		 
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container-fluid">
+	<!-- <div class="container"> -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="navbar-brand" href="/">
+				<img alt="logo" src="/static/img/skill2peerlogo.png">
+			</a>
+
+		</div>
+		
+		<div class="navbar-collapse collapse">
+
+			<form role="search" class="navbar-form navbar-left">
+				<!-- <div class="form-group"> -->
+				<div class="input-group">
+					<input type="text" placeholder="найти курс" class="form-control"> <span class="input-group-btn">
+						<button type="submit" class="btn">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</div>
+				<!-- </div> -->
+			</form>
+
+			<!-- number of notifications -->
+			<button class="btn btn-danger navbar-btn btn-xs" type="button">12</button>
+			
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">  
+						<i class="fa fa-facebook-square"></i>
+						Art Zaborskiy <span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="#">Настройки</a></li>
+						<li><a href="/">Home</a></li>
+						<li><a href="calendar.html">Мое расписание</a></li>
+						<li class="divider"></li>
+						 
+						<li>
+							<form action="/logout" method="POST">
+								<input type="hidden" name="" value="" />
+								<button type="submit" class="btn btn-link">
+									Logout
+								</button>
+							</form>
+						</li>
+					</ul> 
+				</li><!-- end of dropdown -->
+
+			</div>
+		</div>
+		<!--/.nav-collapse -->
+	<!-- </div> -->
+</div>
+
+<!-- /NAVBAR -->
