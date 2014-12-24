@@ -6308,6 +6308,7 @@ img {
   position: relative;
   text-align: center;
   border-bottom: 2px solid #e9e9e9; }
+  .panel-heading h2,
   .panel-heading h3,
   .panel-heading h4 {
     margin: 0;
@@ -6370,22 +6371,10 @@ img {
     text-align: left;
     border-bottom: 0; }
   .panel-light > .panel-body {
-    padding: 13px 11px 0;
+    padding: 13px 11px;
     background: #f7f7f7; }
-
-.comments-list {
-  -webkit-column-count: 2;
-  /* Chrome, Safari, Opera */
-  -moz-column-count: 2;
-  /* Firefox */
-  column-count: 2;
-  -webkit-column-gap: "16px";
-  -moz-column-gap: "16px";
-  column-gap: "16px"; }
-  .comments-list > * {
-    -webkit-column-break-inside: avoid;
-    -moz-column-break-inside: avoid;
-    column-break-inside: avoid; }
+    .panel-light > .panel-body.comments-list {
+      padding-bottom: 0; }
 
 .comment-block {
   display: inline-block;
@@ -6414,6 +6403,84 @@ img {
       text-decoration: none; }
   .comment-info time {
     color: #a5a5a5; }
+
+.related-courses {
+  margin-left: -15px;
+  margin-right: -15px; }
+  .related-courses:before, .related-courses:after {
+    content: " ";
+    display: table; }
+  .related-courses:after {
+    clear: both; }
+
+.course-block {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px; }
+  @media (min-width: 1200px) {
+    .course-block {
+      float: left;
+      width: 50%; } }
+  .course-block:before, .course-block:after {
+    content: " ";
+    display: table; }
+  .course-block:after {
+    clear: both; }
+  .course-block .img-wrap {
+    float: left;
+    height: 113px;
+    width: 50%;
+    overflow: hidden; }
+    .course-block .img-wrap img {
+      display: block;
+      max-width: 100%;
+      height: auto; }
+  .course-block .text-wrap {
+    position: relative;
+    float: left;
+    width: 50%;
+    padding: 10px;
+    background: white; }
+    .course-block .text-wrap:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: -10px;
+      width: 0;
+      height: 0;
+      margin: -10px 0 0;
+      border-left: 0 solid transparent;
+      border-right: 10px solid white;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent; }
+  .course-block:nth-child(4n+3) .img-wrap,
+  .course-block:nth-child(4n+3) .text-wrap, .course-block:nth-child(4n+4) .img-wrap,
+  .course-block:nth-child(4n+4) .text-wrap {
+    float: right; }
+  .course-block:nth-child(4n+3) .text-wrap:after, .course-block:nth-child(4n+4) .text-wrap:after {
+    left: auto;
+    right: -10px;
+    border-left: 10px solid white;
+    border-right: 0 solid transparent; }
+
+.course-date {
+  display: block;
+  margin: 0 0 9px;
+  color: #a5a5a5;
+  font-size: .9em; }
+
+.course-title {
+  margin: 0;
+  font-size: 1.1em; }
+
+.course-description-wrap {
+  max-height: 93px;
+  overflow: hidden; }
+  .course-description-wrap p {
+    margin: 0;
+    font-size: .9em; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
@@ -6478,6 +6545,20 @@ img {
     width: 68.8%; }
   .sections-wrap .section-sidebar {
     float: left;
-    width: 29%; } }
+    width: 29%; }
+
+  .comments-list {
+    -webkit-column-count: 2;
+    /* Chrome, Safari, Opera */
+    -moz-column-count: 2;
+    /* Firefox */
+    column-count: 2;
+    -webkit-column-gap: "16px";
+    -moz-column-gap: "16px";
+    column-gap: "16px"; }
+    .comments-list > * {
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
+      column-break-inside: avoid; } }
 /* Medium devices (desktops, 992px and up) */
 /* Large devices (large desktops, 1200px and up) */

@@ -74,6 +74,10 @@
 			width:29%;
 		}
 	}
+
+	.comments-list {
+		@include column-count(2,16);
+	}
 }
 
 /* Medium devices (desktops, 992px and up) */
