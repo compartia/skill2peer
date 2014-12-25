@@ -28,16 +28,14 @@
                         <input type="date" class="form-control" ng-model="start.date" ng-change="onDateChange()">
                     </td><td>&nbsp;&nbsp;</td>
 
-                    <td style="width: 50px;" class="form-group" ng-class="{'has-error': invalidHours}"><input type="text"
-                            ng-model="start.hours" ng-change="onDateChange()"
-                            class="form-control text-center ng-valid ng-dirty"
-                            ng-mousewheel="incrementHours()" ng-readonly="readonlyInput"
-                            maxlength="2"></td>
+                    <td style="width: 5em;" class="form-group" ng-class="{'has-error': courseEditForm.hours.$invalid}">
+                        <input name="hours" type="number" integer 
+                            ng-model="start.hours" ng-change="onDateChange()" min="0" max="23"
+                            class="form-control text-center" maxlength="2"></td>
                     <td>:</td>
-                    <td style="width: 50px;" class="form-group" ng-class="{'has-error': invalidMinutes}">
-                        <input type="text" ng-model="start.minutes" ng-change="onDateChange()"
-                        class="form-control text-center ng-valid ng-dirty"
-                        ng-readonly="readonlyInput" maxlength="2">
+                    <td style="width: 5em;" class="form-group" ng-class="{'has-error': courseEditForm.minutes.$invalid}">
+                        <input name="minutes" type="number" ng-model="start.minutes" ng-change="onDateChange()" integer 
+                        class="form-control text-center" min="0" max="59" maxlength="2">
                     </td>
                 </tr>
             </tbody>
@@ -47,10 +45,10 @@
 </div>
 
     
-<div class="form-group">
+<div class="form-group" ng-class="{'has-error': courseEditForm.duration.$invalid && courseEditForm.duration.$dirty}">
     <label for="duration">Продолжительность  <small>(в минутах)</small></label> 
-    <input id="duration" type="text" ng-model="lesson.schedule.duration" class="form-control ng-valid ng-dirty" style="width:5em"
-        ng-readonly="readonlyInput" maxlength="3">
+    <input name="duration" type="number" min="5" max="3000" ng-model="lesson.schedule.duration" class="form-control text-center" style="width:5em"
+        required  maxlength="3">
 </div>
     
     

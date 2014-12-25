@@ -71,6 +71,9 @@ public class ScheduleEditDto {
                 days.add(new WeekdayNum(0, Weekday.values()[(f + 1) % 7]));
             }
         }
+        if (days.isEmpty()) {
+            return null;
+        }
         r.setByDay(days);
         r.setFreq(Frequency.WEEKLY);
         return r.toIcal();

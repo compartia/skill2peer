@@ -2,13 +2,13 @@
 
 define(
 //
-[ 'angular', 'services', 'autocomplete' ],
+[ 'angular', 'services', 'autocomplete'],
 //
 function(angular) {
 
 	/* Controllers */
 
-	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete' ])
+	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete'])
 	/* */
 	.controller('favoriteCourseController', [ '$scope', '$injector', function($scope, $injector) {
 		require([ 'controllers/favoriteCourseController' ], function(favoriteCourseController) {

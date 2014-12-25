@@ -134,7 +134,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         final CourseInfoDto course = new CourseInfoDto();
         mapper.map(source, course);
 
-        final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
+        final List<DayEventsDto> weekSchedule = source.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
 
         int saturday = DateTimeConstants.SATURDAY;

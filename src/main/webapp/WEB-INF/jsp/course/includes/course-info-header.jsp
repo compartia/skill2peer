@@ -6,7 +6,7 @@
 			
 			
 	<div class="page-header-wrap">
-			<header class="page-header">
+			<header class="page-header"  style="background: url(/static/img/tkLOe7nnQ7mnMsiuijBy_hm.jpg); background-size: cover">
 				<div class="page-header-inner">
 			 
 
@@ -25,6 +25,8 @@
 			    </div>
 
 		    </header><!-- /Page-header -->
+		    
+		    
  
 			
 			<div class="course-time-info">
