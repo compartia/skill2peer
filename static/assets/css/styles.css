@@ -3926,9 +3926,9 @@ a.label:hover, a.label:focus {
   cursor: pointer; }
 
 .label-default {
-  background-color: rgba(255, 255, 255, 0.5); }
+  background-color: rgba(255, 255, 255, 0.8); }
   .label-default[href]:hover, .label-default[href]:focus {
-    background-color: rgba(230, 230, 230, 0.5); }
+    background-color: rgba(230, 230, 230, 0.8); }
 
 .label-primary {
   background-color: #2980b9; }
