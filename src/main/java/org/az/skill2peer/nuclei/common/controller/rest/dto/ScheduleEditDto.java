@@ -1,12 +1,16 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -18,6 +22,7 @@ import com.google.ical.values.WeekdayNum;
  * @author Artem Zaborskiy
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ScheduleEditDto {
     private static final String DATE_FORMAT_MONTH = "MMMM";
 
@@ -26,13 +31,15 @@ public class ScheduleEditDto {
      */
     private int duration;
 
-    private boolean[] repeatDays = new boolean[7];
+    private Boolean[] repeatDays = new Boolean[7];
 
-    private DateTimeEditDto dateTime;
+    private String dateTime;
 
     private String next;
 
-    public DateTimeEditDto getDateTime() {
+    private boolean recurrent;
+
+    public String getDateTime() {
         return dateTime;
     }
 
@@ -47,7 +54,7 @@ public class ScheduleEditDto {
     }
 
     public DateTime getEnd() {
-        final DateTime s = new DateTime(dateTime.toDateTime());
+        final DateTime s = new DateTime(dateTime);
         return s.plus(Period.minutes(duration));
     }
 
@@ -73,15 +80,26 @@ public class ScheduleEditDto {
         return next;
     }
 
-    public boolean[] getRepeatDays() {
+    public Boolean[] getRepeatDays() {
         return repeatDays;
     }
 
-    public String getStartMonth() {
-        return this.dateTime.toDateTime().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+    @JsonIgnore
+    public DateTime getStart() {
+        return new DateTime(dateTime);
     }
 
-    public void setDateTime(final DateTimeEditDto dateTime) {
+    @Deprecated
+    public String getStartMonth() {
+
+        return getStart().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+    }
+
+    public boolean isRecurrent() {
+        return recurrent;
+    }
+
+    public void setDateTime(final String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -89,8 +107,39 @@ public class ScheduleEditDto {
         this.duration = duration;
     }
 
-    public void setRepeatDays(final boolean[] repeatDays) {
+    @JsonIgnore
+    public void setiCalString(final String s) {
+
+        Arrays.fill(repeatDays, false);
+        if (null == s) {
+            recurrent = false;
+            return;
+        }
+
+        try {
+            final RRule rule = new RRule(s);
+            for (final WeekdayNum d : rule.getByDay()) {
+                repeatDays[d.wday.jsDayNum - 1] = true;
+                recurrent = true;
+            }
+
+        } catch (final ParseException e) {
+            throw new IllegalArgumentException(s, e);
+        }
+
+    }
+
+    public void setRecurrent(final boolean recurrent) {
+        this.recurrent = recurrent;
+    }
+
+    public void setRepeatDays(final Boolean[] repeatDays) {
         this.repeatDays = repeatDays;
+    }
+
+    @JsonIgnore
+    public void setStart(final DateTime start) {
+        this.dateTime = start.toString();
     }
 
 }

@@ -137,17 +137,17 @@ public class CourseServiceTest extends AbstractServiceTest {
         final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
 
-        int dw = DateTimeConstants.SATURDAY;
-        final DayEventsDto events = weekSchedule.get(dw - 1);
+        int saturday = DateTimeConstants.SATURDAY;
+        final DayEventsDto events = weekSchedule.get(saturday - 1);
         Assert.assertEquals(1, events.getEvents().size());
         final EventDto first = events.getEvents().first();
 
-        Assert.assertEquals(dw, first.getStart().getDayOfWeek());
+        Assert.assertEquals(saturday, first.getStart().getDayOfWeek());
 
         Assert.assertEquals(18, first.getEnd().getHourOfDay());
         Assert.assertEquals(16, first.getStart().getHourOfDay());
 
-        dw++;
+        saturday++;
 
     }
 

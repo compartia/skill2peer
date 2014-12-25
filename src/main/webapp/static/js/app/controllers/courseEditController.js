@@ -32,19 +32,8 @@ function onReady() {
 			var savedCourse = Courses.save($scope.course);
 			savedCourse.$promise.then(function() {
 				$scope.course = savedCourse;
-				// alert($scope.course.id);
-				// alert($scope.uploader.isHTML5);
+                $scope.selectedLesson = $scope.course.lessons[0];
 			});
-		};
-
-		$scope.getWeekStart = function(lesson) {
-//			if ($scope.course.schedule && $scope.course.schedule.start) {
-//                alert(scope.course.schedule.start);
-				$scope.weeks[lesson].weekStart = moment(lesson.schedule.dateTime.startDateStr).startOf('isoWeek').add(1, 'd');
-              
-//			} else {
-//				$scope.weekStart = moment().clone().startOf('week');
-//			}
 		};
 
 		$scope.$apply();

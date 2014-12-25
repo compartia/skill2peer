@@ -160,8 +160,19 @@ public class CourseMappingTest {
     }
 
     @Test
+    public void testScheduleEditDto() {
+        final ScheduleEditDto dto = TestUtil.makeScheduleEditDto();
+
+        Assert.assertEquals("RRULE:FREQ=WEEKLY;BYDAY=MO", dto.getiCalString());
+
+        final Boolean[] expecteds = { true, true, false, false, false, false, false };
+        dto.setiCalString("RRULE:FREQ=WEEKLY;BYDAY=MO,TU");
+        Assert.assertArrayEquals(expecteds, dto.getRepeatDays());
+    }
+
+    @Test
     public void testScheduleFromDto() {
-        final ScheduleEditDto s1 = TestUtil.makeScheduleDto();
+        final ScheduleEditDto s1 = TestUtil.makeScheduleEditDto();
         final Schedule s2 = new Schedule();
 
         mapper.map(s1, s2);
@@ -204,7 +215,7 @@ public class CourseMappingTest {
     }
 
     private void compareSchedules(final ScheduleEditDto s1, final Schedule s2) {
-        final DateTime t1 = s1.getDateTime().toDateTime();
+        final DateTime t1 = s1.getStart();
         final DateTime t2 = s2.getStart();
         compareDates(t1, t2);
     }
