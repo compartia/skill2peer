@@ -5,9 +5,19 @@ h1 {
 	letter-spacing: 0.04em;
 }
 
+b,
+strong {
+	font-family:robotobold;
+	font-weight:normal;
+}
+
 .btn-like {
 	@include button-variant($btn-like-color, $btn-like-bg, $btn-like-border);
 }
+.btn-like.inactive {
+	background:desaturate($btn-like-bg, 60%);
+}
+
 
 .label {
 	display: inline-block;

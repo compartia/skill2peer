@@ -256,7 +256,7 @@ th {
   src: url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.eot"));
   src: url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix")) format("embedded-opentype"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.woff")) format("woff"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.ttf")) format("truetype"), url(font-path("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular")) format("svg"); }
 
-.glyphicon {
+.glyphicon, .course-lessons .expand-link:before {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -610,10 +610,10 @@ th {
 .glyphicon-magnet:before {
   content: "\e112"; }
 
-.glyphicon-chevron-up:before {
+.glyphicon-chevron-up:before, .course-lessons .expand-link[aria-expanded="true"]:before {
   content: "\e113"; }
 
-.glyphicon-chevron-down:before {
+.glyphicon-chevron-down:before, .course-lessons .expand-link:before {
   content: "\e114"; }
 
 .glyphicon-retweet:before {
@@ -5881,6 +5881,11 @@ h1 {
   font-weight: 800;
   letter-spacing: 0.04em; }
 
+b,
+strong {
+  font-family: robotobold;
+  font-weight: normal; }
+
 .btn-like {
   color: white;
   background-color: #83c8f5;
@@ -5898,6 +5903,9 @@ h1 {
     color: #83c8f5;
     background-color: white; }
 
+.btn-like.inactive {
+  background: #abc0cd; }
+
 .label {
   display: inline-block;
   font-size: 1em;
@@ -5914,7 +5922,7 @@ h1 {
   padding: 10px 16px;
   border: 2px solid #62b6ed;
   color: #62b6ed; }
-  .label-default .glyphicon {
+  .label-default .glyphicon, .label-default .course-lessons .expand-link:before, .course-lessons .label-default .expand-link:before {
     margin: 0 10px 0 0;
     font-weight: 100; }
 
@@ -6157,7 +6165,8 @@ img {
   width: 100%; }
   .course-options-wrap .btn-group .btn {
     float: none;
-    display: table-cell; }
+    display: table-cell;
+    width: 100%; }
   .course-options-wrap .btn-group .btn-like {
     width: 59px; }
 
@@ -6166,11 +6175,11 @@ img {
   padding: 15px;
   height: 130px;
   vertical-align: middle; }
-  .course-place-wrap .glyphicon,
+  .course-place-wrap .glyphicon, .course-place-wrap .course-lessons .expand-link:before, .course-lessons .course-place-wrap .expand-link:before,
   .course-place-wrap .course-place {
     display: table-cell;
     vertical-align: middle; }
-  .course-place-wrap .glyphicon {
+  .course-place-wrap .glyphicon, .course-place-wrap .course-lessons .expand-link:before, .course-lessons .course-place-wrap .expand-link:before {
     padding: 0 10px 0 0;
     color: #a5a5a5; }
 
@@ -6252,7 +6261,7 @@ img {
     display: inline-block;
     padding-left: 17px;
     padding-right: 17px; }
-  .download-list .glyphicon {
+  .download-list .glyphicon, .download-list .course-lessons .expand-link:before, .course-lessons .download-list .expand-link:before {
     position: relative;
     top: -3px;
     margin-right: 12px;
@@ -6401,7 +6410,7 @@ img {
     color: black; }
     .comment-info .comment-author:hover {
       text-decoration: none; }
-  .comment-info time {
+  .comment-info time time {
     color: #a5a5a5; }
 
 .related-courses {
@@ -6413,37 +6422,37 @@ img {
   .related-courses:after {
     clear: both; }
 
-.course-block {
+.related-course-block {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 20px; }
   @media (min-width: 768px) {
-    .course-block {
+    .related-course-block {
       float: left;
       width: 50%; } }
-  .course-block:before, .course-block:after {
+  .related-course-block:before, .related-course-block:after {
     content: " ";
     display: table; }
-  .course-block:after {
+  .related-course-block:after {
     clear: both; }
-  .course-block .img-wrap {
+  .related-course-block .img-wrap {
     float: left;
     height: 113px;
     width: 50%;
     overflow: hidden; }
-    .course-block .img-wrap img {
+    .related-course-block .img-wrap img {
       display: block;
       max-width: 100%;
       height: auto; }
-  .course-block .text-wrap {
+  .related-course-block .text-wrap {
     position: relative;
     float: left;
     width: 50%;
     padding: 10px;
     background: white; }
-    .course-block .text-wrap:after {
+    .related-course-block .text-wrap:after {
       position: absolute;
       content: '';
       top: 50%;
@@ -6455,32 +6464,55 @@ img {
       border-right: 10px solid white;
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent; }
-  .course-block:nth-child(4n+3) .img-wrap,
-  .course-block:nth-child(4n+3) .text-wrap, .course-block:nth-child(4n+4) .img-wrap,
-  .course-block:nth-child(4n+4) .text-wrap {
+  .related-course-block:nth-child(4n+3) .img-wrap,
+  .related-course-block:nth-child(4n+3) .text-wrap, .related-course-block:nth-child(4n+4) .img-wrap,
+  .related-course-block:nth-child(4n+4) .text-wrap {
     float: right; }
-  .course-block:nth-child(4n+3) .text-wrap:after, .course-block:nth-child(4n+4) .text-wrap:after {
+  .related-course-block:nth-child(4n+3) .text-wrap:after, .related-course-block:nth-child(4n+4) .text-wrap:after {
     left: auto;
     right: -10px;
     border-left: 10px solid white;
     border-right: 0 solid transparent; }
 
-.course-date {
+.related-course-date {
   display: block;
   margin: 0 0 9px;
   color: #a5a5a5;
   font-size: .9em; }
 
-.course-title {
+.related-course-title {
   margin: 0;
   font-size: 1.1em; }
 
-.course-description-wrap {
+.related-course-description {
   max-height: 93px;
   overflow: hidden; }
-  .course-description-wrap p {
+  .related-course-description p {
     margin: 0;
     font-size: .9em; }
+
+.course-lessons .expand-link {
+  position: relative;
+  padding-right: 40px;
+  cursor: pointer; }
+  .course-lessons .expand-link:before {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -7px; }
+
+.lesson-title {
+  margin: 0;
+  font-size: 1.143em; }
+
+.lesson-time {
+  color: #a5a5a5;
+  font-size: 0.929em; }
+
+.lesson-address {
+  display: block;
+  margin: 5px 0;
+  font-size: .9em; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
