@@ -188,7 +188,7 @@
 	@include make-row();
 }
 .course-block {
-	@include make-lg-column(6);
+	@include make-sm-column(6);
 	@include clearfix();
 	margin-bottom:20px;
 
