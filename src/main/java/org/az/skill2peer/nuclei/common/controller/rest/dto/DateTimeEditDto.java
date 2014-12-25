@@ -9,6 +9,7 @@ import org.joda.time.format.ISODateTimeFormat;
  * @author Artem Zaborskiy
  *
  */
+@Deprecated
 public class DateTimeEditDto {
     private int hours;
 

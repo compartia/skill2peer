@@ -3,7 +3,6 @@ package org.az.skill2peer.nuclei;
 import java.util.ArrayList;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.DateTimeEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
@@ -49,7 +48,7 @@ public class TestUtil {
         final LessonEditDto lesson = new LessonEditDto();
         lesson.setName("lesson name");
         lesson.setDescription("lesson description");
-        lesson.setSchedule(makeScheduleDto());
+        lesson.setSchedule(makeScheduleEditDto());
         return lesson;
     }
 
@@ -70,7 +69,7 @@ public class TestUtil {
         return schedule;
     }
 
-    public static ScheduleEditDto makeScheduleDto() {
+    public static ScheduleEditDto makeScheduleEditDto() {
         final ScheduleEditDto scheduleDto = new ScheduleEditDto();
         //
         //        scheduleDto.setHours(10);
@@ -78,11 +77,12 @@ public class TestUtil {
         scheduleDto.setDuration(125);
         final Boolean[] repeat = { true, false, false, false, false, false, false };
         scheduleDto.setRepeatDays(repeat);
-        final DateTimeEditDto dateTime = new DateTimeEditDto();
-        dateTime.setHours(2);
-        dateTime.setMinutes(45);
-        dateTime.setStartDateStr("2017-12-10T21:00:00.000Z");
-        scheduleDto.setDateTime(dateTime);
+        //        final DateTimeEditDto dateTime = new DateTimeEditDto();
+        //        dateTime.setHours(2);
+        //        dateTime.setMinutes(45);
+        //        dateTime.setStartDateStr("2017-12-10T21:00:00.000Z");
+        final DateTime start = new DateTime("2017-12-10T2:45:00.000Z");
+        scheduleDto.setDateTime(start.toString());
 
         //(new DateTime(2020, 11, 25, 10, 00));
         return scheduleDto;

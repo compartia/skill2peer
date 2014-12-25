@@ -33,13 +33,13 @@ public class ScheduleEditDto {
 
     private Boolean[] repeatDays = new Boolean[7];
 
-    private DateTimeEditDto dateTime;
+    private String dateTime;
 
     private String next;
 
     private boolean recurrent;
 
-    public DateTimeEditDto getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
@@ -54,7 +54,7 @@ public class ScheduleEditDto {
     }
 
     public DateTime getEnd() {
-        final DateTime s = new DateTime(dateTime.toDateTime());
+        final DateTime s = new DateTime(dateTime);
         return s.plus(Period.minutes(duration));
     }
 
@@ -84,15 +84,22 @@ public class ScheduleEditDto {
         return repeatDays;
     }
 
+    @JsonIgnore
+    public DateTime getStart() {
+        return new DateTime(dateTime);
+    }
+
+    @Deprecated
     public String getStartMonth() {
-        return this.dateTime.toDateTime().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+
+        return getStart().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
     }
 
     public boolean isRecurrent() {
         return recurrent;
     }
 
-    public void setDateTime(final DateTimeEditDto dateTime) {
+    public void setDateTime(final String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -128,6 +135,11 @@ public class ScheduleEditDto {
 
     public void setRepeatDays(final Boolean[] repeatDays) {
         this.repeatDays = repeatDays;
+    }
+
+    @JsonIgnore
+    public void setStart(final DateTime start) {
+        this.dateTime = start.toString();
     }
 
 }
