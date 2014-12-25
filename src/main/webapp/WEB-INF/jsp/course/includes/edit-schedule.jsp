@@ -43,8 +43,7 @@
 				<td>:</td>
 				<td style="width: 50px;" class="form-group"
 					ng-class="{'has-error': invalidMinutes}">
-					<input type="text"
-					ng-model="lesson.schedule.dateTime.minutes" ng-change="updateMinutes()"
+					<input type="text" ng-model="lesson.schedule.dateTime.minutes" ng-change="updateMinutes()"
 					class="form-control text-center ng-valid ng-dirty"
 					ng-readonly="readonlyInput" maxlength="2">
 					</td>
@@ -58,21 +57,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <div class="form-group">
-	<label class="checkbox" for="checkbox3"> <input type="checkbox" ng-model="viewModel.recurrent"
-		checked="checked" value="" id="checkbox3" data-toggle="checkbox" 
-		class="custom-checkbox"><span class="icons"><span
-			class="icon-unchecked"></span><span class="icon-checked"></span></span>
+	<label class="checkbox" for="checkbox3"> <input type="checkbox" ng-model="lesson.schedule.recurrent"
+		checked="checked" value="" id="checkbox3" data-toggle="checkbox"> 
 		Повторять еженедельно
 	</label>	
 
-    <div class="btn-group" ng-show="viewModel.recurrent">
+    <div class="btn-group" ng-show="lesson.schedule.recurrent">
         <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[0]" btn-checkbox><spring:message code="days.0"/></label>
         <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[1]" btn-checkbox><spring:message code="days.1"/></label>
-        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[3]" btn-checkbox><spring:message code="days.2"/></label>
-        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[4]" btn-checkbox><spring:message code="days.3"/></label>
-        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[5]" btn-checkbox><spring:message code="days.4"/></label>
-        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[6]" btn-checkbox><spring:message code="days.5"/></label>
-        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[7]" btn-checkbox><spring:message code="days.6"/></label>
+        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[2]" btn-checkbox><spring:message code="days.2"/></label>
+        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[3]" btn-checkbox><spring:message code="days.3"/></label>
+        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[4]" btn-checkbox><spring:message code="days.4"/></label>
+        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[5]" btn-checkbox><spring:message code="days.5"/></label>
+        <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[6]" btn-checkbox><spring:message code="days.6"/></label>
     </div>
 
 

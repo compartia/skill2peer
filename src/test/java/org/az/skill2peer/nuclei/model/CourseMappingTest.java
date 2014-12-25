@@ -160,6 +160,17 @@ public class CourseMappingTest {
     }
 
     @Test
+    public void testScheduleEditDto() {
+        final ScheduleEditDto dto = TestUtil.makeScheduleDto();
+
+        Assert.assertEquals("RRULE:FREQ=WEEKLY;BYDAY=MO", dto.getiCalString());
+
+        final Boolean[] expecteds = { true, true, false, false, false, false, false };
+        dto.setiCalString("RRULE:FREQ=WEEKLY;BYDAY=MO,TU");
+        Assert.assertArrayEquals(expecteds, dto.getRepeatDays());
+    }
+
+    @Test
     public void testScheduleFromDto() {
         final ScheduleEditDto s1 = TestUtil.makeScheduleDto();
         final Schedule s2 = new Schedule();

@@ -12,6 +12,9 @@ public class DateConverter implements CustomConverter {
             final Class<?> destinationClass,
             final Class<?> sourceClass) {
 
+        if (sourceFieldValue == null) {
+            return null;
+        }
         if (sourceClass.isAssignableFrom(DateTimeEditDto.class)) {
             final DateTimeEditDto dto = (DateTimeEditDto)sourceFieldValue;
             return dto.toDateTime();

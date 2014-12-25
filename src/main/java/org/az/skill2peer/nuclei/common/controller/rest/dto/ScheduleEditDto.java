@@ -1,12 +1,16 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -18,6 +22,7 @@ import com.google.ical.values.WeekdayNum;
  * @author Artem Zaborskiy
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ScheduleEditDto {
     private static final String DATE_FORMAT_MONTH = "MMMM";
 
@@ -26,11 +31,13 @@ public class ScheduleEditDto {
      */
     private int duration;
 
-    private boolean[] repeatDays = new boolean[7];
+    private Boolean[] repeatDays = new Boolean[7];
 
     private DateTimeEditDto dateTime;
 
     private String next;
+
+    private boolean recurrent;
 
     public DateTimeEditDto getDateTime() {
         return dateTime;
@@ -73,12 +80,16 @@ public class ScheduleEditDto {
         return next;
     }
 
-    public boolean[] getRepeatDays() {
+    public Boolean[] getRepeatDays() {
         return repeatDays;
     }
 
     public String getStartMonth() {
         return this.dateTime.toDateTime().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+    }
+
+    public boolean isRecurrent() {
+        return recurrent;
     }
 
     public void setDateTime(final DateTimeEditDto dateTime) {
@@ -89,7 +100,33 @@ public class ScheduleEditDto {
         this.duration = duration;
     }
 
-    public void setRepeatDays(final boolean[] repeatDays) {
+    @JsonIgnore
+    public void setiCalString(final String s) {
+
+        Arrays.fill(repeatDays, false);
+        if (null == s) {
+            recurrent = false;
+            return;
+        }
+
+        try {
+            final RRule rule = new RRule(s);
+            for (final WeekdayNum d : rule.getByDay()) {
+                repeatDays[d.wday.jsDayNum - 1] = true;
+                recurrent = true;
+            }
+
+        } catch (final ParseException e) {
+            throw new IllegalArgumentException(s, e);
+        }
+
+    }
+
+    public void setRecurrent(final boolean recurrent) {
+        this.recurrent = recurrent;
+    }
+
+    public void setRepeatDays(final Boolean[] repeatDays) {
         this.repeatDays = repeatDays;
     }
 
