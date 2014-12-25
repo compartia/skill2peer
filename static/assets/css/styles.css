@@ -6059,6 +6059,7 @@ img {
 
 .course-dates {
   padding: 11px 0;
+  height: 110px;
   text-align: center;
   text-transform: uppercase;
   border-bottom: 2px solid #e9e9e9; }
@@ -6071,6 +6072,18 @@ img {
     padding: 0 12px;
     height: 86px;
     vertical-align: middle; }
+  .course-dates.single-event .course-dates-wrap {
+    display: block; }
+  .course-dates.single-event .course-date,
+  .course-dates.single-event .course-duration {
+    display: block;
+    height: auto; }
+    .course-dates.single-event .course-date em,
+    .course-dates.single-event .course-duration em {
+      display: inline;
+      line-height: 1.1em; }
+  .course-dates.single-event .course-duration:before {
+    display: none; }
 
 .course-date em {
   display: block;
@@ -6112,7 +6125,7 @@ img {
 
 .course-time {
   position: relative;
-  padding: 8px 5px 7px;
+  padding: 8px 5px 5px;
   color: #d1d1d1;
   text-transform: uppercase;
   font-family: "robotomedium";
@@ -6122,7 +6135,7 @@ img {
   .course-time:after {
     position: absolute;
     content: '';
-    top: 51px;
+    top: 55px;
     right: -10px;
     width: 0;
     height: 0;
@@ -6149,7 +6162,7 @@ img {
     font-family: "robotoregular"; }
 
 .course-options-wrap .btn {
-  padding: 8px 16px 7px;
+  padding: 8px 16px;
   border: 0;
   border-radius: 0;
   text-transform: uppercase;
@@ -6158,6 +6171,7 @@ img {
   letter-spacing: .04em; }
 .course-options-wrap .btn-lg, .course-options-wrap .btn-group-lg > .btn {
   padding: 18px 16px;
+  height: 59px;
   font-family: "robotomedium";
   font-size: 1.286em; }
 .course-options-wrap .btn-group {
@@ -6166,7 +6180,9 @@ img {
   .course-options-wrap .btn-group .btn {
     float: none;
     display: table-cell;
-    width: 100%; }
+    width: 100%;
+    height: 39px;
+    line-height: 1.28em; }
   .course-options-wrap .btn-group .btn-like {
     width: 59px; }
 

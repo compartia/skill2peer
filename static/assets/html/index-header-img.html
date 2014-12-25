@@ -8,7 +8,7 @@
 	<meta name="description" content="The HTML5 Herald">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="static/css/styles_min.css">
+	<link rel="stylesheet" href="../css/styles_min.css">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,6 +16,8 @@
 </head>
 
 <body>
+	include "page-top-navbar.html"
+
 	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
 
 		<div class="page-header-wrap">
@@ -35,10 +37,10 @@
 		    </header><!-- /Page-header -->
 
 			<div class="featured-img">
-				<img src="static/images/test-profile.jpg" alt="Сценарий жанрового кино"/>
+				<img src="../img/test-profile.jpg" alt="Сценарий жанрового кино"/>
 			</div>
 			<div class="course-time-info">
-				<div class="course-dates">
+				<div class="course-dates single-event">
 					<div class="course-dates-wrap">
 						<time class="course-date" datetime="2014-10-27" itemprop="startDate" content="2016-04-21"><em>27</em> октября</time>
 						<span class="course-duration" itemprop="duration">
@@ -46,7 +48,7 @@
 								<em>160</em> часов
 							</span>
 						</span>
-						<time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2016-04-30"><em>30</em> октября</time>
+						<!-- <time class="course-date" datetime="2014-10-30" itemprop="endDate" content="2016-04-30"><em>30</em> октября</time> -->
 					</div>
 				</div>
 				<div class="course-time-place">
