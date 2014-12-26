@@ -198,16 +198,6 @@ public class CourseMappingTest {
 
     }
 
-    private void compareDates(final DateTime t1, final DateTime t2) {
-        Assert.assertNotNull(t1);
-        Assert.assertNotNull(t2);
-        Assert.assertEquals(t1.getMinuteOfHour(), t2.getMinuteOfHour());
-        Assert.assertEquals(t1.getHourOfDay(), t2.getHourOfDay());
-        Assert.assertEquals(t1.getYear(), t2.getYear());
-        Assert.assertEquals(t1.getMonthOfYear(), t2.getMonthOfYear());
-        Assert.assertEquals(t1.getDayOfMonth(), t2.getDayOfMonth());
-    }
-
     private void compareLessons(final LessonEditDto l1, final Lesson l2) {
         Assert.assertEquals(l1.getDescription(), l2.getDescription());
 
@@ -217,12 +207,12 @@ public class CourseMappingTest {
     private void compareSchedules(final ScheduleEditDto s1, final Schedule s2) {
         final DateTime t1 = s1.getStart();
         final DateTime t2 = s2.getStart();
-        compareDates(t1, t2);
+        TestUtil.compareDateTime(t1, t2);
     }
 
     private void compareSchedules(final ScheduleInfoDto s1, final Schedule s2) {
-        compareDates(s1.getStart(), s2.getStart());
-        compareDates(s1.getEnd(), s2.getEnd());
+        TestUtil.compareDateTime(s1.getStart(), s2.getStart());
+        TestUtil.compareDateTime(s1.getEnd(), s2.getEnd());
 
     }
 

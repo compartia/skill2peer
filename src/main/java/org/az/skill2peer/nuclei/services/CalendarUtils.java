@@ -85,6 +85,30 @@ public class CalendarUtils {
         return eventDto;
     }
 
+    public static DateTimeIterator createDateTimeIterator(
+            final String repeatRules,
+            final DateTime scheduleStart,
+            final DateTimeZone timeZone) throws ParseException {
+
+        DateTime start = scheduleStart;
+        String exdate = "";
+        final RRule rrule = new RRule(repeatRules);
+        if (rrule.getFreq().ordinal() > Frequency.DAILY.ordinal()) {
+            start = start.minusDays(1);
+            exdate = "\nEXDATE:"
+                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+        }
+
+        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                repeatRules + exdate,
+                start,
+                timeZone,
+                true);
+
+        return dateIterable.iterator();
+
+    }
+
     public static String formatHoursDuration(final Locale locale, final int minutes) {
 
         final int hoursNum = (minutes - minutes % 60) / 60;
@@ -204,36 +228,15 @@ public class CalendarUtils {
                 DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
     }
 
-    public static DateTimeIterator createDateTimeIterator(
-            final String repeatRules,
-            final DateTime scheduleStart,
-            final DateTimeZone timeZone) throws ParseException {
-
-        DateTime start = scheduleStart;
-        String exdate = "";
-        final RRule rrule = new RRule(repeatRules);
-        if (rrule.getFreq().ordinal() > Frequency.DAILY.ordinal()) {
-            start = start.minusDays(1);
-            exdate = "\nEXDATE:"
-                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
-        }
-
-        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                repeatRules + exdate,
-                start,
-                timeZone,
-                true);
-
-        return dateIterable.iterator();
-
-    }
-
     public static List<DayEventsDto> groupEventsInWeek(final List<EventDto> eventsWithinPeriod) {
         final List<DayEventsDto> events = CalendarUtils.makeWeekPattern();
 
+        for (final DayEventsDto set : events) {
+            set.getEvents().clear();
+        }
         for (final EventDto e : eventsWithinPeriod) {
             final Set<EventDto> set = events.get(e.getStart().getDayOfWeek() - 1).getEvents();
-            set.clear();
+            //set.clear();
             set.add(e);
         }
 

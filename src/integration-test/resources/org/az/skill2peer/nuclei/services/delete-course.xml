@@ -10,9 +10,9 @@
                    sign_in_provider="FACEBOOK"
                    version="0"/>
                    
-    <schedule id="1" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-14 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
-    <schedule id="2" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-15 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
-    <schedule id="3" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-16 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+    <schedule id="1" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300101" start_time="2024-12-14 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="1"></schedule>
+    <schedule id="2" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300102" start_time="2024-12-15 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="2"></schedule>
+    <schedule id="3" repeat="RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300103" start_time="2024-12-16 04:51:0.0" end_time="2014-12-14 06:51:35.216" version="3"></schedule>
 
 	<course id="1" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
 	<course id="2" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>

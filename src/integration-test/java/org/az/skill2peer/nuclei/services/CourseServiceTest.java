@@ -11,9 +11,11 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.Lesson;
+import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.dozer.Mapper;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.junit.Assert;
 import org.junit.Before;
@@ -123,31 +125,41 @@ public class CourseServiceTest extends AbstractServiceTest {
 
         Assert.assertNotNull(course.getLessons());
         Assert.assertTrue(!course.getLessons().isEmpty());
+
+        final Lesson lesson1 = course.getLessons().get(0);
+        final Schedule schedule = lesson1.getSchedule();
+
+        Assert.assertEquals(1, schedule.getId().intValue());
+        Assert.assertEquals("RRULE:FREQ=DAILY;WKST=MO;UNTIL=20300101", schedule.getiCalString());
+
     }
 
-    //@Transactional
     @Test
     @DatabaseSetup(value = "course-schedule-1.xml")
-    public void getCourseWeekScheduel() throws Exception {
+    public void getCourseWeekSchedule() throws Exception {
 
         final Course source = service.getCourse(1);
+        final Schedule schedule = source.getLessons().get(0).getSchedule();
+        final DateTime start = schedule.getStart();
+
+        Assert.assertTrue(start.isBefore(DateTime.now()));
         final CourseInfoDto course = new CourseInfoDto();
+
         mapper.map(source, course);
 
-        final List<DayEventsDto> weekSchedule = source.getWeekSchedule();
+        TestUtil.compareTime(start, course.getLessons().get(0).getSchedule().getStart());
+
+        final List<DayEventsDto> weekSchedule = course.getWeekSchedule();
         Assert.assertEquals(7, weekSchedule.size());
 
-        int saturday = DateTimeConstants.SATURDAY;
-        final DayEventsDto events = weekSchedule.get(saturday - 1);
-        Assert.assertEquals(1, events.getEvents().size());
-        final EventDto first = events.getEvents().first();
+        final DayEventsDto eventsOnMonday = weekSchedule.get(0);
+        Assert.assertEquals(1, eventsOnMonday.getEvents().size());
+        final EventDto first = eventsOnMonday.getEvents().first();
 
-        Assert.assertEquals(saturday, first.getStart().getDayOfWeek());
+        Assert.assertEquals(DateTimeConstants.MONDAY, first.getStart().getDayOfWeek());
 
-        Assert.assertEquals(18, first.getEnd().getHourOfDay());
-        Assert.assertEquals(16, first.getStart().getHourOfDay());
-
-        saturday++;
+        TestUtil.compareTime(schedule.getEnd(), first.getEnd());
+        TestUtil.compareTime(schedule.getStart(), first.getStart());
 
     }
 
@@ -163,6 +175,22 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertEquals(1, lessons.size());
         final LessonEditDto lessonEditDto = lessons.get(0);
         Assert.assertEquals(1, lessonEditDto.getId().intValue());
+    }
+
+    @Test
+    @DatabaseSetup(value = "course-schedule-1.xml")
+    public void getEventsWithinWeek() throws Exception {
+        final DateTime now = DateTime.now();
+        final Course source = service.getCourse(1);
+
+        final Lesson lesson = source.getLessons().get(0);
+
+        final Schedule schedule = lesson.getSchedule();
+        Assert.assertTrue(schedule.isRecurrent());
+
+        Assert.assertTrue(schedule.getStart().isBefore(now));
+        final List<EventDto> eventsWithinWeek = schedule.getEventsWithinWeek(now);
+        Assert.assertEquals(1, eventsWithinWeek.size());
     }
 
     @Transactional

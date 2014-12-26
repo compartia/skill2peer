@@ -20,7 +20,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.google.common.base.Preconditions;
 import com.google.ical.compat.jodatime.DateTimeIterator;
@@ -73,7 +72,7 @@ public class Schedule extends BaseEntity<Integer> {
             return result;
         } else {
 
-            final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+            final DateTimeZone timeZone = DateTimeZone.UTC;//.forTimeZone(LocaleContextHolder.getTimeZone());
 
             if (StringUtils.isEmpty(getiCalString())) {
                 /**
@@ -92,23 +91,14 @@ public class Schedule extends BaseEntity<Integer> {
 
                 try {
 
-                    //                    final DateTime iteratorStart = applyTime(from);
-                    //
-                    //                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                    //                            getiCalString(),
-                    //                            iteratorStart,
-                    //                            timeZone,
-                    //                            true);
-                    //
-                    //
-                    //
-                    //                    final DateTimeIterator iterator = dateIterable.iterator();
-
-                    final DateTimeIterator iterator = CalendarUtils.getProperIterator(this);
+                    final DateTimeIterator iterator = CalendarUtils.getProperIterator(from,
+                            this.getiCalString(),
+                            this.getStart(),
+                            timeZone);
 
                     while (iterator.hasNext()) {
 
-                        final DateTime dt = iterator.next().withZone(timeZone);
+                        final DateTime dt = iterator.next();
 
                         if (dt.isBefore(to)) {
 
