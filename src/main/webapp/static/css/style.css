@@ -1,0 +1,48 @@
+.content {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.sign-in-text {
+    padding-right: 2em;
+}
+
+.social-button-row {
+    padding-top: 1.0em;
+}
+
+
+.login-form{
+	/* background-color: #E7EFEF; */
+	background-color:rgba( 200,200,220,0.38);
+	background-image: url(../img/noise.png);
+}
+
+.form-panel{
+	/* background-color: #E7EFEF; */
+	background-color:rgba( 253,251,250,1);
+	background-image: url(../img/noise.png);
+	margin: 0.5em;
+}
+
+body {
+	/* background: url(static/img/tkLOe7nnQ7mnMsiuijBy_hm.jpg); */
+}
+
+/* .page, */.noisy {
+	background: url(../img/noise.png);
+}
+
+
+.file-over-class{
+background: red;	
+}
+
+.error{
+	background-color: #FA787E;
+}
+/*  input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  } */
+  
+  
