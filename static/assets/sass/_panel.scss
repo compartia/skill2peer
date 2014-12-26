@@ -181,13 +181,15 @@
 		}
 	}
 	time {
+		time {
 		color:$light-text-color;
+	}
 	}
 }
 .related-courses {
 	@include make-row();
 }
-.course-block {
+.related-course-block {
 	@include make-sm-column(6);
 	@include clearfix();
 	margin-bottom:20px;
@@ -239,17 +241,17 @@
 		}
 	}
 }
-.course-date {
+.related-course-date {
 	display: block;
 	margin:0 0 9px;
 	color:$light-text-color;
 	font-size: .9em;
 }
-.course-title {
+.related-course-title {
 	margin: 0;
 	font-size: 1.1em;
 }
-.course-description-wrap {
+.related-course-description {
 	max-height: 93px;
 	overflow: hidden;
 
@@ -257,4 +259,39 @@
 		margin: 0;
 		font-size: .9em;
 	}
+}
+
+
+.course-lessons {
+	.expand-link {
+		position: relative;
+		padding-right: 40px;
+		cursor: pointer;
+		@extend .glyphicon-chevron-down;
+
+		&:before {
+			position: absolute;
+			right: 15px;
+			top: 50%;
+			margin-top: -7px;
+			@extend .glyphicon;
+		}
+
+		&[aria-expanded="true"] {
+			@extend .glyphicon-chevron-up;
+		}
+	}
+}
+.lesson-title {
+	margin:0;
+	font-size:1.143em;
+}
+.lesson-time {
+	color:$light-text-color;
+	font-size:0.929em;
+}
+.lesson-address {
+	display: block;
+	margin: 5px 0;
+	font-size: .9em;
 }

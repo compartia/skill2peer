@@ -161,6 +161,7 @@ img {
 }
 .course-dates {
 	padding: 11px 0;
+	height: 110px;
 	text-align:center;
 	text-transform:uppercase;
 	border-bottom:2px solid $panel-border;
@@ -176,9 +177,32 @@ img {
 		height: 86px;
 		vertical-align: middle;
 	}
+
+	&.single-event {
+		.course-dates-wrap {
+			display:block;
+		}
+		.course-date,
+		.course-duration {
+			display:block;
+			height:auto;
+
+			em {
+				display: inline;
+				line-height:1.1em;
+			}
+		}
+		.course-duration{
+			&:before {
+				display: none;
+			}
+			
+		}
+	}
 }
 
 .course-date {
+
 	em {
 		display: block;
 	  	font-family:"robotoregular";
@@ -230,7 +254,7 @@ img {
 
 .course-time {
 	position: relative;
-	padding: 8px 5px 7px;
+	padding: 8px 5px 5px;
 
 	color:$time-panel-color;
 	text-transform:uppercase;
@@ -243,7 +267,7 @@ img {
 	&:after {
 		position: absolute;
 		content: '';
-		top: 51px;
+		top: 55px;
 		right: -10px;
 		width: 0;
 		height: 0;
@@ -281,17 +305,17 @@ img {
 
 .course-options-wrap {
 	.btn {
-		padding: 8px 16px 7px;
+		padding: 8px 16px;
 		border:0;
 		border-radius:0;
 		text-transform: uppercase;
 		font-family: "robotoregular";
 		font-size: 1.286em;
 		letter-spacing: .04em;
-
 	}
 	.btn-lg {
 		padding: 18px 16px;
+		height:59px;
 		font-family: "robotomedium";
 		font-size: 1.286em;
 	}
@@ -302,6 +326,9 @@ img {
 		.btn {
 			float:none;
 			display: table-cell;
+			width: 100%;
+			height:39px;
+			line-height: 1.28em;
 		}
 		.btn-like{
 			width:59px;
