@@ -82,6 +82,7 @@ body {
 							</div>
 						</div>
 					</div>
+					
 <div ng-repeat="lesson in course.lessons">
 					<div class="what-block panel-body form-panel">
 						<div class="row">
@@ -131,7 +132,7 @@ body {
 								<div class="section-label">2</div>
 							</div>
 							<div class="col-md-11">
-								<h5>расписание</h5>
+								<h3>расписание</h3>
 								<%@include file="includes/edit-schedule.jsp"%>
 							</div>
 						</div>
