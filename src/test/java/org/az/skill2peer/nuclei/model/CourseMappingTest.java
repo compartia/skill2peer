@@ -1,7 +1,10 @@
 package org.az.skill2peer.nuclei.model;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
+import org.apache.commons.io.IOUtils;
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
@@ -14,6 +17,7 @@ import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.dozer.Mapper;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +29,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {
@@ -157,6 +165,20 @@ public class CourseMappingTest {
 
         Assert.assertEquals(null, target.getTotalDurationAsString());
 
+    }
+
+    @Test
+    public void testJsonDatesMapping() throws JsonParseException, JsonMappingException, IOException {
+
+        final InputStream resourceAsStream = this.getClass().getResourceAsStream("/courseCreate.json");
+        Assert.assertNotNull(resourceAsStream);
+        final String myResource = IOUtils.toString(resourceAsStream);
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final CourseEditDto user = mapper.readValue(myResource, CourseEditDto.class);
+
+        final DateTime start = user.getLessons().get(0).getSchedule().getStart();
+        Assert.assertEquals("2014-12-27T19:15:00.000Z", start.withZone(DateTimeZone.UTC).toString());
     }
 
     @Test

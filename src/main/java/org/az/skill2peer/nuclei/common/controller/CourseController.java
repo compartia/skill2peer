@@ -35,6 +35,7 @@ public class CourseController {
         final ModelAndView mv = new ModelAndView(Urls.COURSE_INFO);//XXX: first slash is questionable
         final CourseInfoDto course = courseService.getCourseFullInfo(id);
         fakeCourseData(course);
+
         mv.addObject("course", course);
         return mv;
     }

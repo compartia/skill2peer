@@ -184,6 +184,9 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         if (nextEvent != null) {
             return getWeekSchedule(nextEvent);
         } else {
+            /**
+             * empty week schedule
+             */
             return CalendarUtils.makeWeekPattern();
         }
     }

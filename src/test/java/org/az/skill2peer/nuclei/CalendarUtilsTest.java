@@ -126,6 +126,7 @@ public class CalendarUtilsTest {
         Assert.assertTrue(schedule.getStart().isBefore(now));
         final List<EventDto> eventsWithinWeek = schedule.getEventsWithinWeek(now);
         Assert.assertEquals(1, eventsWithinWeek.size());
+
         TestUtil.compareTime(schedule.getStart(), eventsWithinWeek.get(0).getStart());
     }
 

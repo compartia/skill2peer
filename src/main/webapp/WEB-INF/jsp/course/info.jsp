@@ -17,9 +17,6 @@
 </head>
 <body>
 	
-
-
-
 	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
 
 	<%@include file="includes/course-info-header.jsp"%>
@@ -43,199 +40,210 @@
 
  
 
-		<div class="row">
-			<div class="col-md-8">
-				<div class="panel panel-default">
-					<div class="panel-body">
-
-						<div class="course-detail-image">
-							<img typeof="foaf:Image" class="img-responsive" src="img/im2.jpg" property="image"
-								alt="S2P-320 - Постархангельская прионика" title="S2P-320 - Постархангельская прионика">
-						</div>
-						 
-					
-						<!-- краткое описание курса-->
-						<p itemprop="description" class="lead">${course.summary}</p>
-
-					</div>
-				</div>
-
-				
-
-
-
-
-			</div>
-			<!-- end  of left col -->
-
-			<div class="col-md-4">
-
+		 
+			 
 				 
+				
  
-				<aside class="section-sidebar">
-					<c:if test="${!course.single}">
-						<div class="panel panel-default">
-							<!-- Default panel contents -->
-							<div class="panel-heading">
-								<h3>Расписание</h3>
-							</div>
-							<%@include file="includes/course-schedule.jsp"%>
-						</div>
-					</c:if>
-				</aside>
-
-
-			</div>
-			<!-- end  of right col -->
-		</div>
-
-
-		<div class="row">
-			<div class="col-md-8">
-				<!-- детальное описание курса -->
-
-				<p>${course.description}</p>
-
-				<form role="form">
-					<div class="form-group">Фотографии TODO:</div>
-				</form>
-				
-			</div>
-			<!--    right col-->
-			<div class="col-md-4">
-
 				 
+        <div class="sections-wrap">
+			<section class="section course-description">
+                <p class="lead" itemprop="description">${course.summary}</p>
+				<p>${course.description}</p>	 
+			</section><!-- /Course-description -->
+            
+            
+            
 
+			<aside class="section-sidebar">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Преподаватели</h3>
+					</div>
+					<div class="panel-body lecturer-wrap">
 
-				<!-- <span itemscope itemtype="http://schema.org/performers">  -->
-				<div class="tile" itemscope itemtype="http://schema.org/Person" itemprop="performer">
-					<!-- Default panel contents -->
-					<div class="panel-heading">курс ведет</div>
+						<div class="lecturer-info">
+					        <div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+							<h4 class="lecturer-name">Анна Тарабрина</h4>
+							<div class="star-rating"> 
+								<span class="fa fa-star" data-rating="1"></span>
+								<span class="fa fa-star" data-rating="2"></span>
+								<span class="fa fa-star" data-rating="3"></span>
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3"> 
+							</div>
+							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+						</div>
+				        <p class="lecturer-description">
+							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
+						</p>
+			      	</div>
+				   	<div class="panel-body lecturer-wrap">
+				   		<div class="lecturer-info">
+					        <div class="img-wrap">
+								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+							</div>
+							<h4 class="lecturer-name">Василий Васильев</h4>
+							<div class="star-rating"> 
+								<span class="fa fa-star" data-rating="1"></span>
+								<span class="fa fa-star" data-rating="2"></span>
+								<span class="fa fa-star" data-rating="3"></span>
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
+							</div>
+							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+						</div>
+				        <p class="lecturer-description">
+							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
+						</p>
+			      </div>   
+				</div><!-- /panel -->
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Рейтинг курса</h3>
+						<span class="badge badge-info">
+							<span>Информация</span>
+						</span>
+					</div>
+
+					<div class="panel-body rating">
+						<div class="star-rating-wrap">
+							<span class="total-rating">67</span>
+							<div class="star-rating active"> 
+								<span class="fa fa-star" data-rating="1"></span>
+								<span class="fa fa-star" data-rating="2"></span>
+								<span class="fa fa-star" data-rating="3"></span>
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
+							</div>
+						</div>
+						<a href="#" class="navigate-link">Посоветовать другу<i class="fa fa-angle-right"></i></a>
+					</div>
+				</div><!-- /panel -->
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Загрузки</h3>
+					</div>
 
 					<div class="panel-body">
-						<img itemprop="image" src="img/dmalan00.jpg" alt="..." class="img-circle pull-left" width="60px" height="60px">
-						<label> <span itemprop="name">Johnatahan Smithderson </span><br> University of Nikaragua
-						</label> <br> <span class="fui-star-2"></span> <span class="fui-star-2"></span> <span class="fui-star-2"></span> <span
-							class="fui-star-2"></span> <br> рейтинг: 54.4<br> <a href="#" class="btn btn-default btn-sm">
-							написать вопрос </a>
-
-					</div>
-				</div>
-				<!-- </span> -->
-
-				<div class="course-detail-overview views-fieldset" data-module="views_fieldsets">
-					<div>
-						<h3>подготовка:</h3>
-						High school maths and physics.
+						<ul class="download-list">
+							<li>
+								<a href="#" class="download-link"><i class="glyphicon glyphicon-download"></i>Литература</a>
+							</li>
+							<li>
+								<a href="#" class="download-link"><i class="glyphicon glyphicon-download"></i>Литература</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 
+			</aside><!-- /Sidebar -->
 
+			
+		</div><!-- /sections-wrap -->
+        
+        
+
+        <div class="sections-wrap">
+			<aside class="section-sidebar"><c:if test="${!course.single}">
 				<div class="panel panel-default">
-					<!-- Default panel contents -->
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-time"></span> Программа курса
+				  <!-- Default panel contents -->
+				  <div class="panel-heading"><h3>Расписание</h3></div>
+
+				  <!-- List group -->
+				   <%@include file="includes/course-schedule.jsp"%>
+				</div></c:if>
+			</aside>
+
+			<section class="section">
+				<div class="panel panel-light">
+					<div class="panel-heading"><h2>Отзывы</h2></div>
+
+					<div class="panel-body comments-list">
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.
+							Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="https://lh5.googleusercontent.com/-pCyPzLumSHs/U6QNeMPkDqI/AAAAAAAAAmY/4TLZ0GjnDhA/w140-h140-p/Daria.jpg"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
-
-					  
-
-
-
-
 				</div>
+			</section>
+		</div><!-- sections-wrap --> 
+		 
+
+
+		 
 
 
 
 
 
-
-				<!--        end of panel-->
-
-
-				<div class="panel panel-default">
-
-					<div class="panel-heading">
-						<span class="glyphicon glyphicon-comment"></span> Отзывы студентов
-					</div>
-
-					<div class="list-group">
-						<a href="#" class="list-group-item">While this course is being only offered for the first time, the first and
-							second courses in the A.N.U. have been offered before and they were both exc ... more</a> <a href="#"
-							class="list-group-item">While this course is being only offered for the first time, the first and second
-							courses in the A.N.U. have been offered before and they were both exc</a>
-					</div>
-					<div class="panel-footer">
-						<a href="#" class="btn btn-default btn-sm"> написать отзыв </a>
-					</div>
-				</div>
-				<!--        end of panel-->
-
-
-			</div>
-			<!--end of row-->
-
-
-
-
-			<h4>Вам могут быть интересны</h4>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="row">
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-							<div class="tile">
-								<img src="../../img/icons/svg/compas.svg" alt="Compas" class="tile-image big-illustration">
-								<h3 class="tile-title">Web Oriented</h3>
-								<p>100% convertable to HTML/CSS layout.</p>
-								<a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-							<div class="tile">
-								<img src="../../img/icons/svg/loop.svg" alt="Infinity-Loop" class="tile-image">
-								<h3 class="tile-title">Easy to Customize</h3>
-								<p>Vector-based shapes and minimum of layer styles.</p>
-								<a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-							<div class="tile">
-								<img src="../../img/icons/svg/pencils.svg" alt="Pensils" class="tile-image">
-								<h3 class="tile-title">Color Swatches</h3>
-								<p>Easy to add or change elements.</p>
-								<a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-							<div class="tile">
-								<img src="../../img/icons/svg/chat.svg" alt="Chat" class="tile-image">
-								<h3 class="tile-title">Free for Share</h3>
-								<p>Your likes, shares and comments helps us.</p>
-								<a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
-							</div>
-
-						</div>
-					</div>
-					<!-- /row -->
-				</div>
-			</div>
-			<!-- /row -->
-
-		</div>
-
-
-
-
-
-		<div class="row">
-			<div class="col-xs-6 col-md-3">
-				<a href="#" class="thumbnail"> <img data-src="holder.js/100%x180" alt="...">
-				</a>
-			</div>
-
-		</div>
+		 
 	</div>
 	<script src="/static/js/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="/static/js/script.js"></script>

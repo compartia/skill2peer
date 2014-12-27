@@ -1,0 +1,19 @@
+{
+    "description":null,
+    "id":801,
+    "lessons":
+	[{
+            "location":null,
+            "price":null,
+            "description":null,
+            "skills":null,
+            "id":801,
+            "schedule": {
+                "duration":120,
+                "repeatDays":[true,false,false,false,false,false,false],
+                "dateTime":"2014-12-27T19:15:00.000Z",
+                "next":null,
+                "recurrent":true,
+                "durationAsString":"2 hours",
+                "endMonth":"декабря","end":{"year":2014,"dayOfMonth":28,"dayOfWeek":7,"era":1,"dayOfYear":362,"weekOfWeekyear":52,"weekyear":2014,"monthOfYear":12,"yearOfEra":2014,"yearOfCentury":14,"centuryOfEra":20,"millisOfSecond":0,"millisOfDay":4320000,"secondOfMinute":0,"secondOfDay":4320,"minuteOfHour":12,"minuteOfDay":72,"hourOfDay":1,"zone":{"fixed":false,"uncachedZone":{"fixed":false,"cachable":true,"id":"Europe/Moscow"},"id":"Europe/Moscow"},"millis":1419714720000,"chronology":{"zone":{"fixed":false,"uncachedZone":{"fixed":false,"cachable":true,"id":"Europe/Moscow"},"id":"Europe/Moscow"}},"afterNow":true,"beforeNow":false,"equalNow":false},"startMonth":"декабря"},"name":"XXX: Lesson.getName() is undefined","summary":null}],
+		"name":"1111","status":"DRAFT","summary":null,"tags":null}

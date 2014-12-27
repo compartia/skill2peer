@@ -254,6 +254,15 @@ public class CalendarUtils {
         return ret;
     }
 
+    public static void withTimeZone(final List<EventDto> events, final DateTimeZone zone) {
+        for (final EventDto event : events) {
+            event.setStart(event.getStart().withZone(zone));
+            if (event.getEnd() != null) {
+                event.setEnd(event.getEnd().withZone(zone));
+            }
+        }
+    }
+
     public static final Comparator<Schedule> SCHEDULE_COMPARATOR = new Comparator<Schedule>() {
         @Override
         public int compare(final Schedule s1, final Schedule s2) {

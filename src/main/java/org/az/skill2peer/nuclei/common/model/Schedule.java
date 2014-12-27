@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Minutes;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.google.common.base.Preconditions;
 import com.google.ical.compat.jodatime.DateTimeIterator;
@@ -65,14 +66,9 @@ public class Schedule extends BaseEntity<Integer> {
     public List<EventDto> getEventsWithinPeriod(final DateTime from, final DateTime to) {
 
         final List<EventDto> result = new ArrayList<EventDto>();
-        if (getStart() == null) {
-            /**
-             * schedule is not defined, return empty list
-             */
-            return result;
-        } else {
+        if (getStart() != null) {
 
-            final DateTimeZone timeZone = DateTimeZone.UTC;//.forTimeZone(LocaleContextHolder.getTimeZone());
+            final DateTimeZone timeZone = DateTimeZone.UTC;
 
             if (StringUtils.isEmpty(getiCalString())) {
                 /**
@@ -82,11 +78,10 @@ public class Schedule extends BaseEntity<Integer> {
                     result.add(CalendarUtils.buidEventDto(getStart(), getEnd(), timeZone));
                 }
 
-                return result;
             } else {
 
                 /**
-                 * this is recurrent event
+                 * this is a recurrent event
                  */
 
                 try {
@@ -98,7 +93,7 @@ public class Schedule extends BaseEntity<Integer> {
 
                     while (iterator.hasNext()) {
 
-                        final DateTime dt = iterator.next();
+                        final DateTime dt = iterator.next().withZone(timeZone);
 
                         if (dt.isBefore(to)) {
 
@@ -117,8 +112,10 @@ public class Schedule extends BaseEntity<Integer> {
                     throw new RuntimeException(e);
                 }
             }
-            return result;
         }
+
+        CalendarUtils.withTimeZone(result, DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
+        return result;
     }
 
     public List<EventDto> getEventsWithinWeek(final DateTime week) {
