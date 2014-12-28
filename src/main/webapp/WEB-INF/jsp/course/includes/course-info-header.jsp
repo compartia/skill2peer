@@ -31,8 +31,8 @@
     <div class="course-time-info">
         <div class="course-dates ${(course.totalDurationAsString!=null && course.single)?"single-event":""}">
             <div class="course-dates-wrap ">
-                <time class="course-date" datetime="${course.schedule.start}" itemprop="startDate" content="${course.schedule.start}">
-                    <em>${course.schedule.start.dayOfMonth}</em> ${course.schedule.startMonth}
+                <time class="course-date" datetime="${course.scheduleInfo.start}" itemprop="startDate" content="${course.scheduleInfo.start}">
+                    <em>${course.scheduleInfo.start.dayOfMonth}</em> ${course.scheduleInfo.startMonth}
                 </time>
 
                 <c:if test="${!(course.totalDurationAsString==null && course.single)}">
@@ -45,8 +45,8 @@
                     </span>
                 </c:if>
                 <c:if test="${!course.single}">
-                    <time class="course-date" datetime="${course.schedule.end}" itemprop="endDate" content="${course.schedule.end}">
-                        <em>${course.schedule.end.dayOfMonth}</em> ${course.schedule.endMonth}
+                    <time class="course-date" datetime="${course.scheduleInfo.end}" itemprop="endDate" content="${course.scheduleInfo.end}">
+                        <em>${course.scheduleInfo.end.dayOfMonth}</em> ${course.scheduleInfo.endMonth}
                     </time>
                 </c:if>
             </div>

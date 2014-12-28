@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 
@@ -20,6 +21,8 @@ public interface CourseService {
     CourseMetaDataDto getCourseInfo(Integer id);
 
     CourseEditDto getEditableCourse(Integer courseId);
+
+    List<CourseInfoListItemDto> getMyCourses();
 
     CourseEditDto updateCourse(CourseEditDto courseDto);
 

@@ -7,15 +7,14 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.services.CourseService;
-import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,17 +28,17 @@ public class CourseRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseRestController.class);
 
+    /**
+     * XXX: move to service layer
+     */
+    @Deprecated
     @PersistenceContext
     EntityManager em;
 
     @Autowired
-    @Deprecated
-    Mapper mapper;
-
-    @Autowired
     CourseService courseService;
 
-    @Transactional(readOnly = false)
+    //    @Transactional(readOnly = false)
     @RequestMapping(value = "/{id}/favorite", method = RequestMethod.POST)
     @ResponseBody
     public void favorite(@PathVariable("id") final Integer id) {
@@ -62,6 +61,13 @@ public class CourseRestController {
     @ResponseBody
     public CourseMetaDataDto getCourseById(@PathVariable("id") final Integer id) {
         return courseService.getCourseInfo(id);
+    }
+
+    @RequestMapping(value = "/myCourses", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CourseInfoListItemDto> getMyCourses() {
+        final List<CourseInfoListItemDto> resultList = courseService.getMyCourses();
+        return resultList;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)

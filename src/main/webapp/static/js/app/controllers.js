@@ -28,6 +28,17 @@ function(angular) {
 		});
     
     } ])
+
+    .controller('courseListsController', [ '$scope', '$injector', function($scope, $injector) {
+        require([ 'controllers/courseListsController' ], function(courseListsController) {
+
+			$injector.invoke(courseListsController, this, {
+				'$scope' : $scope
+			});
+		});
+    
+    } ])
+
 	.controller('courseEditController',
 			[ '$scope', '$injector', 'FileUploader', function($scope, $injector, FileUploader) {
 

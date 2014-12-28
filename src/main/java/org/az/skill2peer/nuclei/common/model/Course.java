@@ -3,6 +3,7 @@ package org.az.skill2peer.nuclei.common.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -17,6 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -29,6 +32,7 @@ import javax.validation.constraints.Size;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
@@ -44,6 +48,7 @@ import com.google.common.base.Preconditions;
 @Entity
 @Table(name = "course")
 @SequenceGenerator(name = "course_id_seq", sequenceName = "course_id_seq")
+@NamedQueries({ @NamedQuery(name = "Course.findAllByAuthor", query = "from Course where author.id=:authorId") })
 public class Course extends BaseEntity<Integer> implements HasOwner {
 
     private static final long serialVersionUID = 3541638359681997928L;
@@ -96,6 +101,13 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     @Column(name = "summary")
     private String summary;
 
+    public static final Comparator<Lesson> SCHEDULE_COMPARATOR = new Comparator<Lesson>() {
+        @Override
+        public int compare(final Lesson s1, final Lesson s2) {
+            return s1.getSchedule().getNextEvent().compareTo(s2.getSchedule().getNextEvent());
+        }
+    };
+
     public Course() {
 
     }
@@ -135,6 +147,24 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
     public Course getPublishedVersion() {
         return publishedVersion;
+    }
+
+    public ScheduleInfoDto getScheduleInfo() {
+        final ScheduleInfoDto s = new ScheduleInfoDto();
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, SCHEDULE_COMPARATOR);
+        final Lesson firstLesson = scs.get(0);
+        final Lesson lastLesson = scs.get(scs.size() - 1);
+
+        s.setNextEvent(firstLesson.getSchedule().getNextEvent());
+        if (!isRecurrent()) {
+            s.setStart(firstLesson.getSchedule().getNextEvent());
+            s.setEnd(lastLesson.getSchedule().getEnd());
+        } else {
+            s.setStart(firstLesson.getSchedule().getStart());
+        }
+
+        return s;
     }
 
     public Collection<Schedule> getSchedules() {

@@ -24,11 +24,6 @@
 	
 	
 	 
-			 
-				 
-				
- 
-				 
         <div class="sections-wrap">
 			<section class="section course-description">
                 <p class="lead" itemprop="description">${course.summary}</p>
@@ -166,16 +161,9 @@
 			</section>
 		</div><!-- sections-wrap --> 
 		 
-
-
-		 
-
-
-
-
-
-		 
 	</div>
+	
+	
 	<script src="/static/js/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="/static/js/script.js"></script>
 	<script src="/static/js/bootstrap.js"></script>

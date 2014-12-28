@@ -13,7 +13,12 @@ function(angular) {
 			favorite : {
 				method : 'POST',
 				url : "/rest/courses/:id/favorite"
-			}
+			},
+            myCourses:{
+                method : 'GET',
+				url : "/rest/courses/myCourses",
+                isArray:true
+            }
 		});
 	} ]);
 

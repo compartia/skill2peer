@@ -34,8 +34,9 @@ body {
 }
 
 
-.file-over-class{
-background: red;	
+.draft-course {
+	background-color:rgba( 240,220,210,1) !important;
+	background-image: url(../img/noise.png) !important;
 }
 
 .error{

@@ -5,6 +5,7 @@ import java.util.List;
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
@@ -193,6 +194,21 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertTrue(schedule.getStart().isBefore(now));
         final List<EventDto> eventsWithinWeek = schedule.getEventsWithinWeek(now);
         Assert.assertEquals(1, eventsWithinWeek.size());
+    }
+
+    @Transactional
+    @Test
+    @DatabaseSetup(value = "delete-course.xml")
+    public void getMyCourses() {
+        final List<CourseInfoListItemDto> myCourses = service.getMyCourses();
+        Assert.assertEquals(2, myCourses.size());
+
+        final CourseInfoListItemDto courseInfoListItemDto = myCourses.get(0);
+
+        Assert.assertEquals("summary", courseInfoListItemDto.getSummary());
+        Assert.assertEquals("title", courseInfoListItemDto.getName());
+        Assert.assertNotNull(courseInfoListItemDto.getScheduleInfo());
+        Assert.assertNotNull(courseInfoListItemDto.getStatus());
     }
 
     @Transactional

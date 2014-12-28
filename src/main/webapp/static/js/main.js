@@ -2,20 +2,24 @@ require.config({
 	paths : {
 		jquery : '/static/js/bower_components/jquery/dist/jquery.min',
 		angular : '/static/js/bower_components/angular/angular.min',
-		//flatui : '/static/js/vendor/flat-ui.min',
+		// flatui : '/static/js/vendor/flat-ui.min',
 		app : '/static/js/app/app',
 		angularresource : '/static/js/bower_components/angular-resource/angular-resource.min',
 		angularroute : '/static/js/bower_components/angular-route/angular-route.min',
 		controllers : '/static/js/app/controllers',
 		services : '/static/js/app/controllers/courseServices',
 		autocomplete : '/static/js/vendor/ngAutocomplete',
-		//dropzone : '/static/js/bower_components/dropzone/downloads/dropzone-amd-module.min',
+		// dropzone :
+		// '/static/js/bower_components/dropzone/downloads/dropzone-amd-module.min',
 		// 'dropzone-directive' : '/static/js/vendor/dropzone-directive',
 		'angular-file-upload' : '/static/js/bower_components/angular-file-upload/angular-file-upload',
-        'moment' : '/static/js/bower_components/moment/min/moment.min',
-        'bootstrap':'/static/js/vendor/ui-bootstrap-custom-build/ui-bootstrap-custom-0.12.0.min'        
+		'moment' : '/static/js/bower_components/moment/min/moment.min',
+		'bootstrap' : '/static/js/vendor/ui-bootstrap-custom-build/ui-bootstrap-custom-0.12.0.min'
 	},
 	shim : {
+		'app' : {
+			deps : [ 'angular' ]
+		},
 		'angular' : {
 			exports : 'angular'
 		},
@@ -29,10 +33,6 @@ require.config({
 		'courseServices' : {
 			deps : [ 'angularroute', 'angularresource' ]
 		},
-
-//		'flatui' : {
-//			deps : [ 'jquery' ]
-//		},
 
 		'angular-file-upload' : [ "angular" ],
 

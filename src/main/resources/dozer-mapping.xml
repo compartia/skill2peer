@@ -10,6 +10,15 @@
 		</copy-by-references>
 	</configuration>
 	 
+	<mapping type="one-way">
+ 		<class-a>org.az.skill2peer.nuclei.common.model.Schedule</class-a>
+ 		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto</class-b>
+	</mapping> 
+	
+	<mapping type="one-way">
+ 		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
+ 		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto</class-b>
+	</mapping> 
 	
 	<mapping>
  		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto</class-a>
