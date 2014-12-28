@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="skill2peerApp">
+<html>
 <head>
 <meta charset="UTF-8" />
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
@@ -24,8 +24,6 @@ src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/req
  --%>
 
 
-<script data-main="/static/js/main"
-	src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script>
 
 <%-- <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/vendor/flat-ui.min.js"></script> --%>

@@ -9,7 +9,9 @@
 <title>${course.name}</title>
 
 
- 
+<script data-main="/static/js/main-view-course"
+	src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script>
+
 <script type="text/javascript">
 	var courseId = ${course.id}
 </script>
@@ -164,9 +166,9 @@
 	</div>
 	
 	
-	<script src="/static/js/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/static/js/script.js"></script>
-	<script src="/static/js/bootstrap.js"></script>
+<!--	<script src="/static/js/bower_components/jquery/dist/jquery.min.js"></script>-->
+<!--	<script src="/static/js/script.js"></script>-->
+<!--	<script src="/static/js/bootstrap.js"></script>-->
 	
 </body>
 </html>

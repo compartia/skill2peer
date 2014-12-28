@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8" />
 <title>SKILL2PEER</title>
+ 
+<script data-main="/static/js/main-edit-course"
+	src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script>
+    
 </head>
 <body>
 
@@ -17,11 +21,11 @@
 		<a href="/course/create" class="btn btn-default">создать курс</a>
 	</div>
 		
-	<div class="related-courses-wrap"  ng-controller="courseListsController">    
+	<div class="related-courses-wrap"  data-ng-controller="courseListsController">    
 			<div class="panel panel-light">
 					<div class="panel-heading"><h2>Мои курсы</h2></div>
 					<div class="panel-body">
-					 	<div class="related-courses"  >
+					 	<div class="related-courses" ng-cloak >
 					 	
 							<div class="related-course-block" ng-repeat="mcourse in myCourses | orderBy : 'status':true">
 								<div class="img-wrap">

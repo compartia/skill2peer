@@ -2,8 +2,8 @@
 
 define(
 //
-[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource', /* 'flatui', */'angular-file-upload',
-		'bootstrap' ],
+[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource','angular-file-upload',
+		'bootstrap', 'jquery', 'bootstrap-ui' ],
 //
 function(angular, filters, services, directives, controllers) {
 
@@ -40,7 +40,7 @@ function(angular, filters, services, directives, controllers) {
                     && rejection.config.headers[HEADER_NAME]);
 
                 if (shouldHandle) {
-                    // ---   generic error handling goes here ---
+                    // --- generic error handling goes here ---
                     alert ("error "+rejection.data.message);
                 }
 

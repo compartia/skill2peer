@@ -5,7 +5,6 @@ define(
 function onReady() {
 
 	return [ '$scope', function($scope) {
-        
         /**
 		 * the first version starts from SPB, Russia
 		 */
@@ -16,6 +15,8 @@ function onReady() {
         $scope.lesson = $scope.$parent.selectedLesson;
         $scope.start={};
 		$scope.placeSearchOptions = {};
+        
+        
         
         if($scope.lesson.schedule.dateTime){
             $scope.start.date = moment($scope.lesson.schedule.dateTime).toDate();
