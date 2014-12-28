@@ -104,7 +104,31 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     public static final Comparator<Lesson> SCHEDULE_COMPARATOR = new Comparator<Lesson>() {
         @Override
         public int compare(final Lesson s1, final Lesson s2) {
-            return s1.getSchedule().getNextEvent().compareTo(s2.getSchedule().getNextEvent());
+            final Schedule schedule1 = s1.getSchedule();
+            final Schedule schedule2 = s2.getSchedule();
+            if (schedule1 == schedule2) {
+                return 0;
+            }
+            if (schedule1 == null) {
+                return -1;
+            }
+            if (schedule2 == null) {
+                return 1;
+            }
+            final DateTime nextEvent1 = schedule1.getNextEvent();
+            final DateTime nextEvent2 = schedule2.getNextEvent();
+
+            if (nextEvent1 == nextEvent2) {
+                return 0;
+            }
+
+            if (nextEvent1 == null) {
+                return -1;
+            }
+            if (nextEvent2 == null) {
+                return 1;
+            }
+            return nextEvent1.compareTo(nextEvent2);
         }
     };
 
