@@ -124,6 +124,8 @@ public class CourseServiceTest extends AbstractServiceTest {
         final Course course = service.getCourse(1);
 
         Assert.assertNotNull(course.getLessons());
+        Assert.assertNotNull(course.getAuthor());
+        Assert.assertNotNull(course.getAuthor().getFirstName());
         Assert.assertTrue(!course.getLessons().isEmpty());
 
         final Lesson lesson1 = course.getLessons().get(0);

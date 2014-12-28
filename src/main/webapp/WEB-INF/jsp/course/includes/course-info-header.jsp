@@ -29,8 +29,8 @@
 
 
     <div class="course-time-info">
-        <div class="course-dates">
-            <div class="course-dates-wrap">
+        <div class="course-dates ${(course.totalDurationAsString!=null && course.single)?"single-event":""}">
+            <div class="course-dates-wrap ">
                 <time class="course-date" datetime="${course.schedule.start}" itemprop="startDate" content="${course.schedule.start}">
                     <em>${course.schedule.start.dayOfMonth}</em> ${course.schedule.startMonth}
                 </time>
@@ -85,16 +85,16 @@
                     </div>
                 </div>
 
-                <a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>
-
-                <div class="course-toolbar btn-group">
+                <a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>				
+				
+                <div class="course-toolbar btn-group" ng-controller="favoriteCourseController">
                     <a href="#" class="btn btn-info" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
                         <span itemprop="lowPrice" content="${course.price.value}">${course.price.value} ${course.price.currency}</span>
                         <meta itemprop="priceCurrency" content="${course.price.currency}" />
                     </a>
-                    <a href="#" class="btn btn-like">
-                        <i class="glyphicon glyphicon-heart"></i>
-                    </a>
+                    <button class="btn btn-like {{btnStyle}}"  ng-click="favoriteCourse()">
+						<i class="glyphicon glyphicon-heart"></i>
+					</button>
                 </div>	
             </div>
         </div>

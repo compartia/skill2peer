@@ -1,5 +1,8 @@
 package org.az.skill2peer.nuclei.user.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,8 +10,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.az.skill2peer.nuclei.common.model.BaseEntity;
@@ -93,6 +99,11 @@ public class User extends BaseEntity<Integer> implements HasIntegerId {
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaService signInProvider;
 
+    @OneToMany(targetEntity = UserSocialProfile.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid", referencedColumnName = "email")
+    @Valid
+    private List<UserSocialProfile> socialProfiles;
+
     public User() {
 
     }
@@ -110,6 +121,17 @@ public class User extends BaseEntity<Integer> implements HasIntegerId {
         return id;
     }
 
+    public String getImageUrl() {
+        if (socialProfiles != null) {
+            for (final UserSocialProfile profile : socialProfiles) {
+                if (profile.getImageUrl() != null) {
+                    return profile.getImageUrl();
+                }
+            }
+        }
+        return null;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -124,6 +146,14 @@ public class User extends BaseEntity<Integer> implements HasIntegerId {
 
     public SocialMediaService getSignInProvider() {
         return signInProvider;
+    }
+
+    public List<UserSocialProfile> getSocialProfiles() {
+        return socialProfiles;
+    }
+
+    public void setSocialProfiles(final List<UserSocialProfile> socialProfiles) {
+        this.socialProfiles = socialProfiles;
     }
 
     @Override

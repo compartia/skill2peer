@@ -10,6 +10,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
+import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 
@@ -48,6 +49,10 @@ public class TestUtil {
             final Lesson lesson = makeLesson(recurrent);
             course.getLessons().add(lesson);
         }
+
+        final User user = User.getBuilder().firstName("Art").lastName("Zab").email("test@some.com").build();
+
+        course.setAuthor(user);
         return course;
     }
 

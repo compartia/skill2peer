@@ -23,24 +23,7 @@
 	<%@include file="includes/header-toolbar.jsp"%>
 	
 	
-	<div>
-		<div class="container">
-			<div class="navbar-right text-right">
-				<small>Ближайший урок: 16 Ноября в 16:00 ${course.schedule}</small>
-				<button class="btn btn-danger navbar-btn" type="button">Записаться</button>
-
-				<span ng-controller="favoriteCourseController">
-					<button ng-click="favoriteCourse()" class="btn {{btnStyle}} navbar-btn" type="button">
-						<i class="fui-heart"></i>
-					</button>
-				</span>
-			</div>
-		</div>
-	</div>
-
- 
-
-		 
+	 
 			 
 				 
 				
@@ -60,47 +43,8 @@
 					<div class="panel-heading">
 						<h3>Преподаватели</h3>
 					</div>
-					<div class="panel-body lecturer-wrap">
-
-						<div class="lecturer-info">
-					        <div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-							<h4 class="lecturer-name">Анна Тарабрина</h4>
-							<div class="star-rating"> 
-								<span class="fa fa-star" data-rating="1"></span>
-								<span class="fa fa-star" data-rating="2"></span>
-								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
-								<input type="hidden" name="whatever" class="rating-value" value="3"> 
-							</div>
-							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
-						</div>
-				        <p class="lecturer-description">
-							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
-						</p>
-			      	</div>
-				   	<div class="panel-body lecturer-wrap">
-				   		<div class="lecturer-info">
-					        <div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-							<h4 class="lecturer-name">Василий Васильев</h4>
-							<div class="star-rating"> 
-								<span class="fa fa-star" data-rating="1"></span>
-								<span class="fa fa-star" data-rating="2"></span>
-								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
-								<input type="hidden" name="whatever" class="rating-value" value="3">
-							</div>
-							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
-						</div>
-				        <p class="lecturer-description">
-							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
-						</p>
-			      </div>   
+					
+				   	<%@include file="includes/course-info-teachers.jsp"%>
 				</div><!-- /panel -->
 
 				<div class="panel panel-default">
@@ -110,21 +54,8 @@
 							<span>Информация</span>
 						</span>
 					</div>
-
-					<div class="panel-body rating">
-						<div class="star-rating-wrap">
-							<span class="total-rating">67</span>
-							<div class="star-rating active"> 
-								<span class="fa fa-star" data-rating="1"></span>
-								<span class="fa fa-star" data-rating="2"></span>
-								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star disabled" data-rating="4"></span>
-								<span class="fa fa-star disabled" data-rating="5"></span>
-								<input type="hidden" name="whatever" class="rating-value" value="3">
-							</div>
-						</div>
-						<a href="#" class="navigate-link">Посоветовать другу<i class="fa fa-angle-right"></i></a>
-					</div>
+					<%@include file="includes/course-info-rating.jsp"%>
+					
 				</div><!-- /panel -->
 
 				<div class="panel panel-default">

@@ -15,6 +15,12 @@ public class UserInfoDto implements HasIntegerId {
 
     private String lastName;
 
+    private String info;
+
+    private int rating;
+
+    private String imageUrl;
+
     public String getFirstName() {
         return firstName;
     }
@@ -24,8 +30,20 @@ public class UserInfoDto implements HasIntegerId {
         return id;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public int getRating() {
+        return rating;
     }
 
     public void setFirstName(final String firstName) {
@@ -36,7 +54,19 @@ public class UserInfoDto implements HasIntegerId {
         this.id = id;
     }
 
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setInfo(final String info) {
+        this.info = info;
+    }
+
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setRating(final int rating) {
+        this.rating = rating;
     }
 }
