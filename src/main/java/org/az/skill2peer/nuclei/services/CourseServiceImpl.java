@@ -129,6 +129,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public CourseEditDto getEditableCourse(final Integer courseId) {
         final Course editableCourse = editCourse(courseId);
         final CourseEditDto editableDto = new CourseEditDto();
@@ -136,6 +137,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         return editableDto;
     }
 
+    @Override
     public List<CourseInfoListItemDto> getMyCourses() {
         final List<Course> resultList = em
                 .createNamedQuery("Course.findAllByAuthor", Course.class)

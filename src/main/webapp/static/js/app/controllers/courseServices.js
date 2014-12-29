@@ -14,6 +14,10 @@ function(angular) {
 				method : 'POST',
 				url : "/rest/courses/:id/favorite"
 			},
+            edit : {
+				method : 'GET',
+				url : "/rest/courses/:id/edit"
+			},
             myCourses:{
                 method : 'GET',
 				url : "/rest/courses/myCourses",

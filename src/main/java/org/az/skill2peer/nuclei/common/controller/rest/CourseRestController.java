@@ -38,6 +38,12 @@ public class CourseRestController {
     @Autowired
     CourseService courseService;
 
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    @ResponseBody
+    public CourseEditDto edit(@PathVariable("id") final Integer id) {
+        return courseService.getEditableCourse(id);
+    }
+
     //    @Transactional(readOnly = false)
     @RequestMapping(value = "/{id}/favorite", method = RequestMethod.POST)
     @ResponseBody

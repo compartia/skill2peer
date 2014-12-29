@@ -4,15 +4,32 @@ define(
 //
 function onReady() {
 
-	return [ '$scope', 'Courses', function($scope, Courses) {
+	return [ '$scope', 'Courses', '$routeParams', function($scope, Courses, $routeParams) {
+        
+        
 
         this.init=function(){
-            $scope.course = new Courses({});
-            $scope.course.lessons = [ {
-                "id" : null, "schedule":{}
-            } ];
-
-            $scope.selectedLesson = $scope.course.lessons[0];
+            if($routeParams.courseId){                
+                Courses.edit({
+				    id : $routeParams.courseId
+                }, 
+                function(course) {
+                    $scope.course=course;
+                    //alert(course);
+                    $scope.selectedLesson = $scope.course.lessons[0];
+                });
+                
+                
+            }else{
+                $scope.course = new Courses({});
+                $scope.course.lessons = [ {
+                    "id" : null, "schedule":{}
+                } ];
+                
+                 $scope.selectedLesson = $scope.course.lessons[0];
+            }
+            
+           
         }
         
         

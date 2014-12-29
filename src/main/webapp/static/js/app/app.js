@@ -11,14 +11,28 @@ function(angular, filters, services, directives, controllers) {
     var specificallyHandleInProgress = false;
     
 	// Declare app level module which depends on filters, and services
-	var app = angular.module('skill2peerApp', [ 'skill2peerApp.services', 'skill2peerApp.controllers',
+	var app = angular.module('skill2peerApp', [ 'ngRoute', 'skill2peerApp.services', 'skill2peerApp.controllers',
 			'angularFileUpload', 'ui.bootstrap' ]);
 
-	app.config([ "$httpProvider", function($httpProvider) {
+	app.config([ "$httpProvider", '$routeProvider', function($httpProvider, $routeProvider) {
 		$httpProvider.defaults.transformResponse.push(function(responseData) {
 			convertDateStringsToDates(responseData);
 			return responseData;
 		});
+        
+        
+        $routeProvider.
+            when('/home', {
+                templateUrl: 'static/partials/dashboard.jsp',
+                controller: 'courseListsController'
+            }).
+            when('/edit/:courseId', {
+                templateUrl: 'static/partials/edit-course.jsp',
+                controller: 'courseEditController'
+            }).
+            otherwise({
+                redirectTo: '/home'
+            });
 	} ]);
     
     
