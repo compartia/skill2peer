@@ -11,7 +11,17 @@ function(angular) {
 	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete' ])
 	/* */
 
-	.controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
+	.controller('placeEditController', [ '$scope', '$injector', function($scope, $injector) {
+		require([ 'controllers/placeEditController' ], function(placeEditController) {
+
+			$injector.invoke(placeEditController, this, {
+				'$scope' : $scope
+			});
+		});
+
+	} ])
+    
+    .controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
 		require([ 'controllers/lessonEditController' ], function(lessonEditController) {
 
 			$injector.invoke(lessonEditController, this, {

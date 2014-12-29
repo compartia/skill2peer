@@ -1,23 +1,14 @@
 define(
 //
-[ 'autocomplete', 'moment'],
+[ 'moment'],
 //
 function onReady() {
 
 	return [ '$scope', function($scope) {
-        /**
-		 * the first version starts from SPB, Russia
-		 */
-		var spb = new google.maps.LatLng(60, 30);
-		var radius = 40000;
-        
         
         $scope.lesson = $scope.$parent.selectedLesson;
         $scope.start={};
-		$scope.placeSearchOptions = {};
-        
-        
-        
+
         if($scope.lesson.schedule.dateTime){
             $scope.start.date = moment($scope.lesson.schedule.dateTime).toDate();
             $scope.start.minutes=$scope.start.date.getMinutes();
@@ -28,9 +19,6 @@ function onReady() {
             $scope.start.hours=12;
         }
 		
-
-		$scope.placeSearchOptions.location = spb;
-		$scope.placeSearchOptions.radius = radius;
 
         if(!$scope.lesson.schedule.repeatDays){
             $scope.lesson.schedule.repeatDays=[false, false, false, false, false, false, false];

@@ -23,12 +23,12 @@
 
  
 
-				<form role="form" name="courseEditForm">
+				<form role="form" name="courseEditForm" >
 
 
 					 
 					
-<div ng-repeat="lesson in course.lessons">
+<div ng-repeat="lesson in course.lessons" >
 					<div class="what-block panel-body form-panel">
 						<div class="row">
 							<div class="col-md-1">
