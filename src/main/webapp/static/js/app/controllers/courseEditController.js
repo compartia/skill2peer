@@ -37,7 +37,7 @@ function onReady() {
 			savedCourse.$promise.then(function() {
 				$scope.course = savedCourse;
 				$scope.selectedLesson = $scope.course.lessons[0];
-                $location.path('#/home/drafts');
+                $location.path('/home/2');
 			});
 		};
 

@@ -50,6 +50,21 @@ body {
 
 
 /* ========================== */
+
+.nav-tabs>li{
+  font-style: normal !important;
+	font-weight: 300 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .1em;  
+}
+
+.panel{
+    background-color:rgba( 251,252,250,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+
+
 .course-list-item {
 	color: #443322;
 	font-family: "Roboto" !important;

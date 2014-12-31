@@ -8,25 +8,7 @@
 <title>SKILL2PEER</title>
 
 <style>
-time {
-	-webkit-font-smoothing: antialiased;
-	color: rgb(153, 153, 153);
-	cursor: auto;
-	display: inline;
-	font-family: 'Roboto', Arial, sans-serif;
-	font-size: 12px;
-	font-style: normal;
-	font-weight: normal;
-	height: auto;
-	letter-spacing: 0.75px;
-	line-height: 15px;
-	text-transform: uppercase;
-	width: auto;
-}
-    
-.img-wrap{
-    border: 1px solid rgb(153, 153, 153);
-}
+ 
 
 </style>
 
