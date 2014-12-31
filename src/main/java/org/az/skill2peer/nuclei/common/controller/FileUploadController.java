@@ -99,11 +99,11 @@ public class FileUploadController {
         return "You can upload a file by posting to this same URL.";
     }
 
-    public void uploadToS3(final File uploadFilePart) {
-        final S3File s3File = new S3File();
-        s3File.name = uploadFilePart.getName();
-        s3File.file = uploadFilePart;
-        s3File.save();
-        uploadFilePart.delete();
-    }
+//    public void uploadToS3(final File uploadFilePart) {
+//        final S3File s3File = new S3File();
+//        s3File.name = uploadFilePart.getName();
+//        s3File.file = uploadFilePart;
+//        s3File.save();
+//        uploadFilePart.delete();
+//    }
 }

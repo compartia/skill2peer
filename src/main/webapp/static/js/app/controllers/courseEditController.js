@@ -4,7 +4,7 @@ define(
 //
 function onReady() {
 
-	return [ '$scope', 'Courses', '$routeParams', function($scope, Courses, $routeParams) {
+	return [ '$scope', 'Courses', '$routeParams', '$location', function($scope, Courses, $routeParams, $location) {
 
 		this.init = function() {
 			if ($routeParams.courseId) {
@@ -37,6 +37,7 @@ function onReady() {
 			savedCourse.$promise.then(function() {
 				$scope.course = savedCourse;
 				$scope.selectedLesson = $scope.course.lessons[0];
+                $location.path('#/home/drafts');
 			});
 		};
 

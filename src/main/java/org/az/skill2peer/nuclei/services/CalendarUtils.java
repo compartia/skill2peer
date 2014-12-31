@@ -174,6 +174,11 @@ public class CalendarUtils {
                 .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
     }
 
+    /**
+     * XXX: why deprecated?
+     * @param schedule
+     * @return
+     */
     @Deprecated
     public static DateTime getNextEvent(final Schedule schedule) {
         final String repeatRules = schedule.getiCalString();

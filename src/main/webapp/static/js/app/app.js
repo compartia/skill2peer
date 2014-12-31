@@ -22,7 +22,7 @@ function(angular, filters, services, directives, controllers) {
         
         
         $routeProvider.
-            when('/home', {
+            when('/home/:tabId', {
                 templateUrl: 'static/partials/dashboard.jsp',
                 controller: 'courseListsController'
             }).
@@ -31,7 +31,7 @@ function(angular, filters, services, directives, controllers) {
                 controller: 'courseEditController'
             }).
             otherwise({
-                redirectTo: '/home'
+                redirectTo: '/home/1'
             });
 	} ]);
     

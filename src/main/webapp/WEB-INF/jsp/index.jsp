@@ -30,7 +30,7 @@ time {
 
 </style>
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
 
 <script data-main="/static/js/main-edit-course"
 	src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script>
