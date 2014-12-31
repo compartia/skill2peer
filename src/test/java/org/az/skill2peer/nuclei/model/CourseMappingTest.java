@@ -6,8 +6,8 @@ import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
 import org.az.skill2peer.nuclei.TestUtil;
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
@@ -214,12 +214,16 @@ public class CourseMappingTest {
         mapper.map(source, target);
         compareSchedules(target, source);
 
+        Assert.assertEquals("30 ноября - 1 декабря, 2018", target.getDates());
+
         Assert.assertEquals("2 часа 32 минуты", target.getDurationAsString());
         Assert.assertEquals("ноября", target.getStartMonth());
         Assert.assertEquals("декабря", target.getEndMonth());
 
         target.setEnd(null);
         Assert.assertEquals("", target.getDurationAsString());
+        Assert.assertEquals("30 ноября, 20:45", target.getNextEvent());
+        Assert.assertEquals("30 ноября, 2018", target.getDates());
 
     }
 

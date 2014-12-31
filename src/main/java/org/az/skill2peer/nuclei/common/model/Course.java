@@ -36,6 +36,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.google.common.base.Preconditions;
 
@@ -174,21 +175,24 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     }
 
     public ScheduleInfoDto getScheduleInfo() {
-        final ScheduleInfoDto s = new ScheduleInfoDto();
+        final ScheduleInfoDto scheduleInfo = new ScheduleInfoDto();
         final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
         Collections.sort(scs, SCHEDULE_COMPARATOR);
         final Lesson firstLesson = scs.get(0);
         final Lesson lastLesson = scs.get(scs.size() - 1);
 
-        s.setNextEvent(firstLesson.getSchedule().getNextEvent());
+        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
+        if (nextEvent != null) {
+            scheduleInfo.setNextEvent(nextEvent.withZone(DateTimeZone.UTC).toString());
+        }
         if (!isRecurrent()) {
-            s.setStart(firstLesson.getSchedule().getNextEvent());
-            s.setEnd(lastLesson.getSchedule().getEnd());
+            scheduleInfo.setStart(nextEvent);
+            scheduleInfo.setEnd(lastLesson.getSchedule().getEnd());
         } else {
-            s.setStart(firstLesson.getSchedule().getStart());
+            scheduleInfo.setStart(firstLesson.getSchedule().getStart());
         }
 
-        return s;
+        return scheduleInfo;
     }
 
     public Collection<Schedule> getSchedules() {

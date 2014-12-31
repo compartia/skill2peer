@@ -3,8 +3,8 @@ package org.az.skill2peer.nuclei.services;
 import java.util.List;
 
 import org.az.skill2peer.nuclei.TestUtil;
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;

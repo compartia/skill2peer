@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  *
@@ -14,13 +16,27 @@ import org.springframework.context.i18n.LocaleContextHolder;
 public class ScheduleInfoDto {
     private static final String DATE_FORMAT_MONTH = "MMMM";
 
+    @Deprecated
     private String next;
 
+    @JsonIgnore
     private DateTime start;
 
+    @JsonIgnore
     private DateTime end;
 
-    private DateTime nextEvent;
+    private String nextEvent;
+
+    public String getDates() {
+        String ret = start.toString("d MMMM", LocaleContextHolder.getLocale());
+        if (end != null) {
+            ret += end.toString(" - d MMMM", LocaleContextHolder.getLocale());
+        }
+        if (start.getYear() != DateTime.now().getYear()) {
+            ret += ", " + start.getYear();
+        }
+        return ret;
+    }
 
     /**
      * something like "2 часа 32 минуты"
@@ -49,11 +65,12 @@ public class ScheduleInfoDto {
         }
     }
 
+    @Deprecated
     public String getNext() {
         return next;
     }
 
-    public DateTime getNextEvent() {
+    public String getNextEvent() {
         return nextEvent;
     }
 
@@ -69,8 +86,8 @@ public class ScheduleInfoDto {
         this.end = end;
     }
 
-    public void setNextEvent(final DateTime nextEvent) {
-        this.nextEvent = nextEvent;
+    public void setNextEvent(final String nextEvent) {
+        this.nextEvent = nextEvent == null ? null : nextEvent.toString();
     }
 
     public void setStart(final DateTime start) {

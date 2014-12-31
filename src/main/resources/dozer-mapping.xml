@@ -13,6 +13,10 @@
 	<mapping type="one-way">
  		<class-a>org.az.skill2peer.nuclei.common.model.Schedule</class-a>
  		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto</class-b>
+ 		<field>
+			<a>nextEvent</a>
+			<b>nextEvent</b>
+		</field>
 	</mapping> 
 	
 	<mapping type="one-way">

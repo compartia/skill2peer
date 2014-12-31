@@ -1,7 +1,7 @@
 package org.az.skill2peer.nuclei.common.controller;
 
 import org.az.skill2peer.nuclei.common.Urls;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
 import org.az.skill2peer.nuclei.services.CourseService;

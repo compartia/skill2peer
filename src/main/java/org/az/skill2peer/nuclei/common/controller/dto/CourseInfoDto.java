@@ -1,9 +1,13 @@
-package org.az.skill2peer.nuclei.common.controller.rest.dto;
+package org.az.skill2peer.nuclei.common.controller.dto;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.UserInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -37,13 +41,6 @@ public class CourseInfoDto extends CourseInfoListItemDto {
     private List<DayEventsDto> weekSchedule;
 
     private List<LessonInfoDto> lessons = new ArrayList<LessonInfoDto>();
-
-    public static final Comparator<LessonInfoDto> SCHEDULE_COMPARATOR = new Comparator<LessonInfoDto>() {
-        @Override
-        public int compare(final LessonInfoDto s1, final LessonInfoDto s2) {
-            return s1.getSchedule().getNextEvent().compareTo(s2.getSchedule().getNextEvent());
-        }
-    };
 
     @Override
     public UserInfoDto getAuthor() {

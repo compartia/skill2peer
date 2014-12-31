@@ -29,7 +29,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter implements S2P
         web
                 //Spring Security ignores request to static resources such as CSS or JS files.
                 .ignoring()
-                .antMatchers("/static/**");
+                .antMatchers("/static/**", "/template/**");
     }
 
     /**

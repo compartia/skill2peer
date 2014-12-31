@@ -1,0 +1,257 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>skill2peer</title>
+<meta name="description" content="The HTML5 Herald">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/styles_min.css">
+
+<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+<style>
+.course-list-item {
+	color: #443322;
+	font-family: "Roboto" !important;
+	display: block;
+	
+	overflow: auto;
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+}
+ 
+.label{
+	border-radius: 0;
+}
+
+.course-list-item .text-wrap {
+	width: 70%;
+	font-family: 'Roboto' !important;
+	padding: 10px;
+	position: relative;
+	left: 30%;
+	float: left;
+	line-height: 1;
+	border: 1px solid #eee;
+	border-left: none;
+}
+
+.course-list-item .text-wrap:after {
+	content:'';
+	clear: both; 
+}
+
+.course-list-item h4 {
+	margin: 0;
+	padding: 0;
+	font-style: normal !important;
+	font-weight: 300 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+}
+
+
+.course-list-item h3 {
+	margin: 0;
+	padding: 0;
+	font-style: normal !important;
+	font-weight: 500 !important;
+	font-size: 18px;
+	padding-bottom: 5px;
+}
+
+.course-list-item .image-wrap {
+	width: 30%;
+	height: 100%;
+	-webkit-background-size: cover;
+	-webkit-box-flex: 1;
+	-webkit-box-ordinal-group: 6;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	float: left;
+	bottom: 0;
+	text-align: center;
+	background-position: 50% 50%;
+	background-size: cover;
+	box-sizing: border-box;
+	color: #fff;
+	display: block;
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+.course-list-item .image-wrap strong {
+	font-size: 36px;
+	display: block;
+	font-family: 'Roboto' !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+}
+
+a.overlay-link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 50;
+	
+	display: block;
+	cursor: auto;
+}
+
+.inner-image-wrap {
+	font-size: 11px;
+	z-index: 40;
+	position: relative;
+	 
+}
+
+
+.image-wrap:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 20;
+	content: '';
+	background-color: rgba(0, 0, 0, 0.333);
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	 
+}
+
+.image-wrap:hover:after {
+	background-color: rgba(36, 83, 164, 0.8);
+}
+
+time {
+	-webkit-font-smoothing: antialiased;
+	color: rgb(153, 153, 153);
+	cursor: auto;
+	display: inline;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	height: auto;
+	letter-spacing: 0.75px;
+	line-height: 15px;
+	text-transform: uppercase;
+	width: auto;
+}
+
+small.course-id {
+	position: relative;
+	float: right;
+	color: #ccc;
+	clear: both;
+	font-style: normal;
+	font-weight: 200;
+}
+
+.course-id:after {
+	content:'';
+	clear: both;
+}
+
+.course-tools {
+	position: relative;
+	float: right;
+	z-index: 80;
+}
+
+ 
+</style>
+</head>
+
+<body>
+
+
+	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
+
+
+
+
+		<div class="course-list-item">
+			<div class="image-wrap"
+				style="background-image: url('http://2.bp.blogspot.com/_RyQPQZXNNRc/THJBcun292I/AAAAAAAAAIo/1kh00rocEsI/s1600/studybooks1+(1).JPG')">
+				<a class="overlay-link" href="#view"></a>
+				<div class="inner-image-wrap">
+					<strong>25</strong>декабря
+				</div>
+
+			</div>
+
+
+			<div class="text-wrap">
+				<a class="overlay-link" href="#view"></a>
+				<div class="course-tools">
+					<!--            кнопка редактирования-->
+					<a href="#edit"><i class="glyphicon glyphicon-pencil"></i></a>
+					<!--            кнопка удаления	если курс НЕ опубликован-->
+					<a href="#delete"><i class="glyphicon glyphicon-remove"></i></a>
+				</div>
+
+				<h4>очень наидлиннейшее название курса</h4>
+				<h3>Название ближайшего урока</h3><small class="course-id">ID-750</small>
+				<time>
+					<!--индикатор повторяемости	если в курс входит хотябы один повторяющийся урок-->
+					<i class="glyphicon glyphicon-repeat"></i> 16:00 - 20:00 (2 часа 30 минут)
+				</time>
+
+
+
+				<div>записалось: <span class="label label-danger">122</span></div>
+				
+				
+			</div> 
+		</div>
+
+
+		<div class="course-list-item">
+			<div class="image-wrap"
+				style="background-image: url('http://oth.ovs.org/wp-content/uploads/2014/06/DSC_0315.jpg')">
+				<a class="overlay-link" href="#view"></a>
+				<div class="inner-image-wrap">
+					<strong>3</strong>пьянваря
+				</div>
+
+			</div>
+
+
+			<div class="text-wrap">
+				<a class="overlay-link" href="#view"></a>
+				<div class="course-tools">
+					<!--            кнопка редактирования-->
+					<a href="#edit"><i class="glyphicon glyphicon-pencil"></i></a>
+					<!--            кнопка удаления	если курс НЕ опубликован-->
+					<a href="#delete" style="display:none"><i class="glyphicon glyphicon-remove"></i></a>
+				</div>
+
+				<h4 style="display:none">очень наидлиннейшее название курса</h4>
+				<h3>Название ближайшего урока</h3>
+				<small class="course-id">ID-750</small>
+				<time>
+					<!--индикатор повторяемости	если в курс входит хотябы один повторяющийся урок-->
+					<i style="display:none" class="glyphicon glyphicon-repeat"></i> 16:00 - 20:00 (2 часа 30 минут)
+				</time>
+
+
+
+				<div>записалось: <span class="label label-danger">12</span></div>
+				
+				
+			</div>
+		</div>
+
+
+</body>
+</html>
