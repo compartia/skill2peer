@@ -33,8 +33,14 @@ public class CourseInfoListItemDto {
 
     private boolean single;
 
+    private boolean past;
+
     private String name;
 
+    /**
+     * @deprecated not used on UI
+     */
+    @Deprecated
     private String summary;
 
     public UserInfoDto getAuthor() {
@@ -80,6 +86,10 @@ public class CourseInfoListItemDto {
         return CalendarUtils.formatHoursDuration(LocaleContextHolder.getLocale(), totalDuration);
     }
 
+    public boolean isPast() {
+        return past;
+    }
+
     public boolean isRecurrent() {
         return recurrent;
     }
@@ -102,6 +112,10 @@ public class CourseInfoListItemDto {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public void setPast(final boolean past) {
+        this.past = past;
     }
 
     public void setPrice(final PriceDto price) {

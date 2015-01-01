@@ -2,13 +2,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
-
-<div class="course-list-item {{mcourse.past?'past-course':''}}">
+<div class="course-list-item" ng-class="{'past-course': mcourse.past}">
 	<div class="image-wrap"
 		style="background-image: url('{{mcourse.imageUrl}}')">
 		<a class="overlay-link" href="/course/info?id={{mcourse.id}}"></a>
 		<div class="inner-image-wrap">
-			<strong>25</strong>декабря {{mcourse.scheduleInfo.nextEvent}}
+			<strong>{{mcourse.scheduleInfo.nextEvent.startDate}}</strong>{{mcourse.scheduleInfo.nextEvent.startMonth}}
 		</div>
 
 	</div>
@@ -17,24 +16,20 @@
 	<div class="text-wrap">
 		<a class="overlay-link" href="/course/info?id={{mcourse.id}}"></a>
 		<div class="course-tools">
-			<!--            кнопка редактирования-->
             <small class="course-id">Рейтинг: *****  ID-{{mcourse.id}} </small>
 		</div>
 
-		<h4>{{mcourse.name}}</h4>
-		<h3>{{mcourse.name}}</h3>
+		<h4 ng-show="!mcourse.single">{{mcourse.name}}</h4>
+		<h3>{{mcourse.scheduleInfo.nextEvent.name}}</h3>
 		
 		<time>
 			<!--индикатор повторяемости	если в курс входит хотябы один повторяющийся урок-->
-			<i class="glyphicon glyphicon-repeat"></i> 16:00 - 20:00 ({{mcourse.totalDurationAsString}})
+			<i ng-show="mcourse.recurrent" class="glyphicon glyphicon-repeat"></i> {{mcourse.scheduleInfo.nextEvent.times}} ({{mcourse.totalDurationAsString}})
 		</time>
 
-
-		<div ng-show="mcourse.status=='PUBLISHED'">
+		<div>
 			записалось: <span class="label label-danger">-122</span>
 		</div>
-
-
 	</div>
 </div>
 

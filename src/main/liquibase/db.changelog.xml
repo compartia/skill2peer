@@ -151,34 +151,34 @@
 
 	<changeSet id="create_schedule_table" author="az">
 		<createTable tableName="schedule">
-			<column name="start_time" type="datetime"/>
+			<column name="start_time" type="datetime" />
 			<column name="id" autoIncrement="true" type="int" incrementBy="1">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			<column name="end_time" type="datetime"/>
-			<column name="repeat" type="text"/>
+			<column name="end_time" type="datetime" />
+			<column name="repeat" type="text" />
 			<!-- ==== -->
 			<column name="creation_time" type="datetime" />
 			<column name="modification_time" type="datetime" />
 			<column name="version" type="bigint" />
 		</createTable>
 	</changeSet>
-	
+
 	<changeSet id="create_location_table" author="az">
 		<createTable tableName="location">
-			 
+
 			<column name="id" autoIncrement="true" type="int" incrementBy="1">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 			<column name="description" type="text" />
 			<column name="longitude" type="real" />
 			<column name="latitude" type="real" />
-			
+
 			<!-- ==== -->
 			<column name="creation_time" type="datetime" />
 			<column name="modification_time" type="datetime" />
 			<column name="version" type="bigint" />
-			 
+
 		</createTable>
 	</changeSet>
 
@@ -187,28 +187,34 @@
 			<column name="id" autoIncrement="true" type="int" incrementBy="1">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			
-			<column name="course_id" type="int" >
-				<constraints foreignKeyName="lesson_course_id" referencedTableName="course" referencedColumnNames="id"/>
+
+			<column name="course_id" type="int">
+				<constraints foreignKeyName="lesson_course_id" referencedTableName="course" referencedColumnNames="id" />
 			</column>
-			<column name="schedule_id" type="int" >
-				<constraints foreignKeyName="lesson_schedule_fk" referencedTableName="schedule" referencedColumnNames="id"/>
+			<column name="schedule_id" type="int">
+				<constraints foreignKeyName="lesson_schedule_fk" referencedTableName="schedule" referencedColumnNames="id" />
 			</column>
-			<column name="location_id" type="int" >
-				<constraints foreignKeyName="lesson_location_fk" referencedTableName="location" referencedColumnNames="id"/>
+			<column name="location_id" type="int">
+				<constraints foreignKeyName="lesson_location_fk" referencedTableName="location" referencedColumnNames="id" />
 			</column>
-			
+
 			<column name="description" type="text" />
-			
+
 			<!-- ==== -->
 			<column name="creation_time" type="datetime" />
 			<column name="modification_time" type="datetime" />
 			<column name="version" type="bigint" />
-			
+
 		</createTable>
 	</changeSet>
-	
-	
-	 
+
+	<changeSet id="annd_name_to_lesson" author="az">
+		<addColumn tableName="lesson">
+			<column name="name" type="text" />
+		</addColumn>
+	</changeSet>
+
+
+
 
 </databaseChangeLog>

@@ -14,57 +14,24 @@
 
 	<!-- List group -->
 	<div class="list-group">
-		<a href="#" class="list-group-item">
-			<h4 class="list-group-item-heading">
+        
+        <a href="#" ng-repeat="lesson in course.lessons" >
+            <h4 class="list-group-item-heading">
 				<small class="pull-right glyphicon glyphicon-remove"></small>
-				Вводная Часть
-
-			</h4>
-			<span class="list-group-item-text text-info">
+              {{lesson.name}}</h4>
+            
+            
+            <p class="list-group-item-text text-info">
 				<time>
-					<strong>ВТ</strong>, 2 Сентября, 2015; 14:00 - 15:45 <span
-						class="glyphicon glyphicon-repeat"></span>
-					</time>
-					<address>Московский 74, ауд. 302</address>
-			</span>
-
-		</a>
-
-		<!-- д2 -->
-		<a href="#" class="list-group-item">
-			<h4 class="list-group-item-heading">
-				<small class="pull-right glyphicon glyphicon-remove"></small> Часть
-				II. Фрустрация медных растворов<small><br />Записалось <span
-					class="label label-primary">12</span></small>
-
-			</h4>
-			<p class="list-group-item-text text-info">
-				<time>
-					<strong>ВТ</strong>, 2 Сентября, 2015; 14:00 - 15:45 <span
+					<strong>ВТ</strong> {{lesson.schedule.dateTime | date:"MMMM, d HH:mm"}}<span ng-show="lesson.schedule.recurrent"
 						class="glyphicon glyphicon-repeat"></span>
 				</time>
-			<address>Московский 74, ауд. 302</address>
+            <address>{{lesson.locaion.address}}</address>
 			</p>
-
-		</a>
-		<!-- kkk -->
-		<a href="#" class="list-group-item">
-
-			<h4 class="list-group-item-heading">
-				<small class="pull-right glyphicon glyphicon-remove"></small> Часть
-				III. Куль пропозиционного сева <small><br />Записалось <span
-					class="label label-success">12</span></small>
-
-			</h4>
-
-			<p class="list-group-item-text text-info">
-				<time>
-					<strong>ВС</strong>, 4 Сентября, 2015; 14:00 - 15:45 <span
-						class="glyphicon glyphicon-repeat"></span>
-				</time>
-			<address>Московский 74, ауд. 302</address>
-			</p>
-		</a>
+        </a>
+        
+        
+		   
 
 		<div class="list-group-item">
 

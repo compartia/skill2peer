@@ -21,13 +21,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class FileUploadController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
-
     private static void log(final MultipartFile file) throws IOException {
         LOGGER.info("File Length:\t" + file.getBytes().length);
         LOGGER.info("File Type:\t" + file.getContentType());
         LOGGER.info("File Name:\t" + file.getOriginalFilename());
     }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
 
     @RequestMapping(value = Urls.FILE_UPLOAD, method = RequestMethod.POST)
     public @ResponseBody String handleFileUpload(
@@ -99,11 +99,11 @@ public class FileUploadController {
         return "You can upload a file by posting to this same URL.";
     }
 
-//    public void uploadToS3(final File uploadFilePart) {
-//        final S3File s3File = new S3File();
-//        s3File.name = uploadFilePart.getName();
-//        s3File.file = uploadFilePart;
-//        s3File.save();
-//        uploadFilePart.delete();
-//    }
+    public void uploadToS3(final File uploadFilePart) {
+        final S3File s3File = new S3File();
+        s3File.name = uploadFilePart.getName();
+        s3File.file = uploadFilePart;
+        s3File.save();
+        uploadFilePart.delete();
+    }
 }

@@ -53,7 +53,7 @@ function onReady() {
                 /* time in client's timezone
                 */
                 $scope.lesson.schedule.dateTime = moment(
-                    [d.getFullYear(), d.getMonth(), d.getDate(), h, m]) ;
+                    [d.getFullYear(), d.getMonth(), d.getDate(), h, m]).toDate(); ;
 
                 $scope.start.week = moment($scope.lesson.schedule.dateTime).clone().startOf('isoWeek');
                 //$scope.onRecurrenceChange($scope.lesson.schedule.repeatDays);

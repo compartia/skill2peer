@@ -16,6 +16,10 @@ public class LessonInfoDto {
 
     private Integer id;
 
+    /**
+     * take it from schedule
+     */
+    @Deprecated
     private boolean recurrent;
 
     private ScheduleInfoDto schedule;

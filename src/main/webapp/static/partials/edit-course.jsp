@@ -27,7 +27,7 @@
 
 
 					 
-					
+<button ng-click="addLesson()"  class="btn btn-primary">Добавить урок</button>				
 <div ng-repeat="lesson in course.lessons" >
 					<div class="what-block panel-body form-panel">
 						<div class="row">

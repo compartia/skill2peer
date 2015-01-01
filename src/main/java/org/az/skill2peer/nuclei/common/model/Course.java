@@ -3,7 +3,6 @@ package org.az.skill2peer.nuclei.common.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -30,13 +29,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import com.google.common.base.Preconditions;
 
@@ -102,39 +100,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     @Column(name = "summary")
     private String summary;
 
-    public static final Comparator<Lesson> SCHEDULE_COMPARATOR = new Comparator<Lesson>() {
-        @Override
-        public int compare(final Lesson s1, final Lesson s2) {
-            final Schedule schedule1 = s1.getSchedule();
-            final Schedule schedule2 = s2.getSchedule();
-            if (schedule1 == schedule2) {
-                return 0;
-            }
-            if (schedule1 == null) {
-                return -1;
-            }
-            if (schedule2 == null) {
-                return 1;
-            }
-            final DateTime nextEvent1 = schedule1.getNextEvent();
-            final DateTime nextEvent2 = schedule2.getNextEvent();
-
-            if (nextEvent1 == nextEvent2) {
-                return 0;
-            }
-
-            if (nextEvent1 == null) {
-                return -1;
-            }
-            if (nextEvent2 == null) {
-                return 1;
-            }
-            return nextEvent1.compareTo(nextEvent2);
-        }
-    };
-
     public Course() {
-
     }
 
     public User getAuthor() {
@@ -170,6 +136,14 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return name;
     }
 
+    public EventDto getNextEvent() {
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, Lesson.SCHEDULE_COMPARATOR);
+        final Lesson firstLesson = scs.get(0);
+        final EventDto nextEvent = firstLesson.getNextEvent();
+        return nextEvent;
+    }
+
     public Course getPublishedVersion() {
         return publishedVersion;
     }
@@ -177,16 +151,16 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     public ScheduleInfoDto getScheduleInfo() {
         final ScheduleInfoDto scheduleInfo = new ScheduleInfoDto();
         final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
-        Collections.sort(scs, SCHEDULE_COMPARATOR);
+        Collections.sort(scs, Lesson.SCHEDULE_COMPARATOR);
         final Lesson firstLesson = scs.get(0);
         final Lesson lastLesson = scs.get(scs.size() - 1);
 
-        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
-        if (nextEvent != null) {
-            scheduleInfo.setNextEvent(nextEvent.withZone(DateTimeZone.UTC).toString());
-        }
+        final EventDto nextEvent = firstLesson.getNextEvent();
+
+        scheduleInfo.setNextEvent(nextEvent);
+
         if (!isRecurrent()) {
-            scheduleInfo.setStart(nextEvent);
+            scheduleInfo.setStart(nextEvent.getStart());
             scheduleInfo.setEnd(lastLesson.getSchedule().getEnd());
         } else {
             scheduleInfo.setStart(firstLesson.getSchedule().getStart());
@@ -237,7 +211,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
 
         final Lesson firstLesson = scs.get(0);
-        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
+        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent().getStart();
 
         if (nextEvent != null) {
             return getWeekSchedule(nextEvent);
@@ -260,6 +234,15 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
         return CalendarUtils.groupEventsInWeek(allEvents);
 
+    }
+
+    public boolean isPast() {
+        for (final Lesson l : lessons) {
+            if (!l.isPast()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isRecurrent() {

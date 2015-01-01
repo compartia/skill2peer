@@ -1,6 +1,10 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
+import static org.az.skill2peer.nuclei.services.LocalDateRenderingUtils.getMonthLongName;
+
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
+import org.az.skill2peer.nuclei.services.LocalDateRenderingUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -14,10 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 public class ScheduleInfoDto {
-    private static final String DATE_FORMAT_MONTH = "MMMM";
-
-    @Deprecated
-    private String next;
 
     @JsonIgnore
     private DateTime start;
@@ -25,17 +25,10 @@ public class ScheduleInfoDto {
     @JsonIgnore
     private DateTime end;
 
-    private String nextEvent;
+    private EventDto nextEvent;
 
     public String getDates() {
-        String ret = start.toString("d MMMM", LocaleContextHolder.getLocale());
-        if (end != null) {
-            ret += end.toString(" - d MMMM", LocaleContextHolder.getLocale());
-        }
-        if (start.getYear() != DateTime.now().getYear()) {
-            ret += ", " + start.getYear();
-        }
-        return ret;
+        return LocalDateRenderingUtils.getDates(start, end);
     }
 
     /**
@@ -49,7 +42,6 @@ public class ScheduleInfoDto {
         return CalendarUtils.formatHoursDuration(LocaleContextHolder.getLocale(), Minutes
                 .minutesBetween(start, end)
                 .getMinutes());
-        //        return CalendarUtils.formatPeriod(LocaleContextHolder.getLocale(), start.toDate(), end.toDate());
 
     }
 
@@ -58,19 +50,10 @@ public class ScheduleInfoDto {
     }
 
     public String getEndMonth() {
-        if (getEnd() != null) {
-            return getEnd().toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
-        } else {
-            return null;
-        }
+        return getMonthLongName(getEnd());
     }
 
-    @Deprecated
-    public String getNext() {
-        return next;
-    }
-
-    public String getNextEvent() {
+    public EventDto getNextEvent() {
         return nextEvent;
     }
 
@@ -79,15 +62,15 @@ public class ScheduleInfoDto {
     }
 
     public String getStartMonth() {
-        return start.toString(DATE_FORMAT_MONTH, LocaleContextHolder.getLocale());
+        return getMonthLongName(getStart());
     }
 
     public void setEnd(final DateTime end) {
         this.end = end;
     }
 
-    public void setNextEvent(final String nextEvent) {
-        this.nextEvent = nextEvent == null ? null : nextEvent.toString();
+    public void setNextEvent(final EventDto nextEvent) {
+        this.nextEvent = nextEvent;
     }
 
     public void setStart(final DateTime start) {

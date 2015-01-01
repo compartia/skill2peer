@@ -32,6 +32,18 @@ function onReady() {
 			$scope.selectedLesson = lesson;
 		};
 
+        $scope.addLesson = function(){
+            var newLesson={
+					"id" : null,
+					"schedule" : {},
+					"location" : {}
+				};
+            
+            $scope.course.lessons.push(newLesson); 
+            $scope.selectLesson(newLesson);
+            alert (newLesson);
+        };
+        
 		$scope.save = function() {
 			var savedCourse = Courses.save($scope.course);
 			savedCourse.$promise.then(function() {

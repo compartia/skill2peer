@@ -5,7 +5,7 @@
      
 <div class="panel">
     <div class="panel-body" ng-cloak>
-        <div  ng-repeat="mcourse in myCourses | filter : {status: 'DRAFT'}">
+        <div  ng-repeat="mcourse in myCourses | filter : {status: 'DRAFT'} | orderBy: 'mcourse.scheduleInfo.nextEvent'">
             <ng-include src="'/static/partials/course-draft-list-item.jsp'"/>
         </div>
     </div>

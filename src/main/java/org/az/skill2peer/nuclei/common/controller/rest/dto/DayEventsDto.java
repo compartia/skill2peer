@@ -3,6 +3,8 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 import java.util.Comparator;
 import java.util.TreeSet;
 
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
+
 public class DayEventsDto {
     /**
      * Mo, Su, Sa, Th, etc

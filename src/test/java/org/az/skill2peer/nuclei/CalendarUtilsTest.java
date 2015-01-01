@@ -4,8 +4,8 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
 
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
@@ -131,21 +131,21 @@ public class CalendarUtilsTest {
     }
 
     @Test
-    public void getNextEvent() throws Exception {
+    public void getNextEvent_future() throws Exception {
         final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2024, 12, 21, 11, 00));
         schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=20300102;BYDAY=MO,TH");
 
-        final DateTime nextEvent = schedule.getNextEvent();
+        final EventDto nextEvent = schedule.getNextEvent();
 
-        Assert.assertTrue(nextEvent.isAfter(DateTime.now()));
-        TestUtil.compareTime(schedule.getStart(), nextEvent);
-        Assert.assertEquals(DateTimeConstants.MONDAY, nextEvent.getDayOfWeek());//expect MOnday
+        Assert.assertTrue(nextEvent.getStart().isAfter(DateTime.now()));
+        TestUtil.compareTime(schedule.getStart(), nextEvent.getStart());
+        Assert.assertEquals(DateTimeConstants.MONDAY, nextEvent.getStart().getDayOfWeek());//expect MOnday
 
     }
 
     @Test
-    public void getNextEvent2() throws Exception {
+    public void getNextEvent_future2() throws Exception {
         final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2020, 11, 25, 23, 55, timeZone));
 
@@ -159,16 +159,16 @@ public class CalendarUtilsTest {
 
         schedule.setiCalString(rr.toIcal());
 
-        final DateTime nextEvent = schedule.getNextEvent();
+        final EventDto nextEvent = schedule.getNextEvent();
 
-        Assert.assertTrue(nextEvent.isAfter(DateTime.now()));
-        Assert.assertEquals(25, nextEvent.getDayOfMonth());
+        Assert.assertTrue(nextEvent.getStart().isAfter(DateTime.now()));
+        Assert.assertEquals(25, nextEvent.getStart().getDayOfMonth());
 
-        TestUtil.compareTime(schedule.getStart(), nextEvent);
+        TestUtil.compareTime(schedule.getStart(), nextEvent.getStart());
     }
 
     @Test
-    public void getNextEvent3() throws Exception {
+    public void getNextEvent_future3() throws Exception {
         final Schedule schedule = TestUtil.makeSchedule(true);
         schedule.setStart(new DateTime(2020, 11, 25, 00, 05, timeZone));
 
@@ -183,12 +183,27 @@ public class CalendarUtilsTest {
 
         schedule.setiCalString(rr.toIcal());
 
-        final DateTime nextEvent = schedule.getNextEvent();
-        System.out.println();
-        Assert.assertTrue(nextEvent.isAfter(DateTime.now()));
-        Assert.assertEquals(25, nextEvent.getDayOfMonth());
+        final EventDto nextEvent = schedule.getNextEvent();
 
-        TestUtil.compareTime(schedule.getStart(), nextEvent);
+        Assert.assertTrue(nextEvent.getStart().isAfter(DateTime.now()));
+        Assert.assertEquals(25, nextEvent.getStart().getDayOfMonth());
+
+        TestUtil.compareTime(schedule.getStart(), nextEvent.getStart());
+    }
+
+    @Test
+    public void getNextEvent_past() throws Exception {
+        final Schedule schedule = TestUtil.makeSchedule(true);
+        schedule.setStart(new DateTime(2010, 12, 21, 11, 00));
+        schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=20100102;BYDAY=MO,TH");
+
+        final EventDto nextEvent = schedule.getNextEvent();
+
+        /**
+         * no events if the schedule in the past
+         */
+        Assert.assertNull(nextEvent);
+
     }
 
     @Test
@@ -199,6 +214,36 @@ public class CalendarUtilsTest {
         Assert.assertEquals("Пн", eventGoups.get(0).getDayShortName());
         Assert.assertEquals("Вс", eventGoups.get(6).getDayShortName());
 
+    }
+
+    @Test
+    public void scheduleInThePast() throws Exception {
+        final Schedule schedule = TestUtil.makeSchedule(true);
+        schedule.setStart(new DateTime(2010, 12, 21, 11, 00));
+        schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=20100102;BYDAY=MO,TH");
+
+        Assert.assertTrue(schedule.isRecurrent());
+        Assert.assertTrue(schedule.isPast());
+
+        schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=20400102;BYDAY=MO,TH");
+        Assert.assertTrue(!schedule.isPast());
+
+        {
+            final String now = CalendarUtils.makeDateValue(DateTime.now()).toString();
+            schedule.setiCalString("RRULE:FREQ=WEEKLY;UNTIL=" + now + ";BYDAY=MO,TH");
+            Assert.assertTrue(!schedule.isPast());
+        }
+
+        {
+            schedule.setEnd(DateTime.now().minusMinutes(1));
+            schedule.setiCalString(null);
+            Assert.assertTrue(schedule.isPast());
+        }
+        {
+            schedule.setEnd(DateTime.now().plusMinutes(1));
+            schedule.setiCalString(null);
+            Assert.assertTrue(!schedule.isPast());
+        }
     }
 
     @Test
