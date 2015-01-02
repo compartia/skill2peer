@@ -11,7 +11,7 @@
 
 		<div class="row">
 
-			<div class="col-md-4">
+			<div class="col-md-4 edit-lessons-list">
 				<%@include file="edit-lessons-list.jsp"%>
 			</div>
 
@@ -19,30 +19,28 @@
 			<div class="col-md-8">
 
 
-
-
- 
-
 				<form role="form" name="courseEditForm" >
 
 
 					 
-<button ng-click="addLesson()"  class="btn btn-primary">Добавить урок</button>				
-<div ng-repeat="lesson in course.lessons" >
-					<div class="what-block panel-body form-panel">
+		
+
+                    
+<div ng-controller="lessonEditController">
+    
+                  
+                    
+                    <!-- WHAT-->
+                    <div class="what-block panel-body form-panel">
 						<div class="row">
 							<div class="col-md-1">
 								<div class="section-label">1</div>
 							</div>
 
 							<div class="col-md-11">
-
-
 								<div class="form-group">
-
-									<input name="name" ng-model="course.name" type="text" class="form-control input-lg"
+									<input name="name" ng-model="lesson.name" type="text" class="form-control input-lg"
 										placeholder="название урока" required>
-
 								</div>
 
 								<!-- SKILLS -->
@@ -65,12 +63,9 @@
 							</div>
 						</div>
 
-
-
-
 					</div>
-
-					<!-- WHEN -->
+                    
+                    <!-- WHEN -->
 					<div class="when-block panel-body form-panel">
 						<div class="row">
 							<div class="col-md-1">
@@ -82,8 +77,9 @@
 							</div>
 						</div>
 					</div>
-</div>
-					<!-- end of when-block -->
+                    
+                    
+          <!-- end of when-block -->
 
 					<div class="where-block panel-body form-panel">
 
@@ -97,6 +93,9 @@
 							</div>
 						</div>
 					</div>
+    
+</div>
+					
 
 					<div class="details-block panel-body form-panel">
 						<textarea class="form-control" rows="6" 
@@ -154,6 +153,8 @@
 						</div>
 
 					</div>
+                        
+                        
 				</form>
 			</div>
 			<!--    right col-->

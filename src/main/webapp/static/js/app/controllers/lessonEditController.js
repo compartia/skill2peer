@@ -1,3 +1,4 @@
+//lessonEditController.js
 define(
 //
 [ 'moment'],
@@ -6,19 +7,25 @@ function onReady() {
 
 	return [ '$scope', function($scope) {
         
-        $scope.lesson = $scope.$parent.selectedLesson;
-        $scope.start={};
-
-        if($scope.lesson.schedule.dateTime){
-            $scope.start.date = moment($scope.lesson.schedule.dateTime).toDate();
-            $scope.start.minutes=$scope.start.date.getMinutes();
-            $scope.start.hours=$scope.start.date.getHours();
-        }else{
-            $scope.start.date = moment().toDate();
-            $scope.start.minutes=0;
-            $scope.start.hours=12;
+      
+        $scope.$watch('lesson', function (newVal) { 
+             $scope.onLessonChange(newVal);
+        }, true);
+        
+        
+        $scope.onLessonChange=function(lesson){
+            $scope.start={};
+            if(lesson.schedule.dateTime){
+                $scope.start.date = moment(lesson.schedule.dateTime).toDate();
+                $scope.start.minutes=$scope.start.date.getMinutes();
+                $scope.start.hours=$scope.start.date.getHours();
+            }else{
+                $scope.start.date = moment().toDate();
+                $scope.start.minutes=0;
+                $scope.start.hours=12;
+            }
         }
-		
+        
 
         if(!$scope.lesson.schedule.repeatDays){
             $scope.lesson.schedule.repeatDays=[false, false, false, false, false, false, false];
@@ -28,6 +35,7 @@ function onReady() {
              $scope.onRecurrenceChange(newVal);
         }, true);
         
+
         $scope.onRecurrenceChange = function(newVal) {
             var weekDay=-1;
             for(f=0; f<newVal.length; f++){
@@ -53,7 +61,7 @@ function onReady() {
                 /* time in client's timezone
                 */
                 $scope.lesson.schedule.dateTime = moment(
-                    [d.getFullYear(), d.getMonth(), d.getDate(), h, m]).toDate(); ;
+                    [d.getFullYear(), d.getMonth(), d.getDate(), h, m]).toDate();
 
                 $scope.start.week = moment($scope.lesson.schedule.dateTime).clone().startOf('isoWeek');
                 //$scope.onRecurrenceChange($scope.lesson.schedule.repeatDays);

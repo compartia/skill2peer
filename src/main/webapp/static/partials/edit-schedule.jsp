@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!-- SCHEDULE -->
-<div ng-controller="lessonEditController" ng-cloak>
+<div ng-cloak>
 
     <div class="form-group">
 
