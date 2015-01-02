@@ -38,13 +38,14 @@ function onReady() {
 
         $scope.onRecurrenceChange = function(newVal) {
             var weekDay=-1;
-            for(f=0; f<newVal.length; f++){
-                if(newVal[f]===true){
-                   weekDay=f;
-                    break;
+            if(newVal){
+                for(f=0; f<newVal.length; f++){
+                    if(newVal[f]===true){
+                        weekDay=f;
+                        break;
+                    }
                 }
             }
-            
             if(weekDay>=0 && $scope.start.week){
                 $scope.nextLessonDate=$scope.start.week.clone().add(weekDay, 'd').format("D MMMM (ddd)");
                 $scope.weekStartStr=$scope.start.week.format("D MMMM (ddd)");

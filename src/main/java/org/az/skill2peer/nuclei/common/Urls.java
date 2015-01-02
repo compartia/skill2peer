@@ -1,7 +1,7 @@
 package org.az.skill2peer.nuclei.common;
 
 public final class Urls {
-    public static final String COURSE_CREATE = "/course/create";
+    //    public static final String COURSE_CREATE = "/course/create";
 
     public static final String COURSE_INFO = "/course/info";
 

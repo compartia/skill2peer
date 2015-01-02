@@ -1,10 +1,69 @@
+.input-lg, .input{
+    border-radius: 0;
+}
+.lesson-edit-block{
+/*    padding-left: 10px!important; */
+/*    padding-right: 10px!important; */
+    padding-bottom: 10px!important; 
+    padding-top: 10px!important; 
+}
+
+
+
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .content {
     padding-left: 1em;
     padding-right: 1em;
+}
+
+.grey-bg{
+    background-color:rgba( 251,252,250,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+.panel{
+    margin: 0!important;
+    margin-bottom: 10px;
+    padding: 0!important;
+    background: none;
+}
+
+.panel-footer{
+    margin: 0px;
+    padding: 10px;
+    background-color:rgba( 251,252,250,1) !important;
+	background-image: url(../img/noise.png) !important;
+    border-top: 5px solid rgba( 255,255,255,0.5);
+}
+
+
+.panel-body{
+    padding: 15px!important;
+    background-color:rgba( 251,252,250,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+
+.panel-heading{
+     font-family: "Roboto" !important;
+    text-align: left!important;
+    font-style: normal !important;
+	font-weight: 400 !important;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: .1em;  
+    color:rgba( 0,0,0, 0.5);
+    padding-left: 0;
+    background: none;
+    padding-bottom: 0;
+    border: none;
 }
 
 .sign-in-text {
@@ -15,20 +74,7 @@
     padding-top: 1.0em;
 }
 
-.edit-lessons-list{
-    padding: 0;
-    margin: 0;
-} 
-.edit-lessons-list .list-group{
-    padding: 0;
-}
-.edit-lessons-list .active{
-    background: white;
- /*
-    border: 1px solid #ccc;
-    border-right: none;
-*/
-}
+
 
 .login-form{
 	/* background-color: #E7EFEF; */
@@ -36,12 +82,14 @@
 	background-image: url(../img/noise.png);
 }
 
+/*
 .form-panel{
-	/* background-color: #E7EFEF; */
+	 background-color: #E7EFEF; 
 	background-color:rgba( 253,251,250,1);
 	background-image: url(../img/noise.png);
 	margin: 0.5em;
 }
+*/
 
 body {
 	/* background: url(static/img/tkLOe7nnQ7mnMsiuijBy_hm.jpg); */
@@ -69,17 +117,24 @@ body {
 
 /* ========================== */
 
-.nav-tabs>li{
-  font-style: normal !important;
+.nav-tabs>li, .btn{
+    font-family: "Roboto" !important;
+    font-style: normal !important;
 	font-weight: 300 !important;
 	font-size: 12px;
 	text-transform: uppercase;
 	letter-spacing: .1em;  
 }
 
-.panel{
-    background-color:rgba( 251,252,250,1) !important;
-	background-image: url(../img/noise.png) !important;
+label{
+    font-family: "Roboto" !important;
+    font-weight: 400 !important;
+	
+}
+
+label small, .form-control{
+    font-weight: 300 !important;
+	font-family: "Roboto" !important;
 }
 
 

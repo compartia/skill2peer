@@ -19,10 +19,10 @@
         <input id="placeAutoComplete" type="text" class="form-control" 
                ng-model="location" ng-autocomplete
                options="placeSearchOptions" details="locationdetails" placeholder="новый адрес">
-
+<!-- 
             {{location}}<br>
             {{locationdetails.formatted_address}}<br>
-            {{locationdetails.geometry.location}}<br>
+            {{locationdetails.geometry.location}}<br> -->
 
     </div>
 </div>

@@ -36,11 +36,11 @@ public class CourseController {
         return mv;
     }
 
-    @RequestMapping(value = Urls.COURSE_CREATE, method = RequestMethod.GET)
-    public String showCreateCourseForm(final WebRequest request, final Model model) {
-        LOGGER.debug("Rendering CreateCourse  page.");
-        return Urls.COURSE_CREATE;
-    }
+    //    @RequestMapping(value = Urls.COURSE_CREATE, method = RequestMethod.GET)
+    //    public String showCreateCourseForm(final WebRequest request, final Model model) {
+    //        LOGGER.debug("Rendering CreateCourse  page.");
+    //        return Urls.COURSE_CREATE;
+    //    }
 
     /**
      * XXX: remove this when data structures are done

@@ -4,7 +4,7 @@
 
 <div class="course-list-item draft-course" ng-class="{'past-course': mcourse.past}">
 	<div class="image-wrap"
-		style="background-image: url('{{mcourse.imageUrl}}')">
+		style="background-image: url('http://library.mohawkcollege.ca/images/find-books.jpg')">
 		<a class="overlay-link" href="#/edit/{{mcourse.id}}"></a>
 		<div class="inner-image-wrap">
 			<strong>{{mcourse.scheduleInfo.nextEvent.startDate}}</strong>{{mcourse.scheduleInfo.nextEvent.startMonth}}

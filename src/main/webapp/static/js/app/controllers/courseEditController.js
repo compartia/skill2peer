@@ -22,6 +22,10 @@ function onReady() {
 
 			}
 		}
+        
+        $scope.isSingle = function() {
+			return $scope.course.lessons.length < 2;
+		};
 
 		$scope.selectLesson = function(_lesson) {
 			$scope.lesson = _lesson;

@@ -1,0 +1,71 @@
+@nice-blue: #2980B9;
+@light-sea-green:#1ABC9C;
+@coral: #E87352;
+@turquoise-medium: #58C8C9;
+@punch: #E74C3C;
+@side-border: 10px;
+
+@selected-lesson-l: lighten(@turquoise-medium, 25%);
+@selected-lesson: desaturate(@selected-lesson-l, 40%); 
+
+@base-padding: 15px;
+
+.section-time .panel-body{
+    border-left: @side-border solid @coral!important;
+}
+
+.section-basic .panel-body{
+    border-left: @side-border solid @light-sea-green!important;
+}
+
+.section-descr .panel-body{
+    border-left: @side-border solid @nice-blue!important;
+}
+
+.section-place .panel-body{
+    border-left: @side-border solid @turquoise-medium!important;
+}
+
+.section-price .panel-body{
+    border-left: @side-border solid @punch!important;
+}
+
+
+.with-noise{
+	background-image: url(../img/noise.png) !important;
+}
+/* ================= */
+
+
+.edit-lessons-list .panel-body{
+    padding: 0!important;
+    .with-noise;
+}
+
+.edit-lessons-list .lesson-list-item{
+    margin: 0;
+    padding: @base-padding;
+    background: none;
+}
+
+.edit-lessons-list{
+    margin: 0;
+} 
+.edit-lessons-list .list-group{
+    padding: 0;
+}
+ 
+
+.edit-lessons-list .active  {
+   background-color: @selected-lesson!important;
+}
+
+.lesson-edit-block{
+    background-color: @selected-lesson!important;
+    padding: @base-padding;
+    .with-noise;
+}
+
+.lesson-edit-block .panel-body{
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}

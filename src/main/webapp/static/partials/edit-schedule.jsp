@@ -7,13 +7,12 @@
 <div ng-cloak>
 
     <div class="form-group">
-
-        <label class="checkbox" for="checkbox2"> <input type="checkbox" 
-            checked="checked" value="" id="checkbox2" data-toggle="checkbox" ng-model="viewModel.preliminary"
-            class="custom-checkbox">  Предварительная запись <br>
-               <small>место и время уточняются</small>
-        </label>
-
+        <div class="checkbox">
+            <label class="checkbox" for="checkbox2"> <input type="checkbox" 
+                checked="checked" value="" id="checkbox2" data-toggle="checkbox" ng-model="viewModel.preliminary"
+                 >  Предварительная запись <br>
+                   <small>место и время уточняются</small>
+            </label></div>
     </div>
 
     <div id="schedule-edit" ng-show="!viewModel.preliminary">
@@ -53,10 +52,12 @@
 
 
     <div class="form-group">
-        <label class="checkbox" for="checkbox3"> <input type="checkbox" ng-model="lesson.schedule.recurrent"
-            checked="checked" value="" id="checkbox3" data-toggle="checkbox"> 
-            Повторять еженедельно
-        </label>	
+        <div class="checkbox">
+            <label class="checkbox" for="checkbox3"><input type="checkbox" ng-model="lesson.schedule.recurrent"
+                checked="checked" value="" id="checkbox3" data-toggle="checkbox"> 
+                Повторять еженедельно
+            </label>	
+        </div>
 
         <div class="btn-group" ng-show="lesson.schedule.recurrent">
             <label class="btn btn-default" ng-model="lesson.schedule.repeatDays[0]" btn-checkbox><spring:message code="days.0"/></label>

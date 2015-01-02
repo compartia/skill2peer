@@ -16,6 +16,7 @@
 	<div class="text-wrap">
 		<a class="overlay-link" href="/course/info?id={{mcourse.id}}"></a>
 		<div class="course-tools">
+            <a href="#/edit/{{mcourse.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
             <small class="course-id">Рейтинг: *****  ID-{{mcourse.id}} </small>
 		</div>
 
