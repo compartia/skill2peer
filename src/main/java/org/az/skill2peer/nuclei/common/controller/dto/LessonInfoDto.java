@@ -1,4 +1,8 @@
-package org.az.skill2peer.nuclei.common.controller.rest.dto;
+package org.az.skill2peer.nuclei.common.controller.dto;
+
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 
 public class LessonInfoDto {
 
@@ -12,6 +16,10 @@ public class LessonInfoDto {
 
     private Integer id;
 
+    /**
+     * take it from schedule
+     */
+    @Deprecated
     private boolean recurrent;
 
     private ScheduleInfoDto schedule;

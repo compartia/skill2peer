@@ -1,0 +1,247 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.content {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.sign-in-text {
+    padding-right: 2em;
+}
+
+.social-button-row {
+    padding-top: 1.0em;
+}
+
+.edit-lessons-list{
+    padding: 0;
+    margin: 0;
+} 
+.edit-lessons-list .list-group{
+    padding: 0;
+}
+.edit-lessons-list .active{
+    background: white;
+ /*
+    border: 1px solid #ccc;
+    border-right: none;
+*/
+}
+
+.login-form{
+	/* background-color: #E7EFEF; */
+	background-color:rgba( 200,200,220,0.38);
+	background-image: url(../img/noise.png);
+}
+
+.form-panel{
+	/* background-color: #E7EFEF; */
+	background-color:rgba( 253,251,250,1);
+	background-image: url(../img/noise.png);
+	margin: 0.5em;
+}
+
+body {
+	/* background: url(static/img/tkLOe7nnQ7mnMsiuijBy_hm.jpg); */
+}
+
+/* .page, */.noisy {
+	background: url(../img/noise.png);
+}
+
+
+.draft-course {
+	background-color:rgba( 240,230,220,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+
+.past-course {
+	background-color:rgba( 232,231,230,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+
+.past-course .image-wrap strong{
+     text-decoration: line-through;
+}
+
+
+/* ========================== */
+
+.nav-tabs>li{
+  font-style: normal !important;
+	font-weight: 300 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .1em;  
+}
+
+.panel{
+    background-color:rgba( 251,252,250,1) !important;
+	background-image: url(../img/noise.png) !important;
+}
+
+
+.course-list-item {
+	color: #443322;
+	font-family: "Roboto" !important;
+	display: block;
+	
+	overflow: auto;
+	width: 100%;
+	margin-bottom: 10px;
+	position: relative;
+	background: white;
+}
+ 
+.label{
+	border-radius: 0;
+}
+
+.course-list-item .text-wrap {
+	width: 70%;
+	font-family: 'Roboto' !important;
+	padding: 10px;
+	position: relative;
+	left: 30%;
+	float: left;
+	line-height: 1;
+	border: 1px solid #eee;
+	border-left: none;
+}
+
+.course-list-item .text-wrap:after {
+	content:'';
+	clear: both; 
+}
+
+.course-list-item h4 {
+	margin: 0;
+	padding: 0;
+	font-style: normal !important;
+	font-weight: 300 !important;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+}
+
+
+.course-list-item h3 {
+	margin: 0;
+	padding: 0;
+	font-style: normal !important;
+	font-weight: 500 !important;
+	font-size: 18px;
+	padding-bottom: 5px;
+}
+
+.course-list-item .image-wrap {
+	width: 30%;
+	height: 100%;
+	-webkit-background-size: cover;
+	-webkit-box-flex: 1;
+	-webkit-box-ordinal-group: 6;
+	-webkit-font-smoothing: antialiased;
+	position: absolute;
+	float: left;
+	bottom: 0;
+	text-align: center;
+	background-position: 50% 50%;
+	background-size: cover;
+	box-sizing: border-box;
+	color: #fff;
+	display: block;
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+.course-list-item .image-wrap strong {
+	font-size: 36px;
+	display: block;
+	font-family: 'Roboto' !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+}
+
+a.overlay-link {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 50;
+	
+	display: block;
+	cursor: auto;
+}
+
+.inner-image-wrap {
+	font-size: 11px;
+	z-index: 40;
+	position: relative;
+}
+
+
+.image-wrap:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 20;
+	content: '';
+	background-color: rgba(0, 0, 0, 0.333);
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	 
+}
+
+.image-wrap:hover:after {
+	background-color: rgba(36, 83, 164, 0.8);
+}
+
+time {
+	-webkit-font-smoothing: antialiased;
+	color: rgb(153, 153, 153);
+	cursor: auto;
+	display: inline;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	height: auto;
+	letter-spacing: 0.75px;
+	line-height: 15px;
+	text-transform: uppercase;
+	width: auto;
+}
+
+
+small.course-id {
+	position: relative;
+	float: right;
+	color: #ccc;
+	clear: both;
+	font-style: normal;
+	font-weight: 200;
+}
+
+.course-id:after {
+	content:'';
+	clear: both;
+}
+
+.course-tools {
+	position: relative;
+	float: right;
+	z-index: 80;
+}
+
+.error{
+	background-color: #FA787E;
+}
+/*  input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+  } */
+  
+  

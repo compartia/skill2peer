@@ -1,0 +1,10 @@
+.label-default {
+	padding: 10px 16px;
+	border:2px solid $label-default-border;
+	color:$label-default-color;
+
+	.glyphicon {
+		margin: 0 10px 0 0;
+		font-weight: 100;
+	}
+}

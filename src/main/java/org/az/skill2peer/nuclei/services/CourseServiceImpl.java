@@ -1,5 +1,6 @@
 package org.az.skill2peer.nuclei.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,8 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
@@ -127,11 +129,27 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public CourseEditDto getEditableCourse(final Integer courseId) {
         final Course editableCourse = editCourse(courseId);
         final CourseEditDto editableDto = new CourseEditDto();
         mapper.map(editableCourse, editableDto);
         return editableDto;
+    }
+
+    @Override
+    public List<CourseInfoListItemDto> getMyCourses() {
+        final List<Course> resultList = em
+                .createNamedQuery("Course.findAllByAuthor", Course.class)
+                .setParameter("authorId", getCurrentUser().getId())
+                .getResultList();
+        final List<CourseInfoListItemDto> dtos = new ArrayList<CourseInfoListItemDto>();
+        for (final Course c : resultList) {
+            final CourseInfoListItemDto dto = new CourseInfoListItemDto();
+            mapper.map(c, dto);
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     /**

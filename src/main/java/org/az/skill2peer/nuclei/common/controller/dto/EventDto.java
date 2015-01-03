@@ -1,12 +1,20 @@
-package org.az.skill2peer.nuclei.common.controller.rest.dto;
+package org.az.skill2peer.nuclei.common.controller.dto;
 
-import org.az.skill2peer.nuclei.services.CalendarUtils;
+import static org.az.skill2peer.nuclei.services.LocalDateRenderingUtils.getDayInMonth;
+import static org.az.skill2peer.nuclei.services.LocalDateRenderingUtils.getDayShortNameLocal;
+import static org.az.skill2peer.nuclei.services.LocalDateRenderingUtils.getMonthLongName;
+
+import org.az.skill2peer.nuclei.services.LocalDateRenderingUtils;
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class EventDto {
 
+    @JsonIgnore
     private DateTime start;
 
+    @JsonIgnore
     private DateTime end;
 
     private String name;
@@ -44,11 +52,19 @@ public class EventDto {
      * Mo, Su, Sa, Th, etc
      */
     public String getDayShortName() {
-        return CalendarUtils.getDayShortNameLocal(start);
+        return getDayShortNameLocal(start);
     }
 
     public DateTime getEnd() {
         return end;
+    }
+
+    public String getEndDate() {
+        return getDayInMonth(getEnd());
+    }
+
+    public String getEndMonth() {
+        return getMonthLongName(getEnd());
     }
 
     public String getName() {
@@ -57,6 +73,18 @@ public class EventDto {
 
     public DateTime getStart() {
         return start;
+    }
+
+    public String getStartDate() {
+        return getDayInMonth(getStart());
+    }
+
+    public String getStartMonth() {
+        return getMonthLongName(getStart());
+    }
+
+    public String getTimes() {
+        return LocalDateRenderingUtils.getTimes(start, end);
     }
 
     @Override

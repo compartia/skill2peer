@@ -187,11 +187,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				
-				<!-- <configuration>
+				 <configuration>
 		          <jvmArguments>
 		            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
 		          </jvmArguments>
-		        </configuration> -->
+		        </configuration> 
 			</plugin>
 			<!-- <plugin> <groupId>org.mortbay.jetty</groupId> <groupId>org.eclipse.jetty</groupId> <artifactId>jetty-maven-plugin</artifactId> 
 				<version>9.2.3.v20140905</version> <configuration> <stopKey>todostop</stopKey> <stopPort>9999</stopPort> </configuration> 
@@ -378,6 +378,13 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		
 
 		<!-- Logging -->
 

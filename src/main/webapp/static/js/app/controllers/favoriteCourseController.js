@@ -1,13 +1,17 @@
-define([], function() {
+define([],
+//
+//
+
+function() {
 	return [ '$scope', 'Courses', function($scope, Courses) {
 		$scope.courseId = courseId;
 
 		$scope.switchButtonStyle = function() {
 			$scope.course.favorited = !$scope.course.favorited;
 			if ($scope.course.favorited) {
-				$scope.btnStyle = "btn-danger";
+				$scope.btnStyle = "inactive";
 			} else {
-				$scope.btnStyle = "btn-default";
+				$scope.btnStyle = "";
 			}
 		};
 
@@ -27,9 +31,3 @@ define([], function() {
 		$scope.$apply();
 	} ];
 });
-//
-// skill2peerApp.controller('favoriteCourseController', [ '$scope',
-// '$routeParams', 'Courses',
-// function($scope, $routeParams, Courses) {
-//
-// } ]);

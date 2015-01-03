@@ -1,5 +1,7 @@
 package org.az.skill2peer.nuclei;
 
+import static org.joda.time.DateTimeZone.UTC;
+
 import java.util.ArrayList;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
@@ -8,9 +10,34 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
+import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
+import org.junit.Assert;
 
 public class TestUtil {
+
+    public static void compareDateTime(final DateTime at1, final DateTime at2) {
+        final DateTime t1 = at1.withZone(UTC);
+        final DateTime t2 = at2.withZone(UTC);
+
+        Assert.assertNotNull(t1);
+        Assert.assertNotNull(t2);
+        compareTime(t1, t2);
+        Assert.assertEquals(t1.getYear(), t2.getYear());
+        Assert.assertEquals(t1.getMonthOfYear(), t2.getMonthOfYear());
+        Assert.assertEquals(t1.getDayOfMonth(), t2.getDayOfMonth());
+    }
+
+    public static void compareTime(final DateTime at1, final DateTime at2) {
+        final DateTime t1 = at1.withZone(UTC);
+        final DateTime t2 = at2.withZone(UTC);
+
+        Assert.assertNotNull(t1);
+        Assert.assertNotNull(t2);
+        Assert.assertEquals(t1.getMinuteOfHour(), t2.getMinuteOfHour());
+        Assert.assertEquals(t1.getHourOfDay(), t2.getHourOfDay());
+
+    }
 
     public static Course makeCourse(final int lessons, final boolean recurrent) {
         final Course course = new Course();
@@ -22,6 +49,10 @@ public class TestUtil {
             final Lesson lesson = makeLesson(recurrent);
             course.getLessons().add(lesson);
         }
+
+        final User user = User.getBuilder().firstName("Art").lastName("Zab").email("test@some.com").build();
+
+        course.setAuthor(user);
         return course;
     }
 

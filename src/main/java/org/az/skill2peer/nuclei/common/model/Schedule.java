@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -24,6 +24,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.google.common.base.Preconditions;
 import com.google.ical.compat.jodatime.DateTimeIterator;
+import com.google.ical.values.DateValue;
+import com.google.ical.values.RRule;
 
 @Entity
 @Table(name = "schedule")
@@ -44,11 +46,13 @@ public class Schedule extends BaseEntity<Integer> {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime end;
 
+    //    @Column(name = "duration")
+    //    private Integer duration;
+
     @Column(name = "repeat")
     private String iCalString;
 
-    //    @Column(name = "duration")
-    //    private Integer duration;
+    /* methods */
 
     public Integer getDuration() {
         if (start == null || end == null) {
@@ -57,8 +61,6 @@ public class Schedule extends BaseEntity<Integer> {
         return Minutes.minutesBetween(start, end).getMinutes();
     }
 
-    /* methods */
-
     public DateTime getEnd() {
         return end;
     }
@@ -66,14 +68,9 @@ public class Schedule extends BaseEntity<Integer> {
     public List<EventDto> getEventsWithinPeriod(final DateTime from, final DateTime to) {
 
         final List<EventDto> result = new ArrayList<EventDto>();
-        if (getStart() == null) {
-            /**
-             * schedule is not defined, return empty list
-             */
-            return result;
-        } else {
+        if (getStart() != null) {
 
-            final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+            final DateTimeZone timeZone = DateTimeZone.UTC;
 
             if (StringUtils.isEmpty(getiCalString())) {
                 /**
@@ -83,28 +80,18 @@ public class Schedule extends BaseEntity<Integer> {
                     result.add(CalendarUtils.buidEventDto(getStart(), getEnd(), timeZone));
                 }
 
-                return result;
             } else {
 
                 /**
-                 * this is recurrent event
+                 * this is a recurrent event
                  */
 
                 try {
 
-                    //                    final DateTime iteratorStart = applyTime(from);
-                    //
-                    //                    final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                    //                            getiCalString(),
-                    //                            iteratorStart,
-                    //                            timeZone,
-                    //                            true);
-                    //
-                    //
-                    //
-                    //                    final DateTimeIterator iterator = dateIterable.iterator();
-
-                    final DateTimeIterator iterator = CalendarUtils.getProperIterator(this);
+                    final DateTimeIterator iterator = CalendarUtils.getProperIterator(from,
+                            this.getiCalString(),
+                            this.getStart(),
+                            timeZone);
 
                     while (iterator.hasNext()) {
 
@@ -127,8 +114,10 @@ public class Schedule extends BaseEntity<Integer> {
                     throw new RuntimeException(e);
                 }
             }
-            return result;
         }
+
+        CalendarUtils.withTimeZone(result, DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
+        return result;
     }
 
     public List<EventDto> getEventsWithinWeek(final DateTime week) {
@@ -148,12 +137,37 @@ public class Schedule extends BaseEntity<Integer> {
         return id;
     }
 
-    public DateTime getNextEvent() {
+    public EventDto getNextEvent() {
         return CalendarUtils.getNextEvent(this);
     }
 
     public DateTime getStart() {
         return start;
+    }
+
+    public boolean isPast() {
+        final DateTime now = DateTime.now();
+        if (isRecurrent()) {
+
+            try {
+                final RRule rRule = new RRule(getiCalString());
+                final DateValue until = rRule.getUntil();
+                if (until == null) {
+                    //forever
+                    return false;
+                }
+                return until.compareTo(CalendarUtils.makeDateValue(now)) < 0;
+            } catch (final ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else {
+            if (getEnd() != null) {
+                return getEnd().isBefore(DateTime.now());
+            } else {
+                return false;
+            }
+        }
     }
 
     public boolean isRecurrent() {

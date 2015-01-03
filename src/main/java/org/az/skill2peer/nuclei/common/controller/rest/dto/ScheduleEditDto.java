@@ -67,9 +67,14 @@ public class ScheduleEditDto {
 
         final ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
         for (int f = 0; f < repeatDays.length; f++) {
-            if (repeatDays[f]) {
-                days.add(new WeekdayNum(0, Weekday.values()[(f + 1) % 7]));
+            if (repeatDays[f] != null) {
+                if (repeatDays[f]) {
+                    days.add(new WeekdayNum(0, Weekday.values()[(f + 1) % 7]));
+                }
             }
+        }
+        if (days.isEmpty()) {
+            return null;
         }
         r.setByDay(days);
         r.setFreq(Frequency.WEEKLY);

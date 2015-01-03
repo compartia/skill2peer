@@ -3,13 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<html>
+<html data-ng-app="skill2peerApp">
 <head>
 <title></title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/social-buttons-3.css" />
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+<script data-main="/static/js/main-edit-course"
+	src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script>
 
+
+
+ 
+ 
+ 
 <style type="text/css">
 body {
 	/* background: url('https://lh4.googleusercontent.com/-tRhY30Ga9dk/Usvkl4QtLVI/AAAAAAAASik/OYw12d0XASw/s0-I/IMG_0140.JPG') fixed;
@@ -82,6 +88,7 @@ body {
 							</div>
 						</div>
 					</div>
+					
 <div ng-repeat="lesson in course.lessons">
 					<div class="what-block panel-body form-panel">
 						<div class="row">
@@ -131,7 +138,7 @@ body {
 								<div class="section-label">2</div>
 							</div>
 							<div class="col-md-11">
-								<h5>расписание</h5>
+								<h3>расписание</h3>
 								<%@include file="includes/edit-schedule.jsp"%>
 							</div>
 						</div>

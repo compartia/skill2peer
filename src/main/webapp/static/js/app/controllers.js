@@ -10,24 +10,47 @@ function(angular) {
 
 	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete' ])
 	/* */
-	.controller('favoriteCourseController', [ '$scope', '$injector', function($scope, $injector) {
+
+	.controller('placeEditController', [ '$scope', '$injector', function($scope, $injector) {
+		require([ 'controllers/placeEditController' ], function(placeEditController) {
+
+			$injector.invoke(placeEditController, this, {
+				'$scope' : $scope
+			});
+		});
+
+	} ])
+    
+    .controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
+		require([ 'controllers/lessonEditController' ], function(lessonEditController) {
+
+			$injector.invoke(lessonEditController, this, {
+				'$scope' : $scope
+			});
+		});
+
+	} ])
+    
+    .controller('favoriteCourseController', [ '$scope', '$injector', function($scope, $injector) {
 		require([ 'controllers/favoriteCourseController' ], function(favoriteCourseController) {
 
 			$injector.invoke(favoriteCourseController, this, {
 				'$scope' : $scope
 			});
 		});
-	} ])
-    
-    .controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
-        require([ 'controllers/lessonEditController' ], function(lessonEditController) {
 
-			$injector.invoke(lessonEditController, this, {
+	} ])
+
+	.controller('courseListsController', [ '$scope', '$injector', function($scope, $injector) {
+		require([ 'controllers/courseListsController' ], function(courseListsController) {
+
+			$injector.invoke(courseListsController, this, {
 				'$scope' : $scope
 			});
 		});
-    
-    } ])
+
+	} ])
+
 	.controller('courseEditController',
 			[ '$scope', '$injector', 'FileUploader', function($scope, $injector, FileUploader) {
 

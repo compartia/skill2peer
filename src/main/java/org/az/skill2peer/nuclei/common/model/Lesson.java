@@ -1,5 +1,6 @@
 package org.az.skill2peer.nuclei.common.model;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,8 +18,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.joda.time.DateTime;
 
@@ -56,11 +57,46 @@ public class Lesson extends BaseEntity<Integer> {
     @Size(max = 10000)
     private String description;
 
-    /*    methods   */
+    @Column(name = "name")
+    @Size(max = 500)
+    private String name;
+
+    public static final Comparator<Lesson> SCHEDULE_COMPARATOR = new Comparator<Lesson>() {
+        @Override
+        public int compare(final Lesson s1, final Lesson s2) {
+            final Schedule schedule1 = s1.getSchedule();
+            final Schedule schedule2 = s2.getSchedule();
+            if (schedule1 == schedule2) {
+                return 0;
+            }
+            if (schedule1 == null) {
+                return -1;
+            }
+            if (schedule2 == null) {
+                return 1;
+            }
+            final DateTime nextEvent1 = schedule1.getNextEvent().getStart();
+            final DateTime nextEvent2 = schedule2.getNextEvent().getStart();
+
+            if (nextEvent1 == nextEvent2) {
+                return 0;
+            }
+
+            if (nextEvent1 == null) {
+                return -1;
+            }
+            if (nextEvent2 == null) {
+                return 1;
+            }
+            return nextEvent1.compareTo(nextEvent2);
+        }
+    };
 
     public String getDescription() {
         return description;
     }
+
+    /*    methods   */
 
     public Integer getDuration() {
         return schedule.getDuration();
@@ -89,7 +125,17 @@ public class Lesson extends BaseEntity<Integer> {
     }
 
     public String getName() {
-        return "XXX: Lesson.getName() is undefined";
+        return name;
+    }
+
+    public EventDto getNextEvent() {
+        EventDto nextEvent = schedule.getNextEvent();
+        if (nextEvent == null) {
+            //in case schedule is undefined
+            nextEvent = new EventDto();
+        }
+        nextEvent.setName(this.getName());
+        return nextEvent;
     }
 
     public Schedule getSchedule() {
@@ -100,6 +146,10 @@ public class Lesson extends BaseEntity<Integer> {
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
         final List<EventDto> eventsWithinPeriod = getEventsWithinWeek(week);
         return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
+    }
+
+    public boolean isPast() {
+        return this.getSchedule().isPast();
     }
 
     public boolean isRecurrent() {
@@ -116,6 +166,10 @@ public class Lesson extends BaseEntity<Integer> {
 
     public void setLocation(final Location location) {
         this.location = location;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public void setSchedule(final Schedule schedule) {

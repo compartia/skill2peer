@@ -1,8 +1,6 @@
 package org.az.skill2peer.nuclei.services;
 
 import java.text.ParseException;
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -12,8 +10,8 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.joda.time.DateTime;
@@ -31,47 +29,17 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import com.google.ical.compat.jodatime.DateTimeIterable;
 import com.google.ical.compat.jodatime.DateTimeIterator;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
+import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 
 public class CalendarUtils {
 
-    public static DateTimeIterator _getProperIterator(final DateTime now,
-            final String repeatRules,
-            final DateTime scheduleStart,
-            final DateTimeZone timeZone) throws ParseException {
-
-        final DateTime start = scheduleStart;
-        final String exdate = "";
-        if (scheduleStart.isAfter(now)) {
-
-            //            exdate = "\nEXDATE:"
-            //                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
-        }
-        //        else {
-        //            /**
-        //            * this hack is required to skip the first date of the
-        //            * sequence which does not match the rrule.
-        //            */
-        //            start = now
-        //                    .withHourOfDay(scheduleStart.getHourOfDay())
-        //                    .withMinuteOfHour(scheduleStart.getMinuteOfHour());//.minusDays(1);
-        //            //            exdate = "\nEXDATE:"
-        //            //                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
-        //
-        //        }
-        //        exdate = "\nDTSTART:"
-        //                + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
-
-        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                repeatRules + "\n" + exdate,
-                start,
-                timeZone,
-                true);
-
-        final DateTimeIterator iterator = dateIterable.iterator();
-        iterator.advanceTo(now);
-        return iterator;
+    public static EventDto buidEventDto(final DateTime from, final DateTime to) {
+        final EventDto eventDto = new EventDto();
+        eventDto.setStart(from);
+        eventDto.setEnd(to);
+        return eventDto;
     }
 
     public static EventDto buidEventDto(final DateTime from, final DateTime to, final DateTimeZone timeZone) {
@@ -83,6 +51,37 @@ public class CalendarUtils {
         }
 
         return eventDto;
+    }
+
+    public static EventDto buidEventDto(final DateTime from, final int duration) {
+        final EventDto eventDto = new EventDto();
+        eventDto.setStart(from);
+        eventDto.setEnd(from.plusMinutes(duration));
+        return eventDto;
+    }
+
+    public static DateTimeIterator createDateTimeIterator(
+            final String repeatRules,
+            final DateTime scheduleStart,
+            final DateTimeZone timeZone) throws ParseException {
+
+        DateTime start = scheduleStart;
+        String exdate = "";
+        final RRule rrule = new RRule(repeatRules);
+        if (rrule.getFreq().ordinal() > Frequency.DAILY.ordinal()) {
+            start = start.minusDays(1);
+            exdate = "\nEXDATE:"
+                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
+        }
+
+        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
+                repeatRules + exdate,
+                start,
+                timeZone,
+                true);
+
+        return dateIterable.iterator();
+
     }
 
     public static String formatHoursDuration(final Locale locale, final int minutes) {
@@ -140,24 +139,20 @@ public class CalendarUtils {
         return builder.toString();
     }
 
-    public static String getDayShortNameLocal(final DateTime date) {
-        return getDayShortNameLocal(date.getDayOfWeek() - 1);
-    }
-
-    public static String getDayShortNameLocal(final int f) {
-        return DayOfWeek
-                .of(1 + f)
-                .getDisplayName(TextStyle.SHORT_STANDALONE, LocaleContextHolder.getLocale());
-    }
-
+    /**
+     * XXX: why deprecated? because util class must not deal with entities
+     * @param schedule
+     * @return
+     */
     @Deprecated
-    public static DateTime getNextEvent(final Schedule schedule) {
+    public static EventDto getNextEvent(final Schedule schedule) {
         final String repeatRules = schedule.getiCalString();
 
         final DateTime scheduleStart = schedule.getStart();
 
         if (StringUtils.isEmpty(repeatRules) || scheduleStart == null) {
-            return scheduleStart;
+
+            return buidEventDto(scheduleStart, schedule.getEnd());
         }
 
         final TimeZone tz = LocaleContextHolder.getTimeZone();
@@ -170,10 +165,14 @@ public class CalendarUtils {
                     schedule.getStart(),
                     DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
 
-            final DateTime next = new DateTime(iterator.next());
-            final DateTime dt = next.withZone(timeZone);
+            if (iterator.hasNext()) {
+                final DateTime next = new DateTime(iterator.next());
+                final DateTime dt = next.withZone(timeZone);
 
-            return dt;
+                return buidEventDto(dt, schedule.getDuration());
+            } else {
+                return null;
+            }
         } catch (final ParseException e) {
             throw new RuntimeException(e);
         }
@@ -193,47 +192,15 @@ public class CalendarUtils {
         return iterator;
     }
 
-    /**
-     * @deprecated because Util class must not refer entities
-     */
-    @Deprecated
-    public static DateTimeIterator getProperIterator(final Schedule schedule) throws ParseException {
-        return getProperIterator(DateTime.now(),
-                schedule.getiCalString(),
-                schedule.getStart(),
-                DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone()));
-    }
-
-    public static DateTimeIterator createDateTimeIterator(
-            final String repeatRules,
-            final DateTime scheduleStart,
-            final DateTimeZone timeZone) throws ParseException {
-
-        DateTime start = scheduleStart;
-        String exdate = "";
-        final RRule rrule = new RRule(repeatRules);
-        if (rrule.getFreq().ordinal() > Frequency.DAILY.ordinal()) {
-            start = start.minusDays(1);
-            exdate = "\nEXDATE:"
-                    + ISODateTimeFormat.basicDateTimeNoMillis().print(start.withZone(timeZone).toLocalDateTime());
-        }
-
-        final DateTimeIterable dateIterable = DateTimeIteratorFactory.createDateTimeIterable(
-                repeatRules + exdate,
-                start,
-                timeZone,
-                true);
-
-        return dateIterable.iterator();
-
-    }
-
     public static List<DayEventsDto> groupEventsInWeek(final List<EventDto> eventsWithinPeriod) {
         final List<DayEventsDto> events = CalendarUtils.makeWeekPattern();
 
+        for (final DayEventsDto set : events) {
+            set.getEvents().clear();
+        }
         for (final EventDto e : eventsWithinPeriod) {
             final Set<EventDto> set = events.get(e.getStart().getDayOfWeek() - 1).getEvents();
-            set.clear();
+            //set.clear();
             set.add(e);
         }
 
@@ -245,24 +212,41 @@ public class CalendarUtils {
 
         for (int f = 0; f < 7; f++) {
             final DayEventsDto de = new DayEventsDto();
-            de.setDayShortName(getDayShortNameLocal(f));
+            de.setDayShortName(LocalDateRenderingUtils.getDayShortNameLocal(f));
             ret.add(de);
         }
         return ret;
     }
 
+    public static DateTime toClientTimeZone(final DateTime date) {
+        if (date == null) {
+            return null;
+        }
+        final DateTimeZone timeZone = DateTimeZone.forTimeZone(LocaleContextHolder.getTimeZone());
+        return date.withZone(timeZone);
+    }
+
+    public static void withTimeZone(final List<EventDto> events, final DateTimeZone zone) {
+        for (final EventDto event : events) {
+            event.setStart(event.getStart().withZone(zone));
+            if (event.getEnd() != null) {
+                event.setEnd(event.getEnd().withZone(zone));
+            }
+        }
+    }
+
     public static final Comparator<Schedule> SCHEDULE_COMPARATOR = new Comparator<Schedule>() {
         @Override
         public int compare(final Schedule s1, final Schedule s2) {
-            return s1.getNextEvent().compareTo(s2.getNextEvent());
+            return s1.getNextEvent().getStart().compareTo(s2.getNextEvent().getStart());
         }
     };
 
     public static final Comparator<Lesson> LESSON_COMPARATOR = new Comparator<Lesson>() {
         @Override
         public int compare(final Lesson s1, final Lesson s2) {
-            final DateTime e1 = s1.getSchedule().getNextEvent();
-            final DateTime e2 = s2.getSchedule().getNextEvent();
+            final DateTime e1 = s1.getSchedule().getNextEvent().getStart();
+            final DateTime e2 = s2.getSchedule().getNextEvent().getStart();
 
             if (e1 == null) {
                 return -1;
@@ -273,4 +257,10 @@ public class CalendarUtils {
             return e1.compareTo(e2);
         }
     };
+
+    public static final String DATE_FORMAT_MONTH = "MMMM";
+
+    public static DateValueImpl makeDateValue(final DateTime now) {
+        return new DateValueImpl(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth());
+    }
 }

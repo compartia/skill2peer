@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -27,8 +29,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.EventDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.joda.time.DateTime;
@@ -44,6 +47,7 @@ import com.google.common.base.Preconditions;
 @Entity
 @Table(name = "course")
 @SequenceGenerator(name = "course_id_seq", sequenceName = "course_id_seq")
+@NamedQueries({ @NamedQuery(name = "Course.findAllByAuthor", query = "from Course where author.id=:authorId") })
 public class Course extends BaseEntity<Integer> implements HasOwner {
 
     private static final long serialVersionUID = 3541638359681997928L;
@@ -97,7 +101,6 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     private String summary;
 
     public Course() {
-
     }
 
     public User getAuthor() {
@@ -133,8 +136,37 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return name;
     }
 
+    public EventDto getNextEvent() {
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, Lesson.SCHEDULE_COMPARATOR);
+        final Lesson firstLesson = scs.get(0);
+        final EventDto nextEvent = firstLesson.getNextEvent();
+        return nextEvent;
+    }
+
     public Course getPublishedVersion() {
         return publishedVersion;
+    }
+
+    public ScheduleInfoDto getScheduleInfo() {
+        final ScheduleInfoDto scheduleInfo = new ScheduleInfoDto();
+        final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+        Collections.sort(scs, Lesson.SCHEDULE_COMPARATOR);
+        final Lesson firstLesson = scs.get(0);
+        final Lesson lastLesson = scs.get(scs.size() - 1);
+
+        final EventDto nextEvent = firstLesson.getNextEvent();
+
+        scheduleInfo.setNextEvent(nextEvent);
+
+        if (!isRecurrent()) {
+            scheduleInfo.setStart(nextEvent.getStart());
+            scheduleInfo.setEnd(lastLesson.getSchedule().getEnd());
+        } else {
+            scheduleInfo.setStart(firstLesson.getSchedule().getStart());
+        }
+
+        return scheduleInfo;
     }
 
     public Collection<Schedule> getSchedules() {
@@ -179,11 +211,14 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         Collections.sort(scs, CalendarUtils.LESSON_COMPARATOR);
 
         final Lesson firstLesson = scs.get(0);
-        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent();
+        final DateTime nextEvent = firstLesson.getSchedule().getNextEvent().getStart();
 
         if (nextEvent != null) {
             return getWeekSchedule(nextEvent);
         } else {
+            /**
+             * empty week schedule
+             */
             return CalendarUtils.makeWeekPattern();
         }
     }
@@ -199,6 +234,15 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
 
         return CalendarUtils.groupEventsInWeek(allEvents);
 
+    }
+
+    public boolean isPast() {
+        for (final Lesson l : lessons) {
+            if (!l.isPast()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean isRecurrent() {

@@ -1,14 +1,10 @@
 package org.az.skill2peer.nuclei.common.controller;
 
 import org.az.skill2peer.nuclei.common.Urls;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonInfoDto;
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
-import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.services.CourseService;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +31,7 @@ public class CourseController {
         final ModelAndView mv = new ModelAndView(Urls.COURSE_INFO);//XXX: first slash is questionable
         final CourseInfoDto course = courseService.getCourseFullInfo(id);
         fakeCourseData(course);
+
         mv.addObject("course", course);
         return mv;
     }
@@ -54,29 +51,7 @@ public class CourseController {
     private void fakeCourseData(final CourseInfoDto course) {
         course.setLocation(fakeLocation());
         course.setPrice(fakePrice());
-
-        //        course.getLessons().add(fakeLesson(1));
-        //        course.getLessons().add(fakeLesson(2));
-        //        course.getLessons().add(fakeLesson(3));
-        //        course.getLessons().add(fakeLesson(4));
-        //        course.getLessons().add(fakeLesson(5));
-
         course.setSkills("fake skill 1,fake skill 2,fake skill 3");
-
-    }
-
-    @Deprecated
-    private LessonInfoDto fakeLesson(final int no) {
-        final LessonInfoDto lesson = new LessonInfoDto();
-        lesson.setDescription("lesson descr " + no);
-        lesson.setId(no);
-        lesson.setLocation(fakeLocation());
-        lesson.setName("lesson name " + no);
-        lesson.setPrice(fakePrice());
-        lesson.setSchedule(fakeScheduleDto());
-        lesson.setSkills("lesson skill " + no);
-        lesson.setSummary("lesson summary " + no);
-        return lesson;
     }
 
     @Deprecated
@@ -95,27 +70,6 @@ public class CourseController {
         price.setCurrency("RUB");
         price.setValue("1500");
         return price;
-    }
-
-    @Deprecated
-    private Schedule fakeSchedule() {
-        final Schedule schedule = new Schedule();
-        //        schedule.setDuration(120);
-        schedule.setStart(DateTime.now());
-        return schedule;
-    }
-
-    @Deprecated
-    private ScheduleInfoDto fakeScheduleDto() {
-        final ScheduleInfoDto schedule = new ScheduleInfoDto();
-        schedule.setStart(new DateTime(2015, 12, 12, 17, 40));
-        // schedule.setStart(start);Duration(120);
-        //
-        //        dateTime.setHours(2);
-        //        dateTime.setMinutes(45);
-        //        dateTime.setStartDateStr("2017-12-10T21:00:00.000Z");
-
-        return schedule;
     }
 
 }

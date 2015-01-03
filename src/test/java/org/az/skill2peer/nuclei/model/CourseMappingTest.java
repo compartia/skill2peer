@@ -1,10 +1,13 @@
 package org.az.skill2peer.nuclei.model;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
+import org.apache.commons.io.IOUtils;
 import org.az.skill2peer.nuclei.TestUtil;
+import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
@@ -14,6 +17,7 @@ import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.dozer.Mapper;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +29,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {
@@ -73,6 +81,9 @@ public class CourseMappingTest {
         Assert.assertEquals(numberOfLessons, target.getLessons().size());
         Assert.assertEquals("48 часов", target.getTotalDurationAsString());
         Assert.assertEquals(7, target.getWeekSchedule().size());
+
+        Assert.assertNotNull(source.getAuthor());
+        Assert.assertNotNull(target.getAuthor());
     }
 
     @Test
@@ -160,6 +171,20 @@ public class CourseMappingTest {
     }
 
     @Test
+    public void testJsonDatesMapping() throws JsonParseException, JsonMappingException, IOException {
+
+        final InputStream resourceAsStream = this.getClass().getResourceAsStream("/courseCreate.json");
+        Assert.assertNotNull(resourceAsStream);
+        final String myResource = IOUtils.toString(resourceAsStream);
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final CourseEditDto user = mapper.readValue(myResource, CourseEditDto.class);
+
+        final DateTime start = user.getLessons().get(0).getSchedule().getStart();
+        Assert.assertEquals("2014-12-27T19:15:00.000Z", start.withZone(DateTimeZone.UTC).toString());
+    }
+
+    @Test
     public void testScheduleEditDto() {
         final ScheduleEditDto dto = TestUtil.makeScheduleEditDto();
 
@@ -189,23 +214,17 @@ public class CourseMappingTest {
         mapper.map(source, target);
         compareSchedules(target, source);
 
+        Assert.assertEquals("30 ноября - 1 декабря, 2018", target.getDates());
+
         Assert.assertEquals("2 часа 32 минуты", target.getDurationAsString());
         Assert.assertEquals("ноября", target.getStartMonth());
         Assert.assertEquals("декабря", target.getEndMonth());
 
         target.setEnd(null);
         Assert.assertEquals("", target.getDurationAsString());
+        //        Assert.assertEquals("30 ноября, 20:45", target.getNextEvent().getStartAsString());
+        Assert.assertEquals("30 ноября, 2018", target.getDates());
 
-    }
-
-    private void compareDates(final DateTime t1, final DateTime t2) {
-        Assert.assertNotNull(t1);
-        Assert.assertNotNull(t2);
-        Assert.assertEquals(t1.getMinuteOfHour(), t2.getMinuteOfHour());
-        Assert.assertEquals(t1.getHourOfDay(), t2.getHourOfDay());
-        Assert.assertEquals(t1.getYear(), t2.getYear());
-        Assert.assertEquals(t1.getMonthOfYear(), t2.getMonthOfYear());
-        Assert.assertEquals(t1.getDayOfMonth(), t2.getDayOfMonth());
     }
 
     private void compareLessons(final LessonEditDto l1, final Lesson l2) {
@@ -217,12 +236,12 @@ public class CourseMappingTest {
     private void compareSchedules(final ScheduleEditDto s1, final Schedule s2) {
         final DateTime t1 = s1.getStart();
         final DateTime t2 = s2.getStart();
-        compareDates(t1, t2);
+        TestUtil.compareDateTime(t1, t2);
     }
 
     private void compareSchedules(final ScheduleInfoDto s1, final Schedule s2) {
-        compareDates(s1.getStart(), s2.getStart());
-        compareDates(s1.getEnd(), s2.getEnd());
+        TestUtil.compareDateTime(s1.getStart(), s2.getStart());
+        TestUtil.compareDateTime(s1.getEnd(), s2.getEnd());
 
     }
 
