@@ -5995,6 +5995,7 @@ img {
     max-height: 300px;
     overflow: hidden; }
   .page-header-wrap .page-header {
+    height: 300px;
     background-color: rgba(233, 233, 233, 0.8); }
 
 .featured-img img {
@@ -6589,7 +6590,11 @@ img {
     .page-header-wrap .featured-img,
     .page-header-wrap .page-header {
       display: table-cell;
+      height: 100%;
       vertical-align: top; }
+      .page-header-wrap .featured-img.mobile-view,
+      .page-header-wrap .page-header.mobile-view {
+        display: none; }
     .page-header-wrap .course-time-info {
       display: table-cell;
       vertical-align: top;

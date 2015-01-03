@@ -29,7 +29,12 @@
 			// height: 338px;
 			// max-height:inherit;
 			display: table-cell;
+			height:100%;
 			vertical-align: top;
+
+			&.mobile-view {
+				display: none;
+			}
 		}
 
 		.course-time-info {
