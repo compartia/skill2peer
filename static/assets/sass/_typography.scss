@@ -14,8 +14,8 @@ strong {
 .btn-like {
 	@include button-variant($btn-like-color, $btn-like-bg, $btn-like-border);
 }
-.btn-like.inactive {
-	background:desaturate($btn-like-bg, 60%);
+.btn-like.activated {
+	@include button-variant($btn-like-color, $btn-like-activated-bg, $btn-like-border);
 }
 
 

@@ -20,25 +20,27 @@
 
 	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
 
-		<div class="page-header-wrap">
-			<header class="page-header mobile-view">
+		<div class="page-header-wrap" style="background-image:url(../img/test-profile.jpg);">
+			<header class="page-header">
 				<div class="page-header-inner">
-					<ol class="breadcrumb">
-			            <li>
-			                <a href="#">Курсы</a>
-			            </li>
-			            <li>
-			            	<a href="#">Искусство</a>
-			            </li>
-			            <li class="active">Конкурсы</li>
-			        </ol>
-			        <h1 itemprop="name">Сценарий жанрового кино</h1>
+					<div class="content">
+						<ol class="breadcrumb">
+				            <li>
+				                <a href="#">Курсы</a>
+				            </li>
+				            <li>
+				            	<a href="#">Искусство</a>
+				            </li>
+				            <li class="active">Конкурсы</li>
+				        </ol>
+			        	<h1 itemprop="name">Сценарий жанрового кино</h1>
+			        </div>
 			    </div>
 		    </header><!-- /Page-header -->
 
-			<div class="featured-img">
+			<!-- <div class="featured-img">
 				<img src="../img/test-profile.jpg" alt="Сценарий жанрового кино"/>
-			</div>
+			</div> -->
 			<div class="course-time-info">
 				<div class="course-dates single-event">
 					<div class="course-dates-wrap">
@@ -63,6 +65,7 @@
 							<li class="active">
 								Чт
 								<span class="course-timerange">14.00-16.00</span>
+								<span class="course-timerange">14.00-16.00</span>
 							</li>
 							<li>Пт</li>
 							<li>Сб</li>
@@ -70,27 +73,28 @@
 						</ul>
 					</div>
 					<div class="course-options-wrap">
-						<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">
-							<i class="glyphicon glyphicon-map-marker"></i>
-							<div class="course-place" >
-								<div itemprop="name">Санкт-Петербургская школа телевидения в Москве</div>
-								<div class="course-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-									<span itemprop="addressLocality">Москва</span>,
-									<span itemprop="streetAddress">Басманный пер. 5</span>
-							    </div>
+						<div class="course-options">
+							<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">
+								<div class="course-place">
+									<div itemprop="name">Санкт-Петербургская школа телевидения в Москве</div>
+									<div class="course-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+										<span itemprop="addressLocality">Москва</span>,
+										<span itemprop="streetAddress">Басманный пер. 5</span>
+								    </div>
+								</div>
 							</div>
-						</div>
 
-						<a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>
-						
-						<div class="course-toolbar btn-group">
-							<a href="#" class="btn btn-info" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
-								<span itemprop="lowPrice">7590 руб.</span>
-							</a>
-							<a href="#" class="btn btn-like">
-								<i class="glyphicon glyphicon-heart"></i>
-							</a>
-						</div>	
+							<a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>
+							
+							<div class="course-toolbar btn-group">
+								<a href="#" class="btn btn-info" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+									<span itemprop="lowPrice">7590 руб.</span>
+								</a>
+								<a href="#" class="btn btn-like">
+									<i class="glyphicon glyphicon-heart"></i>
+								</a>
+							</div>	
+						</div>
 					</div>
 				</div>
 			</div><!-- /Course-info -->
@@ -423,9 +427,8 @@
 
 	</div>
 	
-
-	<script src="assets/javascripts/jquery-1.11.1.min.js"></script>
-	<script src="assets/javascripts/script.js"></script>
-	<script src="assets/javascripts/bootstrap.js"></script>
+	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+	<script src="/assets/javascripts/script.js"></script>
+	<script src="/assets/javascripts/bootstrap.js"></script>
 </body>
 </html>
