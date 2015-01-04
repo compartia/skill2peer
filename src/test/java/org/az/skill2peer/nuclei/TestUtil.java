@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationPointDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.Lesson;
@@ -80,6 +82,7 @@ public class TestUtil {
         lesson.setName("lesson name");
         lesson.setDescription("lesson description");
         lesson.setSchedule(makeScheduleEditDto());
+        lesson.setLocation(makeLocationDto());
         return lesson;
     }
 
@@ -127,6 +130,19 @@ public class TestUtil {
         }
 
         return builder.toString();
+    }
+
+    private static LocationDto makeLocationDto() {
+        final LocationDto loc = new LocationDto();
+        loc.setAddress("address");
+        loc.setDescription("description");
+        loc.setGeometry(new LocationPointDto(30.000023, 60.000037));
+        loc.setHtml("html");
+        loc.setIcon("icon");
+        loc.setName("name");
+        loc.setUrl("url");
+        loc.setVicinity("vicinity");
+        return loc;
     }
 
     private static final String CHARACTER = "a";

@@ -13,6 +13,15 @@ public class LocationPointDto {
     @JsonProperty(value = "D")
     double longitude;
 
+    public LocationPointDto() {
+    }
+
+    public LocationPointDto(final double latitude, final double longitude) {
+        super();
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public double getLatitude() {
         return latitude;
     }

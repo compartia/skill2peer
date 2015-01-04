@@ -221,9 +221,12 @@ public class CourseServiceTest extends AbstractServiceTest {
         editableCourse.setDescription("description edited");
         final LessonEditDto lessonEditDto = editableCourse.getLessons().get(0);
 
-        editableCourse.getLessons().add(TestUtil.makeLessonEditDto());
+        final LessonEditDto newLesson = TestUtil.makeLessonEditDto();
+        newLesson.getLocation().setId(1);
+        editableCourse.getLessons().add(newLesson);
 
         lessonEditDto.getLocation().setDescription("description_edited");
+        newLesson.getLocation().setDescription("description_edited");
         service.updateCourse(editableCourse);
 
         //

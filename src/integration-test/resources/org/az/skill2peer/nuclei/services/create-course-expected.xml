@@ -2,4 +2,7 @@
 <dataset>
 	<course title="title" summary="summary" description="description" status="DRAFT" author="1111"></course>
 	<lesson version="0"></lesson>
-</dataset>
+
+	<location description="description" />
+
+ </dataset>

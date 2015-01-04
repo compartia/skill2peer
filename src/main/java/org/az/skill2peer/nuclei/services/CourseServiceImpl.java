@@ -58,12 +58,13 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
     @Override
     @Transactional(readOnly = false)
-    public CourseEditDto createCourse(final CourseEditDto courseDto) {
+    public CourseEditDto createCourse(final CourseEditDto courseEditDto) {
         final Course course = new Course();
-        mapper.map(courseDto, course);
-        if (course.getLessons().isEmpty()) {
-            course.getLessons().add(new Lesson());
-        }
+        mapper.map(courseEditDto, course);
+        //        if (course.getLessons().isEmpty()) {
+        //            course.getLessons().add(new Lesson());
+        //        }
+        updateLessons(course, courseEditDto.getLessons());
 
         course.setAuthor(getCurrentUser());
         course.setId(null);
@@ -194,15 +195,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         assertCurrentUserHasPermission(course);
         assertNotPublished(course);
         //-----
-        mapper.map(courseDto, course);
-        updateLessons(course, courseDto.getLessons());
-        course.setStatus(CourseStatus.DRAFT);
-        em.merge(course);
-        em.flush();
-
-        final CourseEditDto ret = new CourseEditDto();
-        mapper.map(course, ret);
-        return ret;
+        return updateCourse(courseDto, course);
     }
 
     private void assertCurrentUserHasPermission(final HasOwner obj) {
@@ -240,6 +233,18 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
             return clonedObject;
         }
+    }
+
+    private CourseEditDto updateCourse(final CourseEditDto courseDto, final Course course) {
+        mapper.map(courseDto, course);
+        updateLessons(course, courseDto.getLessons());
+        course.setStatus(CourseStatus.DRAFT);
+        em.merge(course);
+        em.flush();
+
+        final CourseEditDto ret = new CourseEditDto();
+        mapper.map(course, ret);
+        return ret;
     }
 
     private void updateLessons(final Course course, final List<LessonEditDto> lessons) {

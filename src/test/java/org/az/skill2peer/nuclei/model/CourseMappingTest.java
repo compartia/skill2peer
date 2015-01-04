@@ -9,10 +9,12 @@ import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.Lesson;
+import org.az.skill2peer.nuclei.common.model.Location;
 import org.az.skill2peer.nuclei.common.model.Schedule;
 import org.az.skill2peer.nuclei.config.DozerConfig;
 import org.dozer.Mapper;
@@ -230,7 +232,23 @@ public class CourseMappingTest {
     private void compareLessons(final LessonEditDto l1, final Lesson l2) {
         Assert.assertEquals(l1.getDescription(), l2.getDescription());
 
+        final Location loc2 = l2.getLocation();
+        final LocationDto loc1 = l1.getLocation();
+        compareLocations(loc2, loc1);
+
         compareSchedules(l1.getSchedule(), l2.getSchedule());
+    }
+
+    private void compareLocations(final Location loc2, final LocationDto loc1) {
+        Assert.assertEquals(loc2.getId(), loc1.getId());
+        Assert.assertEquals(loc2.getDescription(), loc1.getDescription());
+        Assert.assertEquals(loc2.getHtml(), loc1.getHtml());
+
+        Assert.assertEquals(loc2.getName(), loc1.getName());
+
+        Assert.assertEquals(loc2.getLatitude(), loc1.getGeometry().getLatitude(), 0.00001);
+        Assert.assertEquals(loc2.getLongitude(), loc1.getGeometry().getLongitude(), 0.00001);
+        Assert.assertEquals(loc2.getIcon(), loc1.getIcon());
     }
 
     private void compareSchedules(final ScheduleEditDto s1, final Schedule s2) {

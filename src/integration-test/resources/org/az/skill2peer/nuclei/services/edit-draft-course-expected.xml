@@ -5,9 +5,9 @@
 		published_version_id="71"></course>
 
 
-	<location id="1" description="description_edited" />
+	<location id="1" description="description" />
 
-	<lesson course_id="72" description="1" location_id="1" />
-	<lesson course_id="72" description="lesson description"  />
+	<lesson course_id="72" description="1" location_id="1"   />
+	<lesson course_id="72" description="lesson description" location_id="1"  />
 
 </dataset>
