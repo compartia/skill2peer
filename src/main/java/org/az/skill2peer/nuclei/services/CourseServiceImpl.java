@@ -14,6 +14,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
@@ -98,6 +99,25 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         } else {
             return makeOrGetDraft(course);
         }
+
+    }
+
+    @Override
+    public List<LocationDto> getAvailableLocations() {
+        final List<Location> l = em.createNamedQuery("User.getAvailableLocations", Location.class)
+                .setParameter("authorId", getCurrentUser().getId())
+                .getResultList();
+
+        //final HashMap<Integer, LocationDto> collectedLocations = new HashMap<Integer, LocationDto>();
+        final List<LocationDto> ret = new ArrayList<LocationDto>();
+        for (final Location loc : l) {
+            final LocationDto dto = new LocationDto();
+
+            mapper.map(loc, dto);
+
+            ret.add(dto);
+        }
+        return ret;
 
     }
 

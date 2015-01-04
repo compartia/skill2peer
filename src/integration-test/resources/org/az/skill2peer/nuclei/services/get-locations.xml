@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<user_accounts id="1111"
+                   creation_time="2014-02-20 11:13:28"
+                   email="facebook@socialuser.com"
+                   first_name="Facebook"
+                   last_name="User"
+                   modification_time="2014-02-20 11:13:28"
+                   role="ROLE_USER"
+                   sign_in_provider="FACEBOOK"
+                   version="0"/>
+                   
+    <user_accounts id="888"
+                   creation_time="2014-02-20 11:13:28"
+                   email="888@socialuser.com"
+                   first_name="Facebook"
+                   last_name="User"
+                   modification_time="2014-02-20 11:13:28"
+                   role="ROLE_USER"
+                   sign_in_provider="FACEBOOK"
+                   version="0"/>
+                   
+    <schedule id="1" start_time="2004-12-14 16:00:0.0" end_time="2004-12-14 18:00:0.0" version="0"></schedule>
+ 	<schedule id="2" start_time="2004-12-14 16:00:0.0" end_time="2004-12-14 18:00:0.0" version="0"></schedule>
+ 	<schedule id="888" start_time="2004-12-14 16:00:0.0" end_time="2004-12-14 18:00:0.0" version="0"></schedule>
+ 
+	<course id="1" title="title" summary="summary" description="description" status="DRAFT" author="1111" version="1"></course>
+ 	<course id="888" title="title" summary="summary" description="description" status="DRAFT" author="888" version="1"></course>
+ 	
+ 	
+	<location id="1" description="loc 1"  version="0"/>
+	<location id="2" description="loc 2"  version="0"/>
+	<location id="888" description="loc 888"  version="0"/>
+	
+	<lesson id="11" course_id="1" version="0" location_id="1" schedule_id="1"/>
+	<lesson id="12" course_id="1" version="0" location_id="2" schedule_id="2"/>
+	
+	<lesson id="888" course_id="888" version="0" location_id="888" schedule_id="888"/>
+ 
+	
+</dataset>

@@ -47,6 +47,10 @@ public class Lesson extends BaseEntity<Integer> {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
+
     @NotNull
     @Valid
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -92,15 +96,19 @@ public class Lesson extends BaseEntity<Integer> {
         }
     };
 
+    public Course getCourse() {
+        return course;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    /*    methods   */
-
     public Integer getDuration() {
         return schedule.getDuration();
     }
+
+    /*    methods   */
 
     public List<EventDto> getEventsWithinWeek(final DateTime week) {
         Preconditions.checkNotNull(week);
@@ -154,6 +162,10 @@ public class Lesson extends BaseEntity<Integer> {
 
     public boolean isRecurrent() {
         return this.getSchedule().isRecurrent();
+    }
+
+    public void setCourse(final Course course) {
+        this.course = course;
     }
 
     public void setDescription(final String description) {

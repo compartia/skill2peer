@@ -47,7 +47,11 @@ import com.google.common.base.Preconditions;
 @Entity
 @Table(name = "course")
 @SequenceGenerator(name = "course_id_seq", sequenceName = "course_id_seq")
-@NamedQueries({ @NamedQuery(name = "Course.findAllByAuthor", query = "from Course where author.id=:authorId") })
+@NamedQueries({
+        @NamedQuery(name = "Course.findAllByAuthor", query = "from Course where author.id=:authorId"),
+
+        @NamedQuery(name = "User.getAvailableLocations",
+                query = "select distinct l.location from Lesson l where l.course.author.id=:authorId") })
 public class Course extends BaseEntity<Integer> implements HasOwner {
 
     private static final long serialVersionUID = 3541638359681997928L;
@@ -79,8 +83,8 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     //XXX:
     private SortedSet<User> lectors;
 
-    @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
+    //@JoinColumn(name = "course_id", referencedColumnName = "id")
     @Valid
     private List<Lesson> lessons;
 

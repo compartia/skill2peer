@@ -9,6 +9,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.Lesson;
@@ -117,6 +118,15 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertEquals(72, editCourse.getId().intValue());
         Assert.assertNotNull(editCourse.getPublishedVersion().getDraft());
         Assert.assertEquals(CourseStatus.DRAFT, editCourse.getStatus());
+    }
+
+    @Transactional
+    @Test
+    @DatabaseSetup(value = "get-locations.xml")
+    public void getAvailableLocations() throws Exception {
+        final List<LocationDto> list = service.getAvailableLocations();
+        Assert.assertNotNull(list);
+        Assert.assertEquals(2, list.size());
     }
 
     @Test
