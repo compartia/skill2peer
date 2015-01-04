@@ -1,10 +1,10 @@
 define(
 //
-[],
+['angularsanitize' ],
 //
 function onReady() {
 
-	return [ '$scope', 'Courses', '$routeParams', '$location', function($scope, Courses, $routeParams, $location) {
+	return [ '$scope', 'Courses', '$routeParams', '$location','$sce', function($scope, Courses, $routeParams, $location, $sce) {
 
 		this.init = function() {
 			$scope.course = new Courses({});
@@ -49,13 +49,18 @@ function onReady() {
 				"id" : null,
                 "name": null,
 				"schedule" : {},
-				"location" : {}
+				"location" : {},
+                "locationId":-1
 			};
 
 			$scope.course.lessons.push(newLesson);
 			$scope.selectLesson(newLesson);
 
 		};
+        
+        $scope.getTrustedHtml = function(string){
+            return $sce.trustAsHtml(string);
+        }
 
 		$scope.save = function() {
 			var savedCourse = Courses.save($scope.course);

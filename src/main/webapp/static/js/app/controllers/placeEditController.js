@@ -1,6 +1,6 @@
 define(
 //
-[ 'autocomplete' ],
+[ 'autocomplete'],
 //
 function onReady() {
 
@@ -25,15 +25,29 @@ function onReady() {
 		
         
        
-        
-        $scope.$watch('locationdetails', function() {
-            $scope.lesson = $scope.$parent.selectedLesson;
+        $scope.$watchGroup(['locationdetails','location'], function(newlocationdetails) {
             
             if( $scope.lesson ){
-                $scope.lesson.location = {};
-                $scope.lesson.location.address = $scope.locationdetails.formatted_address;
+                
+                $scope.lesson.locationId=-1;
+                if( newlocationdetails[0]){
+                    $scope.lesson.location = {
+                        "address":newlocationdetails[1],
+                        "url":newlocationdetails[0].url,
+                        "vicinity":newlocationdetails[0].vicinity,
+                        "icon":newlocationdetails[0].icon,
+                        "html":newlocationdetails[0].adr_address
+                    };
+                }else{
+                    $scope.lesson.location = {}; 
+                }
+                
+                if(newlocationdetails[0].geometry){
+                    $scope.lesson.location.geometry=newlocationdetails[0].geometry.location;
+                }
+              
+                
                 console.log("$scope.lesson.location.address=" + $scope.lesson.location.address);
-                console.log("$scope.locationdetails.formatted_address=" + $scope.locationdetails.formatted_address);
             }
         });
         

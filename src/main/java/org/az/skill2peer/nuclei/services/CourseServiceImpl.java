@@ -19,6 +19,7 @@ import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
 import org.az.skill2peer.nuclei.common.model.HasOwner;
 import org.az.skill2peer.nuclei.common.model.Lesson;
+import org.az.skill2peer.nuclei.common.model.Location;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.az.skill2peer.nuclei.user.repository.CourseRepository;
@@ -243,6 +244,7 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
     private void updateLessons(final Course course, final List<LessonEditDto> lessons) {
         course.getLessons().clear();
+
         for (final LessonEditDto lessonDto : lessons) {
             final Lesson lesson;
             if (lessonDto.getId() != null) {
@@ -250,7 +252,20 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             } else {
                 lesson = new Lesson();
             }
+
             mapper.map(lessonDto, lesson);
+            {
+                final Location existingLocation = em.find(Location.class, lessonDto.getLocation().getId());
+                if (existingLocation == null) {
+                    final Location newLocation = new Location();
+                    mapper.map(lessonDto.getLocation(), newLocation);
+                    newLocation.setId(null);
+                    lesson.setLocation(newLocation);
+                    em.persist(newLocation);
+                } else {
+                    lesson.setLocation(existingLocation);
+                }
+            }
             course.getLessons().add(lesson);
         }
     }

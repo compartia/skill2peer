@@ -12,6 +12,7 @@ require.config({
 		
 		angularresource : '/static/js/bower_components/angular-resource/angular-resource.min',
 		angularroute : '/static/js/bower_components/angular-route/angular-route.min',
+        angularsanitize  : '/static/js/bower_components/angular-sanitize/angular-sanitize.min',
 		controllers : '/static/js/app/controllers',
 		services : '/static/js/app/controllers/courseServices',
 		'autocomplete' : '/static/js/vendor/ngAutocomplete',
@@ -35,6 +36,10 @@ require.config({
 		},
 		'angularroute' : {
 			exports : 'ngRoute',
+			deps : [ 'angular' ]
+		},
+        'angularsanitize' : {
+			exports : 'ngSanitize',
 			deps : [ 'angular' ]
 		},
 		'angularresource' : {

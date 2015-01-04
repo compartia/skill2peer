@@ -214,6 +214,27 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="extend_location_table" author="az">
+		<addColumn tableName="location">
+			<column name="url" type="text" />
+		</addColumn>
+		<addColumn tableName="location">
+			<column name="address" type="text" />
+		</addColumn>
+		<addColumn tableName="location">
+			<column name="vicinity" type="text" />
+		</addColumn>
+		<addColumn tableName="location">
+			<column name="html" type="text" />
+		</addColumn>
+		<addColumn tableName="location">
+			<column name="icon" type="text" />
+		</addColumn>
+		<addColumn tableName="location">
+			<column name="name" type="text" />
+		</addColumn>
+	</changeSet>
+
 
 
 

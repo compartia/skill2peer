@@ -7,6 +7,10 @@
 
 @selected-lesson-l: lighten(@turquoise-medium, 25%);
 @selected-lesson: desaturate(@selected-lesson-l, 40%); 
+@selected-lesson-hover: lighten(@selected-lesson, 8%);
+
+@selected-lesson-item-text: darken(@selected-lesson, 40%); 
+@selected-lesson-item-caption: darken(@selected-lesson, 60%); 
 
 @base-padding: 15px;
 
@@ -15,7 +19,7 @@
 }
 
 .section-basic .panel-body{
-    border-left: @side-border solid @light-sea-green!important;
+    border-left: @side-border solid @turquoise-medium!important;
 }
 
 .section-descr .panel-body{
@@ -23,7 +27,7 @@
 }
 
 .section-place .panel-body{
-    border-left: @side-border solid @turquoise-medium!important;
+    border-left: @side-border solid @light-sea-green!important;
 }
 
 .section-price .panel-body{
@@ -58,6 +62,7 @@
 
 .edit-lessons-list .active  {
    background-color: @selected-lesson!important;
+    .with-noise;
 }
 
 .lesson-edit-block{
@@ -68,4 +73,57 @@
 
 .lesson-edit-block .panel-body{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* ==== */
+
+.roboto{
+    font-family: "Roboto" !important;
+}
+
+.lesson-list-item {
+    cursor: pointer;
+}
+
+.lesson-list-item:hover {
+   background-color: @selected-lesson-hover;
+}
+
+.lesson-list-item address{
+    .roboto;
+    font-style: normal !important;
+	font-weight: 300 !important;
+	font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color:@selected-lesson-item-text;
+}
+
+.lesson-list-item address img{
+    height: 1em;
+    width: auto;
+    margin: 2px;
+    float: left;
+}
+
+.lesson-list-item time{
+    .roboto;
+    text-transform: uppercase;
+    font-size: 14px;
+    color:@selected-lesson-item-caption;
+}
+
+.lesson-list-item h3{
+    .roboto;
+    font-style: normal !important;
+	font-weight: 400 !important;
+	font-size: 18px;
+    margin: 0;
+    padding: 0;
+    color:@selected-lesson-item-caption;
+}
+
+.lesson-list-item h3 .index{
+    color:@selected-lesson-item-text;
+    font-weight: 300 !important;
 }

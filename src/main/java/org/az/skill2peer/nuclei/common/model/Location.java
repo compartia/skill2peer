@@ -30,8 +30,38 @@ public class Location extends BaseEntity<Integer> {
 
     private Float latitude;
 
+    @Size(max = 1000)
+    private String name;
+
+    @Size(max = 1000)
+    private String address;
+
+    @Size(max = 1000)
+    private String vicinity;
+
+    @Size(max = 1000)
+    private String html;
+
+    @Size(max = 1000)
+    private String icon;
+
+    @Size(max = 1000)
+    private String url;
+
+    public String getAddress() {
+        return address;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public String getHtml() {
+        return html;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     @Override
@@ -47,8 +77,32 @@ public class Location extends BaseEntity<Integer> {
         return longitude;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getVicinity() {
+        return vicinity;
+    }
+
+    public void setAddress(final String address) {
+        this.address = address;
+    }
+
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public void setHtml(final String html) {
+        this.html = html;
+    }
+
+    public void setIcon(final String icon) {
+        this.icon = icon;
     }
 
     public void setId(final Integer id) {
@@ -61,6 +115,18 @@ public class Location extends BaseEntity<Integer> {
 
     public void setLongitude(final Float longitude) {
         this.longitude = longitude;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setUrl(final String url) {
+        this.url = url;
+    }
+
+    public void setVicinity(final String vicinity) {
+        this.vicinity = vicinity;
     }
 
 }

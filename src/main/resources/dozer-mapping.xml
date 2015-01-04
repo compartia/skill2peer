@@ -20,6 +20,32 @@
 	</mapping> 
 	
 	<mapping type="one-way">
+		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>
+		
+		<field-exclude>
+			<a>location</a>
+			<b>location</b>
+		</field-exclude>
+	
+	</mapping>
+	
+	<mapping>
+		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Location</class-b>
+	 
+		<field>
+			<a>geometry.longitude</a>
+			<b>longitude</b>
+		</field>
+		
+		<field>
+			<a>geometry.latitude</a>
+			<b>latitude</b>
+		</field>
+	</mapping>
+	
+	<mapping type="one-way">
  		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
  		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto</class-b>
 	</mapping> 
@@ -52,6 +78,8 @@
 			<b>id</b>
 		</field-exclude>
 	</mapping>
+	
+	
 
 	<mapping map-id="lesson-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>

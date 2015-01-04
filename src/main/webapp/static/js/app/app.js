@@ -2,7 +2,7 @@
 
 define(
 //
-[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource','angular-file-upload',
+[ 'angular', 'services', 'controllers', 'angularroute', 'angularresource', 'angularsanitize','angular-file-upload',
 		'bootstrap', 'jquery', 'bootstrap-ui' ],
 //
 function(angular, filters, services, directives, controllers) {
@@ -11,7 +11,7 @@ function(angular, filters, services, directives, controllers) {
     var specificallyHandleInProgress = false;
     
 	// Declare app level module which depends on filters, and services
-	var app = angular.module('skill2peerApp', [ 'ngRoute', 'skill2peerApp.services', 'skill2peerApp.controllers',
+	var app = angular.module('skill2peerApp', [ 'ngRoute', 'ngSanitize', 'skill2peerApp.services', 'skill2peerApp.controllers',
 			'angularFileUpload', 'ui.bootstrap' ]);
 
 	app.config([ "$httpProvider", '$routeProvider', function($httpProvider, $routeProvider) {

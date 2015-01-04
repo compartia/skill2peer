@@ -2,7 +2,7 @@ package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
 public class LessonEditDto {
 
-    private LocationDto location;
+    private LocationDto location = new LocationDto();
 
     private PriceDto price;
 
@@ -11,6 +11,12 @@ public class LessonEditDto {
     private String skills;
 
     private Integer id;
+
+    /**
+     * @deprecated use location.id
+     */
+    @Deprecated
+    private Integer locationId;
 
     private ScheduleEditDto schedule;
 
@@ -28,6 +34,10 @@ public class LessonEditDto {
 
     public LocationDto getLocation() {
         return location;
+    }
+
+    public Integer getLocationId() {
+        return locationId;
     }
 
     public String getName() {
@@ -60,6 +70,10 @@ public class LessonEditDto {
 
     public void setLocation(final LocationDto location) {
         this.location = location;
+    }
+
+    public void setLocationId(final Integer locationId) {
+        this.locationId = locationId;
     }
 
     public void setName(final String name) {
