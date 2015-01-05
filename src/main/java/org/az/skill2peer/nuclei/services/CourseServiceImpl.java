@@ -1,6 +1,7 @@
 package org.az.skill2peer.nuclei.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.model.Course;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.common.model.CourseStatus;
+import org.az.skill2peer.nuclei.common.model.HasIntegerId;
 import org.az.skill2peer.nuclei.common.model.HasOwner;
 import org.az.skill2peer.nuclei.common.model.Lesson;
 import org.az.skill2peer.nuclei.common.model.Location;
@@ -43,6 +45,15 @@ import com.google.common.base.Preconditions;
 */
 @Service
 public class CourseServiceImpl implements CourseService, CourseAdminService {
+    public static boolean containsId(final Collection<? extends HasIntegerId> lessons, final Integer id) {
+        for (final HasIntegerId o : lessons) {
+            if (id.equals(o.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Autowired
@@ -61,18 +72,14 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     @Transactional(readOnly = false)
     public CourseEditDto createCourse(final CourseEditDto courseEditDto) {
         final Course course = new Course();
-        mapper.map(courseEditDto, course);
-        //        if (course.getLessons().isEmpty()) {
-        //            course.getLessons().add(new Lesson());
-        //        }
-        updateLessons(course, courseEditDto.getLessons());
+        mapper.map(courseEditDto, course, "course-edit");
 
         course.setAuthor(getCurrentUser());
         course.setId(null);
         course.setStatus(CourseStatus.DRAFT);
 
+        updateLessons(course, courseEditDto.getLessons());
         em.persist(course);
-        em.flush();
 
         final CourseEditDto ret = new CourseEditDto();
         mapper.map(course, ret);
@@ -85,10 +92,8 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
         final Course draftCourse = getCourse(courseId);
         assertNotPublished(draftCourse);
         em.remove(draftCourse);
-        em.flush();
     }
 
-    //    @Override
     @Transactional(readOnly = false)
     public Course editCourse(final Integer courseId) {
         final Course course = getCourse(courseId);
@@ -108,7 +113,6 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
                 .setParameter("authorId", getCurrentUser().getId())
                 .getResultList();
 
-        //final HashMap<Integer, LocationDto> collectedLocations = new HashMap<Integer, LocationDto>();
         final List<LocationDto> ret = new ArrayList<LocationDto>();
         for (final Location loc : l) {
             final LocationDto dto = new LocationDto();
@@ -187,7 +191,6 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             // create published version copy data to the published one;
             final Course clonedObject = cloneCourse(draft);
             clonedObject.setStatus(CourseStatus.PUBLISHED);
-            em.persist(clonedObject);
             return clonedObject.getId();
         } else {
             //  copy data to the published one;
@@ -197,9 +200,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             publishedVersion.setDraft(null);
             publishedVersion.setPublishedVersion(null);
 
+            em.persist(publishedVersion);
             em.remove(draft);
-            em.merge(publishedVersion);
-            em.flush();
+
             return publishedVersion.getId();
         }
 
@@ -214,8 +217,16 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
 
         assertCurrentUserHasPermission(course);
         assertNotPublished(course);
+        mapper.map(courseDto, course, "course-edit");
+        updateLessons(course, courseDto.getLessons());
+        course.setStatus(CourseStatus.DRAFT);
+
+        em.persist(course);
+
+        final CourseEditDto ret = new CourseEditDto();
+        mapper.map(course, ret);
         //-----
-        return updateCourse(courseDto, course);
+        return ret;
     }
 
     private void assertCurrentUserHasPermission(final HasOwner obj) {
@@ -247,51 +258,60 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
             clonedObject.setAuthor(getCurrentUser());
 
             clonedObject.setPublishedVersion(course);
+            em.persist(course);
             em.persist(clonedObject);
-            em.merge(course);
-            em.flush();
 
             return clonedObject;
         }
     }
 
-    private CourseEditDto updateCourse(final CourseEditDto courseDto, final Course course) {
-        mapper.map(courseDto, course);
-        updateLessons(course, courseDto.getLessons());
-        course.setStatus(CourseStatus.DRAFT);
-        em.merge(course);
-        em.flush();
-
-        final CourseEditDto ret = new CourseEditDto();
-        mapper.map(course, ret);
-        return ret;
-    }
-
     private void updateLessons(final Course course, final List<LessonEditDto> lessons) {
-        course.getLessons().clear();
-
+        if (course.getLessons() == null) {
+            course.setLessons(new ArrayList<Lesson>());
+        } else {
+            course.getLessons().clear();
+        }
         for (final LessonEditDto lessonDto : lessons) {
             final Lesson lesson;
+
             if (lessonDto.getId() != null) {
                 lesson = em.find(Lesson.class, lessonDto.getId());
             } else {
                 lesson = new Lesson();
             }
 
-            mapper.map(lessonDto, lesson);
-            {
-                final Location existingLocation = em.find(Location.class, lessonDto.getLocation().getId());
-                if (existingLocation == null) {
-                    final Location newLocation = new Location();
-                    mapper.map(lessonDto.getLocation(), newLocation);
-                    newLocation.setId(null);
-                    lesson.setLocation(newLocation);
-                    em.persist(newLocation);
-                } else {
-                    lesson.setLocation(existingLocation);
-                }
-            }
+            mapper.map(lessonDto, lesson, "lesson-update");
+
+            lesson.setCourse(course);
+            Preconditions.checkNotNull(lessonDto.getSchedule());
+            Preconditions.checkNotNull(lesson.getSchedule());
+
+            updateLocation(lesson, lessonDto.getLocation());
             course.getLessons().add(lesson);
+
+        }
+
+        if (course.getLessons().size() == 1) {
+            /**
+             * the only lesson
+             */
+            final Lesson theOnly = course.getLessons().get(0);
+            course.setName(theOnly.getName());
+            course.setSummary(theOnly.getSummary());
+            course.setDescription(theOnly.getDescription());
+        }
+
+    }
+
+    private void updateLocation(final Lesson lesson, final LocationDto locationDto) {
+        final Location existingLocation = em.find(Location.class, locationDto.getId());
+        if (existingLocation == null) {
+            final Location newLocation = new Location();
+            mapper.map(locationDto, newLocation);
+            newLocation.setId(null);
+            lesson.setLocation(newLocation);
+        } else {
+            lesson.setLocation(existingLocation);
         }
     }
 
