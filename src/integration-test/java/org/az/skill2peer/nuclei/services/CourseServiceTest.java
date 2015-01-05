@@ -2,6 +2,9 @@ package org.az.skill2peer.nuclei.services;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.az.skill2peer.nuclei.TestUtil;
 import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
 import org.az.skill2peer.nuclei.common.controller.dto.EventDto;
@@ -32,6 +35,9 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 public class CourseServiceTest extends AbstractServiceTest {
     @Autowired
     CourseServiceImpl service;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Autowired
     Mapper mapper;
@@ -67,7 +73,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     public void createCourse() throws Exception {
         final CourseEditDto courseDto = TestUtil.makeCourseEditDto();
         final CourseEditDto c = service.createCourse(courseDto);
-
+        em.flush();
         Assert.assertNotNull(c.getId());
     }
 
@@ -77,6 +83,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "delete-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void deleteCourse() throws Exception {
         service.deleteCourse(1);
+        em.flush();
     }
 
     /**
@@ -89,6 +96,7 @@ public class CourseServiceTest extends AbstractServiceTest {
     @ExpectedDatabase(value = "edit-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void editCourse() throws Exception {
         final Course editCourse = service.editCourse(1);
+        em.flush();
 
         Assert.assertNotNull(editCourse.getPublishedVersion());
         Assert.assertEquals(1, editCourse.getPublishedVersion().getId().intValue());
@@ -185,9 +193,7 @@ public class CourseServiceTest extends AbstractServiceTest {
         Assert.assertEquals(72, editableCourse.getId().intValue());
         final List<LessonEditDto> lessons = editableCourse.getLessons();
         Assert.assertNotNull(lessons);
-        Assert.assertEquals(1, lessons.size());
-        final LessonEditDto lessonEditDto = lessons.get(0);
-        Assert.assertEquals(1, lessonEditDto.getId().intValue());
+        Assert.assertEquals(2, lessons.size());
     }
 
     @Test
@@ -224,24 +230,83 @@ public class CourseServiceTest extends AbstractServiceTest {
     @Transactional
     @Test
     @DatabaseSetup(value = "edit-draft-course.xml")
-    @ExpectedDatabase(value = "edit-draft-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateDraftCourse() throws Exception {
-        final CourseEditDto editableCourse = service.getEditableCourse(71);
+    @ExpectedDatabase(value = "edit-draft-course-add-lesson-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void updateDraftCourse_addLesson() throws Exception {
+        /**
+         * get lesson
+         */
+        final CourseEditDto editableCourseDto = service.getEditableCourse(71);
 
-        editableCourse.setDescription("description edited");
-        final LessonEditDto lessonEditDto = editableCourse.getLessons().get(0);
+        /**
+         * update description
+         */
+        editableCourseDto.setDescription("description edited");
 
+        /**
+         * add 1 lesson
+         */
         final LessonEditDto newLesson = TestUtil.makeLessonEditDto();
         newLesson.getLocation().setId(1);
-        editableCourse.getLessons().add(newLesson);
-
-        lessonEditDto.getLocation().setDescription("description_edited");
+        newLesson.setName("new lesson name");
+        newLesson.setSummary("new lesson summary");
+        newLesson.setDescription("new lesson name descr");
         newLesson.getLocation().setDescription("description_edited");
-        service.updateCourse(editableCourse);
+        Assert.assertNotNull(newLesson.getSchedule());
+        editableCourseDto.getLessons().add(newLesson);
+        /**
+         * call service
+         */
+        service.updateCourse(editableCourseDto);
+        em.flush();
 
         //
         final CourseEditDto editableCourse2 = service.getEditableCourse(72);
         Assert.assertEquals("description edited", editableCourse2.getDescription());
+        Assert.assertEquals(3, editableCourse2.getLessons().size());
+    }
+
+    @Transactional
+    @Test
+    @DatabaseSetup(value = "edit-draft-course.xml")
+    @ExpectedDatabase(value = "edit-draft-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void updateDraftCourse_deleteLessons() throws Exception {
+        /**
+         * get lesson
+         */
+        final CourseEditDto editableCourseDto = service.getEditableCourse(71);
+
+        /**
+         * update description
+         */
+        editableCourseDto.setDescription("description edited");
+
+        /**
+         * remove old lessons
+         */
+        editableCourseDto.getLessons().clear();
+
+        /**
+         * add 1 lesson
+         */
+        final LessonEditDto newLesson = TestUtil.makeLessonEditDto();
+        newLesson.getLocation().setId(1);
+        newLesson.setName("new lesson name");
+        newLesson.setSummary("new lesson summary");
+        newLesson.setDescription("new lesson name descr");
+        newLesson.getLocation().setDescription("description_edited");
+
+        editableCourseDto.getLessons().add(newLesson);
+        /**
+         * call service
+         */
+        service.updateCourse(editableCourseDto);
+        em.flush();
+
+        //
+        final CourseEditDto editableCourse2 = service.getEditableCourse(72);
+        Assert.assertEquals("new lesson name descr", editableCourse2.getDescription());
+        Assert.assertEquals(1, editableCourse2.getLessons().size());
+        Assert.assertEquals("new lesson name", editableCourse2.getLessons().get(0).getName());
     }
 
     @Transactional

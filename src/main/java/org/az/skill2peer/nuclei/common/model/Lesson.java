@@ -47,7 +47,8 @@ public class Lesson extends BaseEntity<Integer> {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
@@ -61,6 +62,11 @@ public class Lesson extends BaseEntity<Integer> {
     @Size(max = 10000)
     private String description;
 
+    @Size(max = 450)
+    @Column(name = "summary")
+    private String summary;
+
+    @NotNull
     @Column(name = "name")
     @Size(max = 500)
     private String name;
@@ -96,6 +102,35 @@ public class Lesson extends BaseEntity<Integer> {
         }
     };
 
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Lesson other = (Lesson)obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
+    }
+
     public Course getCourse() {
         return course;
     }
@@ -107,8 +142,6 @@ public class Lesson extends BaseEntity<Integer> {
     public Integer getDuration() {
         return schedule.getDuration();
     }
-
-    /*    methods   */
 
     public List<EventDto> getEventsWithinWeek(final DateTime week) {
         Preconditions.checkNotNull(week);
@@ -139,7 +172,7 @@ public class Lesson extends BaseEntity<Integer> {
     public EventDto getNextEvent() {
         EventDto nextEvent = schedule.getNextEvent();
         if (nextEvent == null) {
-            //in case schedule is undefined
+            /*in case schedule is undefined*/
             nextEvent = new EventDto();
         }
         nextEvent.setName(this.getName());
@@ -150,10 +183,23 @@ public class Lesson extends BaseEntity<Integer> {
         return schedule;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
     @Deprecated
     public List<DayEventsDto> getWeekSchedule(final DateTime week) {
         final List<EventDto> eventsWithinPeriod = getEventsWithinWeek(week);
         return CalendarUtils.groupEventsInWeek(eventsWithinPeriod);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
     }
 
     public boolean isPast() {
@@ -186,5 +232,9 @@ public class Lesson extends BaseEntity<Integer> {
 
     public void setSchedule(final Schedule schedule) {
         this.schedule = schedule;
+    }
+
+    public void setSummary(final String summary) {
+        this.summary = summary;
     }
 }

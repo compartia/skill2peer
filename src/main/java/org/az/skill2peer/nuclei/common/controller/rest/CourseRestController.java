@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
+import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.model.CourseFavorite;
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.services.CourseService;
@@ -61,6 +62,12 @@ public class CourseRestController {
             em.remove(resultList.get(0));
         }
 
+    }
+
+    @RequestMapping(value = "/availableLocations", method = RequestMethod.GET)
+    @ResponseBody
+    public List<LocationDto> getAvailableLocations() {
+        return courseService.getAvailableLocations();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

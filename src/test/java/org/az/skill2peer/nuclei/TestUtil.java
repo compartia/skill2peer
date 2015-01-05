@@ -80,7 +80,9 @@ public class TestUtil {
     public static LessonEditDto makeLessonEditDto() {
         final LessonEditDto lesson = new LessonEditDto();
         lesson.setName("lesson name");
+        lesson.setSummary("lesson summary");
         lesson.setDescription("lesson description");
+
         lesson.setSchedule(makeScheduleEditDto());
         lesson.setLocation(makeLocationDto());
         return lesson;

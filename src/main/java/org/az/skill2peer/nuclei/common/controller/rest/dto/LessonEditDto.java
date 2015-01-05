@@ -1,6 +1,8 @@
 package org.az.skill2peer.nuclei.common.controller.rest.dto;
 
-public class LessonEditDto {
+import org.az.skill2peer.nuclei.common.model.HasIntegerId;
+
+public class LessonEditDto implements HasIntegerId {
 
     private LocationDto location = new LocationDto();
 
@@ -28,6 +30,7 @@ public class LessonEditDto {
         return description;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

@@ -4,7 +4,6 @@
 		last_name="User" modification_time="2014-02-20 11:13:28" role="ROLE_USER" sign_in_provider="FACEBOOK" version="0" />
 
 
-
 	<course id="71" title="title" summary="summary" description="description" status="PUBLISHED" author="1111"
 		version="1"></course>
 
@@ -14,7 +13,13 @@
 
 
 	<location id="1" description="description" version="0" />
-	<lesson id="1" course_id="72" description="1" location_id="1" version="0" />
+	
+	<schedule id="1" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+	<schedule id="2" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+	
+	
+	<lesson id="1" schedule_id="1" course_id="72" description="1" location_id="1" version="0" />
+	<lesson id="2" schedule_id="2" course_id="72" description="1" location_id="1" version="0" />
 
 
 </dataset>

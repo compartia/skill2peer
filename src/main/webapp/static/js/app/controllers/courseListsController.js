@@ -4,7 +4,7 @@ define(
 //
 function onReady() {
     
-	return  [ '$scope', '$location', '$routeParams','Courses', function($scope, $location, $routeParams, Courses) {   
+	return  [ '$scope', '$location', '$routeParams', 'Courses', function($scope, $location, $routeParams, Courses) {   
         
         $scope.selectedTab = 1;
      

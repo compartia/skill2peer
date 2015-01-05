@@ -6,48 +6,48 @@
 
 
 
-<form role="form" name="courseEditForm">
+<form role="form" name="courseEditForm" ng-cloak>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel section-basic">
+			<div class="panel">
 				<div class="panel-body">
 					<ng-include src="'/static/partials/edit-course-title.jsp'"></ng-include>
 				</div>
-                <div class="panel-footer" ng-show="isSingle()">
-                     Курс состоит из нескольких уроков/лекций?<br>
-                    <button data-ng-click="addLesson()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить урок</button></div>
-               
+				
+
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 
-		<div class="col-sm-4 edit-lessons-list" ng-show="!isSingle()">
-			<div class="panel">
+		<div class="col-sm-4 edit-lessons-list">
+			<div class="panel" >
 				<!-- Default panel contents -->
-                <div class="panel-heading">Уроки в рамках курса</div>
-				 
-			     <div class="panel-body">
-				    <ng-include src="'/static/partials/edit-lessons-list.jsp'"></ng-include>
-                </div>
+				<div class="panel-heading">Уроки в рамках курса</div>
+
+				<div class="panel-body">
+					<ng-include src="'/static/partials/edit-lessons-list.jsp'"></ng-include>
+				</div>
+
                 
                 <div class="panel-footer">
-                    <button data-ng-click="addLesson()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Добавить урок</button></div>
-                
+					<button data-ng-click="addLesson()" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus"></span> Добавить урок
+					</button>
+				</div>
+
 			</div>
 		</div>
 
 
-		<div class="col-sm-8" ng-class="{'lesson-edit-block':!isSingle()}">
+		<div class="col-sm-8 lesson-edit-block">
 
 			<div ng-controller="lessonEditController">
 
-
-
 				<!-- WHAT-->
-				<div class="panel section-basic" ng-show="!isSingle()">
-                    <div class="panel-heading">Что?</div>
+				<div class="panel section-basic">
+					<div class="panel-heading">Что?</div>
 					<div class="panel-body">
 
 						<div class="form-group">
@@ -56,13 +56,9 @@
 						</div>
 
 						<div class="form-group">
-							<textarea class="form-control" rows="3" placeholder="краткое описание урока" ng-model="summary.summary"></textarea>
+							<textarea class="form-control" rows="3" placeholder="краткое описание урока" ng-model="lesson.summary"></textarea>
 						</div>
-
-						
-
 					</div>
-
 				</div>
 
 				<!-- WHEN -->
@@ -83,12 +79,11 @@
 					</div>
 				</div>
 
+			</div> <!-- /controller -->
 
-
-			</div>
 
 			<div class="panel section-descr">
-                <div class="panel-heading">Как и зачем?</div>
+				<div class="panel-heading">Как и зачем?</div>
 				<div class="panel-body">
 					<textarea class="form-control" rows="6" ng-model="course.lessons[0].description"
 						placeholder="детальное описание урока"></textarea>
@@ -96,7 +91,7 @@
 			</div>
 
 
-
+			<!-- PRICE panel-->
 			<div class="panel section-price">
 				<!-- Default panel contents -->
 				<div class="panel-heading">Цена</div>
@@ -118,8 +113,8 @@
 					</div>
 
 				</div>
-
 			</div>
+			<!-- /PRICE -->
 
 
 

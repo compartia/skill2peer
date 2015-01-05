@@ -14,12 +14,15 @@
 
 @base-padding: 15px;
 
+@section-time-color: @coral;
+@section-basic-color:@turquoise-medium;
+
 .section-time .panel-body{
-    border-left: @side-border solid @coral!important;
+    border-left: @side-border solid @section-time-color!important;
 }
 
 .section-basic .panel-body{
-    border-left: @side-border solid @turquoise-medium!important;
+    border-left: @side-border solid @section-basic-color!important;
 }
 
 .section-descr .panel-body{
@@ -48,7 +51,6 @@
 
 .edit-lessons-list .lesson-list-item{
     margin: 0;
-    padding: @base-padding;
     background: none;
 }
 
@@ -126,4 +128,44 @@
 .lesson-list-item h3 .index{
     color:@selected-lesson-item-text;
     font-weight: 300 !important;
+}
+/*  = === = = = */
+.lesson-list-item{
+    padding: 0;
+    display: table;
+    width: 100%;
+}
+
+.lesson-list-item .lesson-list-item-wrap{
+    padding: 0!important;
+    display: table-row;
+}
+
+.lesson-list-item .date-wrap{
+    .roboto;
+    color:@selected-lesson-item-text;
+    border-right: 1px solid white;
+    display: table-cell;
+    font-weight: 300 !important;
+    width: 25%;
+    vertical-align: middle;
+    text-align: center;
+    padding: @base-padding;
+}
+
+.lesson-list-item .text-wrap{
+    padding: @base-padding;
+    margin: 0;
+    display: table-cell;
+}
+.lesson-list-item .date-wrap h3{
+    font-size: 22px;
+    color: @section-time-color;
+}
+
+.lesson-list-item .course-tools{
+    display: table-cell;
+    width: 10%;
+    padding: @base-padding;
+    float: none;
 }

@@ -3,9 +3,10 @@
 	<course id="171" title="title_edited" summary="summary_edited" description="description_edited" status="PUBLISHED"
 		author="1111"></course>
 
-
-	<lesson course_id="171" description="1" />
-	<lesson course_id="171" description="2"/>
-	<lesson course_id="171" description="3"/>
+	<schedule start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
+	
+	<lesson name="1" course_id="171" description="1" />
+	<lesson name="1" course_id="171" description="2"/>
+	<lesson name="1" course_id="171" description="3"/>
 	 
 </dataset>

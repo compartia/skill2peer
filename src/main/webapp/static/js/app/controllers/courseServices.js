@@ -22,6 +22,11 @@ function(angular) {
                 method : 'GET',
 				url : "/rest/courses/myCourses",
                 isArray:true
+            },
+            availableLocations:{
+                method : 'GET',
+				url : "/rest/courses/availableLocations",
+                isArray:true
             }
 		});
 	} ]);

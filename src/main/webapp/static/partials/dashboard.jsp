@@ -7,7 +7,7 @@
 	<li ng-class="tabClass(2)"><a href="#/home/2" ng-click="setSelectedTab(2)">Черновики</a></li>
 
 	<div class="pull-right">
-		<a href="#/edit" class="btn btn-default">создать курс</a>
+		<a href="#/edit/new" class="btn btn-default">создать курс</a>
 	</div>
 </ul>
 

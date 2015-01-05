@@ -1,5 +1,8 @@
 package org.az.skill2peer.nuclei.services;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.user.model.User;
 import org.az.skill2peer.nuclei.user.repository.UserRepository;
@@ -18,6 +21,9 @@ public class CourseAdminServiceTest extends AbstractServiceTest {
     @Autowired
     UserRepository users;
 
+    @PersistenceContext
+    EntityManager em;
+
     @Test
     @DatabaseSetup(value = "publish-course.xml")
     @ExpectedDatabase(value = "publish-course-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
@@ -25,6 +31,7 @@ public class CourseAdminServiceTest extends AbstractServiceTest {
         final User usr = users.findByEmail("admin@admin.com");
         SecurityUtil.logInUser(usr);
         final Integer publishCourse = service.publishCourse(72);
+        em.flush();
         Assert.assertEquals(171, publishCourse.intValue());
     }
 

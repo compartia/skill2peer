@@ -7,8 +7,7 @@
 
 
 <div class="form-group">
-	<input name="name" ng-model="course.name" type="text" class="form-control input-lg" placeholder="название курса"
-		required>
+	<input name="name" ng-model="course.name" type="text" class="form-control input-lg" placeholder="название курса">
 </div>
 
 <!-- SKILLS -->

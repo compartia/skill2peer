@@ -9,59 +9,21 @@
 			<copy-by-reference>org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto</copy-by-reference>
 		</copy-by-references>
 	</configuration>
-	 
-	<mapping type="one-way">
- 		<class-a>org.az.skill2peer.nuclei.common.model.Schedule</class-a>
- 		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto</class-b>
- 		<field>
-			<a>nextEvent</a>
-			<b>nextEvent</b>
-		</field>
-	</mapping> 
-	
-	<mapping type="one-way">
+
+
+
+	<mapping type="one-way" map-id="lesson-update">
 		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto</class-a>
 		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>
-		
+
 		<field-exclude>
 			<a>location</a>
 			<b>location</b>
 		</field-exclude>
-	
+
 	</mapping>
-	
-	<mapping>
-		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto</class-a>
-		<class-b>org.az.skill2peer.nuclei.common.model.Location</class-b>
-	 
-		<field>
-			<a>geometry.longitude</a>
-			<b>longitude</b>
-		</field>
-		
-		<field>
-			<a>geometry.latitude</a>
-			<b>latitude</b>
-		</field>
-	</mapping>
-	
+
 	<mapping type="one-way">
- 		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
- 		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto</class-b>
-	</mapping> 
-	
-	<mapping>
- 		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleEditDto</class-a>
-		<class-b>org.az.skill2peer.nuclei.common.model.Schedule</class-b>
-	</mapping> 
-
-
-	<mapping map-id="lesson-edit">
-		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
-		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto</class-b>
-	</mapping>
-
-	<mapping>
 		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
 		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto</class-b>
 		<field map-id="lesson-edit">
@@ -69,7 +31,40 @@
 			<b>lessons</b>
 		</field>
 	</mapping>
-	
+
+	<mapping type="one-way" map-id="course-edit">
+		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Course</class-b>
+
+		<field-exclude>
+			<a>lessons</a>
+			<b>lessons</b>
+		</field-exclude>
+	</mapping>
+
+	<mapping>
+		<class-a>org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Location</class-b>
+
+		<field>
+			<a>geometry.longitude</a>
+			<b>longitude</b>
+		</field>
+
+		<field>
+			<a>geometry.latitude</a>
+			<b>latitude</b>
+		</field>
+	</mapping>
+
+
+	<mapping map-id="lesson-edit">
+		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.controller.rest.dto.LessonEditDto</class-b>
+	</mapping>
+
+
+
 	<mapping map-id="schedule-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Schedule</class-a>
 		<class-b>org.az.skill2peer.nuclei.common.model.Schedule</class-b>
@@ -78,8 +73,8 @@
 			<b>id</b>
 		</field-exclude>
 	</mapping>
-	
-	
+
+
 
 	<mapping map-id="lesson-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
@@ -101,7 +96,7 @@
 			<a>lessons</a>
 			<b>lessons</b>
 		</field>
-		
+
 		<field-exclude>
 			<a>id</a>
 			<b>id</b>

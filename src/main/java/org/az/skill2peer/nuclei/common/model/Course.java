@@ -34,6 +34,7 @@ import org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.ScheduleInfoDto;
 import org.az.skill2peer.nuclei.services.CalendarUtils;
 import org.az.skill2peer.nuclei.user.model.User;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Preconditions;
@@ -86,8 +87,12 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     @OneToMany(targetEntity = Lesson.class, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     //@JoinColumn(name = "course_id", referencedColumnName = "id")
     @Valid
+    @NotEmpty
     private List<Lesson> lessons;
 
+    /**
+     * same to the name of the only lesson if the course has only 1 lesson
+     */
     @Size(max = 160)
     @Column(name = "title")
     private String name;
@@ -128,6 +133,15 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return lectors;
     }
 
+    public Lesson getLessonById(final Integer id) {
+        for (final Lesson l : getLessons()) {
+            if (id.equals(l.getId())) {
+                return l;
+            }
+        }
+        return null;
+    }
+
     public List<Lesson> getLessons() {
         return lessons;
     }
@@ -155,6 +169,7 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
     public ScheduleInfoDto getScheduleInfo() {
         final ScheduleInfoDto scheduleInfo = new ScheduleInfoDto();
         final ArrayList<Lesson> scs = new ArrayList<Lesson>(getLessons());
+
         Collections.sort(scs, Lesson.SCHEDULE_COMPARATOR);
         final Lesson firstLesson = scs.get(0);
         final Lesson lastLesson = scs.get(scs.size() - 1);
@@ -189,6 +204,10 @@ public class Course extends BaseEntity<Integer> implements HasOwner {
         return status;
     }
 
+    /**
+     * @deprecated: should be taken from the first lesson
+     */
+    @Deprecated
     public String getSummary() {
         return summary;
     }

@@ -198,6 +198,8 @@
 				<constraints foreignKeyName="lesson_location_fk" referencedTableName="location" referencedColumnNames="id" />
 			</column>
 
+			<column name="name" type="text" />
+			<column name="summary" type="text" />
 			<column name="description" type="text" />
 
 			<!-- ==== -->
@@ -208,29 +210,13 @@
 		</createTable>
 	</changeSet>
 
-	<changeSet id="annd_name_to_lesson" author="az">
-		<addColumn tableName="lesson">
-			<column name="name" type="text" />
-		</addColumn>
-	</changeSet>
-
 	<changeSet id="extend_location_table" author="az">
 		<addColumn tableName="location">
 			<column name="url" type="text" />
-		</addColumn>
-		<addColumn tableName="location">
 			<column name="address" type="text" />
-		</addColumn>
-		<addColumn tableName="location">
 			<column name="vicinity" type="text" />
-		</addColumn>
-		<addColumn tableName="location">
 			<column name="html" type="text" />
-		</addColumn>
-		<addColumn tableName="location">
 			<column name="icon" type="text" />
-		</addColumn>
-		<addColumn tableName="location">
 			<column name="name" type="text" />
 		</addColumn>
 	</changeSet>

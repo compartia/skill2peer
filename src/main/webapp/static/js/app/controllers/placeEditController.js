@@ -4,7 +4,9 @@ define(
 //
 function onReady() {
 
-	return [ '$scope', function($scope) {
+	return [ '$scope','Courses', function($scope,Courses) {
+        
+        
 
 		/**
 		 * the first version starts from SPB, Russia
@@ -22,7 +24,11 @@ function onReady() {
 
 		$scope.placeSearchOptions.location = spb;
 		$scope.placeSearchOptions.radius = radius;
-		
+
+        $scope.onPlaceChanged = function() {
+           $scope.lesson.location = $scope.getLocationById($scope.lesson.location.id);
+        };
+        
         
        
         $scope.$watchGroup(['locationdetails','location'], function(newlocationdetails) {
@@ -32,11 +38,13 @@ function onReady() {
                 $scope.lesson.locationId=-1;
                 if( newlocationdetails[0]){
                     $scope.lesson.location = {
+                        "id":-1,
                         "address":newlocationdetails[1],
                         "url":newlocationdetails[0].url,
                         "vicinity":newlocationdetails[0].vicinity,
                         "icon":newlocationdetails[0].icon,
-                        "html":newlocationdetails[0].adr_address
+                        "html":newlocationdetails[0].adr_address,
+                        "name":newlocationdetails[0].name
                     };
                 }else{
                     $scope.lesson.location = {}; 
@@ -51,7 +59,7 @@ function onReady() {
             }
         });
         
-		 $scope.$apply();
+        $scope.$apply();
         
         
 

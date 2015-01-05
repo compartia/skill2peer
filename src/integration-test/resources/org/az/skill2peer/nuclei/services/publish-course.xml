@@ -14,7 +14,7 @@
 		
 	<schedule id="1" start_time="2014-12-14 04:51:35.216" end_time="2014-12-14 06:51:35.216" version="0"></schedule>
 	
-	<lesson id="11" course_id="72" description="1" version="0" schedule_id="1"/>
-	<lesson id="21" course_id="72" description="2" version="0" schedule_id="1"/>
-	<lesson id="22" course_id="72" description="3" version="0" schedule_id="1"/>
+	<lesson id="11" name="1" course_id="72" description="1" version="0" schedule_id="1"/>
+	<lesson id="21" name="1" course_id="72" description="2" version="0" schedule_id="1"/>
+	<lesson id="22" name="1" course_id="72" description="3" version="0" schedule_id="1"/>
 </dataset>

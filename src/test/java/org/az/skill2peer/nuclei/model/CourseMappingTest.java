@@ -187,6 +187,26 @@ public class CourseMappingTest {
     }
 
     @Test
+    public void testLessonMappingFromDto() {
+        final LessonEditDto c = TestUtil.makeLessonEditDto();
+        final Lesson lesson = new Lesson();
+        mapper.map(c, lesson);
+
+        Assert.assertNotNull(c.getLocation());
+        Assert.assertNotNull(lesson.getLocation());
+    }
+
+    @Test
+    public void testLessonMappingFromDtoForUpdate() {
+        final LessonEditDto c = TestUtil.makeLessonEditDto();
+        final Lesson lesson = new Lesson();
+        mapper.map(c, lesson, "lesson-update");
+
+        Assert.assertNotNull(c.getLocation());
+        Assert.assertNull(lesson.getLocation());
+    }
+
+    @Test
     public void testScheduleEditDto() {
         final ScheduleEditDto dto = TestUtil.makeScheduleEditDto();
 
