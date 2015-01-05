@@ -87,25 +87,27 @@
 
 	<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
 
-		<div class="page-header-wrap">
+		<div class="page-header-wrap" style="background-image:url(../img/test-profile.jpg);">
 			<header class="page-header mobile-view">
 				<div class="page-header-inner">
-					<ol class="breadcrumb">
-			            <li>
-			                <a href="#">Курсы</a>
-			            </li>
-			            <li>
-			            	<a href="#">Искусство</a>
-			            </li>
-			            <li class="active">Конкурсы</li>
-			        </ol>
-			        <h1 itemprop="name">Сценарий жанрового кино</h1>
+					<div class="content">
+						<ol class="breadcrumb">
+				            <li>
+				                <a href="#">Курсы</a>
+				            </li>
+				            <li>
+				            	<a href="#">Искусство</a>
+				            </li>
+				            <li class="active">Конкурсы</li>
+				        </ol>
+			        	<h1 itemprop="name">Сценарий жанрового кино</h1>
+			        </div>
 			    </div>
 		    </header><!-- /Page-header -->
 
-			<div class="featured-img">
+			<!-- <div class="featured-img">
 				<img src="../img/test-profile.jpg" alt="Сценарий жанрового кино"/>
-			</div>
+			</div> -->
 			<div class="course-time-info">
 				<div class="course-dates single-event">
 					<div class="course-dates-wrap">
@@ -130,6 +132,7 @@
 							<li class="active">
 								Чт
 								<span class="course-timerange">14.00-16.00</span>
+								<span class="course-timerange">14.00-16.00</span>
 							</li>
 							<li>Пт</li>
 							<li>Сб</li>
@@ -137,30 +140,47 @@
 						</ul>
 					</div>
 					<div class="course-options-wrap">
-						<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">
-							<i class="glyphicon glyphicon-map-marker"></i>
-							<div class="course-place" >
-								<div itemprop="name">Санкт-Петербургская школа телевидения в Москве</div>
-								<div class="course-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-									<span itemprop="addressLocality">Москва</span>,
-									<span itemprop="streetAddress">Басманный пер. 5</span>
-							    </div>
+						<div class="course-options">
+							<div  class="course-place-wrap" itemprop="location" itemscope itemtype="http://schema.org/Place">
+								<div class="course-place">
+									<div itemprop="name">Санкт-Петербургская школа телевидения в Москве</div>
+									<div class="course-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+										<span itemprop="addressLocality">Москва</span>,
+										<span itemprop="streetAddress">Басманный пер. 5</span>
+								    </div>
+								</div>
 							</div>
-						</div>
 
-						<a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>
-						
-						<div class="course-toolbar btn-group">
-							<a href="#" class="btn btn-info" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
-								<span itemprop="lowPrice">7590 руб.</span>
-							</a>
-							<a href="#" class="btn btn-like">
-								<i class="glyphicon glyphicon-heart"></i>
-							</a>
-						</div>	
+							<a itemprop="url" href="#" class="btn btn-primary btn-lg btn-block">Записаться</a>
+							
+							<div class="course-toolbar btn-group">
+								<a href="#" class="btn btn-info" itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+									<span itemprop="lowPrice">7590 руб.</span>
+								</a>
+								<a href="#" class="btn btn-like activated">
+									<i class="glyphicon glyphicon-heart"></i>
+								</a>
+							</div>	
+						</div>
 					</div>
 				</div>
 			</div><!-- /Course-info -->
+			<header class="page-header desktop-view">
+				<div class="page-header-inner">
+					<div class="content">
+						<ol class="breadcrumb">
+				            <li>
+				                <a href="#">Курсы</a>
+				            </li>
+				            <li>
+				            	<a href="#">Искусство</a>
+				            </li>
+				            <li class="active">Конкурсы</li>
+				        </ol>
+			        	<h1 itemprop="name">Сценарий жанрового кино</h1>
+			        </div>
+			    </div>
+		    </header><!-- /Page-header -->
 		</div>
 		
 		<header class="page-header desktop-view">
@@ -198,103 +218,93 @@
         	<div class="header-toolbar-item friends-counter"><a href="#"><em>25</em> друзей</a> уже записалось</div>
 		</div>
 
-		<div class="course-description-wrap">
-			<aside class="course-info">
+		<div class="sections-wrap">
+			<section class="section course-description">
+				<p>Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
+				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.</p>
+				<p>Курс включает два занятия по четыре академических часа.</p>
+				<p class="lead">Курс поможет освоить все принципы портретной съемки: 
+				как в помещении, так и фотосессии на природе.</p>
+
+				<p>Программа рассчитана на обучение с нуля и базируется на классической русской школе академического рисунка. Курс поможет раскрыть внутренние возможности слушателя в изобразительном искусстве, а также обнаружить талант с помощью творческих практических занятий.</p>
+
+				<p>Программа включает обучение разным техникам живописи: масло, темпера, гуашь, акварель, а также разные графические приемы — от графитного карандаша до угля и сангины, от работы пером с тушью до мягкой пастели. К каждому слушателю применяется индивидуальный подход.</p>
+
+				<p>Программа рассчитана на людей любого возраста и уровня подготовки. После прохождения курса выдается сертификат. Всего пройдут 32 практических занятия в специально оборудованных аудиториях.
+				Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
+
+				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+				Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
+
+				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.</p>
+
+				<h2>Получаемые навыки:</h2>
+				<ul class="skills-list">
+					<li>
+						<span class="label label-default">
+							<i class="glyphicon glyphicon-ok"></i>Архангелизм
+						</span>
+					</li>
+					<li>
+						<a class="label label-default" href="#">
+							<i class="glyphicon glyphicon-ok"></i>Колегиальность
+						</a>
+					</li>
+					<li>
+						<a class="label label-default" href="#">
+							<i class="glyphicon glyphicon-ok"></i>Прионика
+						</a>
+					</li>
+				</ul>
+			</section><!-- /Course-description -->
+
+			<aside class="section-sidebar">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3>Преподаватели</h3>
 					</div>
+					<div class="panel-body lecturer-wrap">
 
-
-					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					  <div class="panel panel-default">
-					    <div class="panel-heading" role="tab" id="headingOne">
-					      <h4 class="panel-title">
-					        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					          <h4>Анна Тарабрина</h4>
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-					      <div class="panel-body">
+						<div class="lecturer-info">
 					        <div class="img-wrap">
 								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
 							</div>
+							<h4 class="lecturer-name">Анна Тарабрина</h4>
 							<div class="star-rating"> 
 								<span class="fa fa-star" data-rating="1"></span>
 								<span class="fa fa-star" data-rating="2"></span>
 								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star-o" data-rating="4"></span>
-								<span class="fa fa-star-o" data-rating="5"></span>
-								<!-- <input type="hidden" name="whatever" class="rating-value" value="3"> -->
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3"> 
 							</div>
-							<a href="#">Задать вопрос</a>
-
-					        <p class="lecturer-description">
-								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
-							</p>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading" role="tab" id="headingTwo">
-					      <h4 class="panel-title">
-					        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					          <h4>Василий Васильев</h4>
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-					      <div class="panel-body">
+							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+						</div>
+				        <p class="lecturer-description">
+							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
+						</p>
+			      	</div>
+				   	<div class="panel-body lecturer-wrap">
+				   		<div class="lecturer-info">
 					        <div class="img-wrap">
 								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
 							</div>
+							<h4 class="lecturer-name">Василий Васильев</h4>
 							<div class="star-rating"> 
 								<span class="fa fa-star" data-rating="1"></span>
 								<span class="fa fa-star" data-rating="2"></span>
 								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star-o" data-rating="4"></span>
-								<span class="fa fa-star-o" data-rating="5"></span>
-								<!-- <input type="hidden" name="whatever" class="rating-value" value="3"> -->
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
 							</div>
-							<a href="#" class="navigate-link">Задать вопрос</a>
-
-					        <p class="lecturer-description">
-								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
-							</p>
-					      </div>
-					    </div>
-					  </div>
-					  <div class="panel panel-default">
-					    <div class="panel-heading" role="tab" id="headingThree">
-					      <h4 class="panel-title">
-					        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					          <h4>Семен Семенов</h4>
-					        </a>
-					      </h4>
-					    </div>
-					    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-					      <div class="panel-body">
-					        <div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-							<div class="star-rating"> 
-								<span class="fa fa-star" data-rating="1"></span>
-								<span class="fa fa-star" data-rating="2"></span>
-								<span class="fa fa-star" data-rating="3"></span>
-								<span class="fa fa-star-o" data-rating="4"></span>
-								<span class="fa fa-star-o" data-rating="5"></span>
-							</div>
-							<a href="#" class="navigate-link">Задать вопрос</a>
-
-					        <p class="lecturer-description">
-								Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
-							</p>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				</div>
+							<a href="#" class="navigate-link">Задать вопрос<i class="fa fa-angle-right"></i></a>
+						</div>
+				        <p class="lecturer-description">
+							Закончила рижскую художественную школу по спеуиальности "Пластические искусства"
+						</p>
+			      </div>   
+				</div><!-- /panel -->
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -304,19 +314,21 @@
 						</span>
 					</div>
 
-					<div class="panel-body">
-						<span class="total-rating">67</span>
-						<div class="star-rating active"> 
-							<span class="fa fa-star" data-rating="1"></span>
-							<span class="fa fa-star" data-rating="2"></span>
-							<span class="fa fa-star" data-rating="3"></span>
-							<span class="fa fa-star-o" data-rating="4"></span>
-							<span class="fa fa-star-o" data-rating="5"></span>
-							<input type="hidden" name="whatever" class="rating-value" value="3">
+					<div class="panel-body rating">
+						<div class="star-rating-wrap">
+							<span class="total-rating">67</span>
+							<div class="star-rating active"> 
+								<span class="fa fa-star" data-rating="1"></span>
+								<span class="fa fa-star" data-rating="2"></span>
+								<span class="fa fa-star" data-rating="3"></span>
+								<span class="fa fa-star disabled" data-rating="4"></span>
+								<span class="fa fa-star disabled" data-rating="5"></span>
+								<input type="hidden" name="whatever" class="rating-value" value="3">
+							</div>
 						</div>
-						<a href="#" class="navigate-link">Посоветовать другу</a>
+						<a href="#" class="navigate-link">Посоветовать другу<i class="fa fa-angle-right"></i></a>
 					</div>
-				</div>
+				</div><!-- /panel -->
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -337,162 +349,215 @@
 
 			</aside><!-- /Sidebar -->
 
-			<section class="course-description">
-				<p>Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
-				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.</p>
-				<p>Курс включает два занятия по четыре академических часа.</p>
-				<p><strong>Курс поможет освоить все принципы портретной съемки: 
-				как в помещении, так и фотосессии на природе.</strong></p>
+			
+		</div><!-- /sections-wrap -->
+		
+		<div class="sections-wrap">
+			<aside class="section-sidebar">
+				<div class="panel panel-default">
+				  <!-- Default panel contents -->
+				  <div class="panel-heading"><h3>Уроки</h3></div>
 
-				<p>Программа рассчитана на обучение с нуля и базируется на классической русской школе академического рисунка. Курс поможет раскрыть внутренние возможности слушателя в изобразительном искусстве, а также обнаружить талант с помощью творческих практических занятий.</p>
-
-				<p>Программа включает обучение разным техникам живописи: масло, темпера, гуашь, акварель, а также разные графические приемы — от графитного карандаша до угля и сангины, от работы пером с тушью до мягкой пастели. К каждому слушателю применяется индивидуальный подход.</p>
-
-				<p>Программа рассчитана на людей любого возраста и уровня подготовки. После прохождения курса выдается сертификат. Всего пройдут 32 практических занятия в специально оборудованных аудиториях.
-				Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
-
-				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
-				Слушатели курса смогут освоить все принципы портретной съемки: как в студии, так и в обычном помещении, а также раскроют секрет портретной фотосессии на природе.</p>
-
-				<p>В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.</p>
-
-				<h2>Получаемые навыки:</h2>
-				<ul class="skills-list">
-					<li>
-						<a class="btn btn-default" href="#">
-							<i class="glyphicon glyphicon-ok"></i>Архангелизм
-						</a>
-					</li>
-					<li>
-						<a class="btn btn-default" href="#">
-							<i class="glyphicon glyphicon-ok"></i>Колегиальность
-						</a>
-					</li>
-					<li>
-						<a class="btn btn-default" href="#">
-							<i class="glyphicon glyphicon-ok"></i>Прионика
-						</a>
-					</li>
-				</ul>
-			</section><!-- /Course-description -->
-		</div><!-- /Course-description-wrap -->
-
-		<div class="comments-list-wrap">
-			<h2>Отзывы</h2>
-			<div class="comments-list">
-				<div class="comment-block">
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>
-
-					<div class="comment-info">
-						<time datetime="2014-10-22">22 октября</time>
-						<a href="#" class="comment-author">
-							<span class="comment-author-name">klipdass</span>
-							<div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+				  <!-- List group -->
+				  <ul class="list-group course-lessons">
+				    <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+				    	<div class="expand-link" data-toggle="collapse" data-target="#lesson-info-1">
+					    	<h3 class="lesson-title" itemprop="name">Вводная часть</h3>
+							<div class="lesson-time">
+								<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><strong>ВТ</strong>, 27 октября, 2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
 							</div>
-						</a>
+							<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+								<span itemprop="streetAddress">Басманный пер. 5</span>
+						    </div>
+						</div>
+						<div id="lesson-info-1" class="collapse">
+							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+						</div>
+				    </li>
+				     <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+				    	<div class="expand-link" data-toggle="collapse" data-target="#lesson-info-2">
+					    	<h3 class="lesson-title" itemprop="name">Часть II</h3>
+							<div class="lesson-time">
+								<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><strong>ВТ</strong>, 27 октября, 2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
+							</div>
+							<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+								<span itemprop="streetAddress">Басманный пер. 5</span>
+						    </div>
+						</div>
+						<div id="lesson-info-2" class="collapse">
+							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+						</div>
+				    </li>
+				     <li class="list-group-item" itemprop="subEvent" itemscope itemtype="http://schema.org/Event">
+				    	<div class="expand-link" data-toggle="collapse" data-target="#lesson-info-3">
+					    	<h3 class="lesson-title" itemprop="name">Часть III</h3>
+							<div class="lesson-time">
+								<time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T14:00"><strong>ВТ</strong>, 27 октября, 2014; 14:00</time> - <time datetime="2014-10-27" itemprop="startDate" content="2014-10-27T15:45">15:45</time>
+							</div>
+							<div class="lesson-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+								<span itemprop="streetAddress">Басманный пер. 5</span>
+						    </div>
+						</div>
+						<div id="lesson-info-3" class="collapse">
+							В программе: виды портретов, точка съемки, композиция в портретной фотографии, выбор световой схемы для портрета, портрет на улице, позирование.
+						</div>
+				    </li>
+				  </ul>
+				</div>
+			</aside>
+
+			<section class="section">
+				<div class="panel panel-light">
+					<div class="panel-heading"><h2>Отзывы</h2></div>
+
+					<div class="panel-body comments-list">
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.
+							Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="https://lh5.googleusercontent.com/-pCyPzLumSHs/U6QNeMPkDqI/AAAAAAAAAmY/4TLZ0GjnDhA/w140-h140-p/Daria.jpg"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="comment-block">
+							<p>Программа рассчитана на обучение с нуля и базируется на классической 
+							русской школе академического рисунка. Курс поможет раскрыть 
+							внутренние возможности слушателя в изобразительном искусстве.</p>
+
+							<div class="comment-info">
+								<time datetime="2014-10-22">22 октября</time>
+								<a href="#" class="comment-author">
+									<span class="comment-author-name">klipdass</span>
+									<div class="img-wrap">
+										<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
+									</div>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="comment-block">
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>
-
-					<div class="comment-info">
-						<time datetime="2014-10-22">22 октября</time>
-						<a href="#" class="comment-author">
-							<span class="comment-author-name">klipdass</span>
-							<div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="comment-block">
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>
-
-					<div class="comment-info">
-						<time datetime="2014-10-22">22 октября</time>
-						<a href="#" class="comment-author">
-							<span class="comment-author-name">klipdass</span>
-							<div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="comment-block">
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>
-
-					<div class="comment-info">
-						<time datetime="2014-10-22">22 октября</time>
-						<a href="#" class="comment-author">
-							<span class="comment-author-name">klipdass</span>
-							<div class="img-wrap">
-								<img src="http://www.riken.jp/TMS2012/tms/image/member/main/icon_women.png"/>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div><!-- comments-list-wrap -->
+			</section>
+		</div><!-- sections-wrap -->
 		
 		<div class="related-courses-wrap">    
-			<h2>Подобные курсы</h2>
-			<div class="related-courses">
-				<div class="course-block">
-					<div class="img-wrap">
-						<img src="http://lamcdn.net/lookatme.ru/post_image-image/TTudLr8Pnto1RCEQyxnlog-article.png"/>
-					</div>
-					
-					<time datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
-					<h3>Курсы портретной фотографии</h3>
-					<h4>Кинокурсы</h4>
+			<div class="panel panel-light">
+					<div class="panel-heading"><h2>Подобные курсы</h2></div>
+					<div class="panel-body">
+					 	<div class="related-courses">
+							<div class="related-course-block">
+								<div class="img-wrap">
+									<img src="http://2.bp.blogspot.com/_RyQPQZXNNRc/THJBcun292I/AAAAAAAAAIo/1kh00rocEsI/s1600/studybooks1+(1).JPG"/>
+								</div>
+								
+								<div class="text-wrap">
+									<div class="related-course-description">
+										<h3 class="related-course-title">Курсы портретной фотографии</h3>
+										<time class="related-course-date" datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
 
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>										
-				</div>
-				<div class="course-block">
-					<div class="img-wrap">
-						<img src="http://lamcdn.net/lookatme.ru/post_image-image/TTudLr8Pnto1RCEQyxnlog-article.png"/>
-					</div>
-					
-					<time datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
-					<h3>Курсы портретной фотографии</h3>
-					<h4>Кинокурсы</h4>
+										<p>Программа рассчитана на обучение с нуля и базируется на классической 
+										русской школе академического рисунка. Курс поможет раскрыть 
+										внутренние возможности слушателя в изобразительном искусстве.</p>	
+									</div>
+								</div>									
+							</div>
+							<div class="related-course-block">
+								<div class="img-wrap">
+									<img src="http://2.bp.blogspot.com/_RyQPQZXNNRc/THJBcun292I/AAAAAAAAAIo/1kh00rocEsI/s1600/studybooks1+(1).JPG"/>
+								</div>
+								
+								<div class="text-wrap">
+									<div class="related-course-description">
+										<h3 class="related-course-title">Курсы портретной фотографии</h3>
+										<time class="related-course-date" datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
 
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>										
-				</div>
-				<div class="course-block">
-					<div class="img-wrap">
-						<img src="http://lamcdn.net/lookatme.ru/post_image-image/TTudLr8Pnto1RCEQyxnlog-article.png"/>
-					</div>
-					
-					<time datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
-					<h3>Курсы портретной фотографии</h3>
-					<h4>Кинокурсы</h4>
+										<p>Программа рассчитана на обучение с нуля и базируется на классической 
+										русской школе академического рисунка. Курс поможет раскрыть 
+										внутренние возможности слушателя в изобразительном искусстве.</p>	
+									</div>
+								</div>									
+							</div>
+							<div class="related-course-block">
+								<div class="img-wrap">
+									<img src="http://2.bp.blogspot.com/_RyQPQZXNNRc/THJBcun292I/AAAAAAAAAIo/1kh00rocEsI/s1600/studybooks1+(1).JPG"/>
+								</div>
+								
+								<div class="text-wrap">
+									<div class="related-course-description">
+										<h3 class="related-course-title">Курсы портретной фотографии</h3>
+										<time class="related-course-date" datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
 
-					<p>Программа рассчитана на обучение с нуля и базируется на классической 
-					русской школе академического рисунка. Курс поможет раскрыть 
-					внутренние возможности слушателя в изобразительном искусстве.</p>										
+										<p>Программа рассчитана на обучение с нуля и базируется на классической 
+										русской школе академического рисунка. Курс поможет раскрыть 
+										внутренние возможности слушателя в изобразительном искусстве.</p>	
+									</div>
+								</div>									
+							</div>
+							<div class="related-course-block">
+								<div class="img-wrap">
+									<img src="http://2.bp.blogspot.com/_RyQPQZXNNRc/THJBcun292I/AAAAAAAAAIo/1kh00rocEsI/s1600/studybooks1+(1).JPG"/>
+								</div>
+								
+								<div class="text-wrap">
+									<div class="related-course-description">
+										<h3 class="related-course-title">Курсы портретной фотографии</h3>
+										<time class="related-course-date" datetime="2014-10-27/2014-10-30">27 октября - 30 октября</time>
+
+										<p>Программа рассчитана на обучение с нуля и базируется на классической 
+										русской школе академического рисунка. Курс поможет раскрыть 
+										внутренние возможности слушателя в изобразительном искусстве.</p>	
+									</div>
+								</div>									
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 	
 
-	<script src="assets/javascripts/jquery-1.11.1.min.js"></script>
-	<script src="assets/javascripts/script.js"></script>
-	<script src="assets/javascripts/bootstrap.js"></script>
+	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+	<script src="/assets/javascripts/script.js"></script>
+	<script src="/assets/javascripts/bootstrap.js"></script>
 </body>
 </html>

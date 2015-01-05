@@ -58,13 +58,17 @@ img {
 
 /* Page header */
 .page-header-wrap {
-	&,
-	.page-header {
-		background:$header-bg;
-	}
+	background-color:$header-bg;
+	background-repeat:no-repeat;
+	background-position:100% 0;
+	
 	.featured-img {
 		max-height: 300px;
 		overflow: hidden;
+	}
+	.page-header {
+		height:300px;
+		background-color:rgba($header-bg,.8);
 	}
 }
 
@@ -83,9 +87,14 @@ img {
 	text-align:center;
 
 	.page-header-inner {
+		display: table;
+		width: 100%;
+		height: 100%;
+	}
+	.content {
 		display: table-cell;
 		vertical-align: middle;
-		text-align: center;
+		width: 100%;
 	}
 }
 
@@ -240,14 +249,17 @@ img {
 .course-time-place {
 	display: table;
 	width: 100%;
+	height:100%;
 
 	.course-time {
 		display: table-cell;
 		width:145px;
+		height:100%;
 		vertical-align: top;
 	}
 	.course-options-wrap {
 		display: table-cell;
+		height:100%;
 		vertical-align: top;
 	}
 }
@@ -263,19 +275,6 @@ img {
 	background:$light-panel-bg;
 	border-left:1px solid $panel-border;
 	border-bottom:1px solid $panel-border;
-	
-	&:after {
-		position: absolute;
-		content: '';
-		top: 55px;
-		right: -10px;
-		width: 0;
-		height: 0;
-		border-left: 10px solid $light-panel-bg;
-		border-right: 0px solid transparent;
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent;    
-	}
 }
 
 .course-timetable {
@@ -286,6 +285,7 @@ img {
 	li {
 		margin:-2px 0 0 0;
 		padding:7px;
+		@include clearfix();
 
 		&.active {
 			padding:5px;
@@ -298,12 +298,18 @@ img {
 		}
 	}
 	.course-timerange {
+		float:right;
 		color:$light-text-color;
 		font-family:"robotoregular";
 	}
 }
 
 .course-options-wrap {
+	.course-options {
+		display: table;
+		height:100%;
+		width: 100%;
+	}
 	.btn {
 		padding: 8px 16px;
 		border:0;
@@ -337,19 +343,39 @@ img {
 }
 
 .course-place-wrap {
-	display: table;
+	display: table-row;
 	padding:15px;
-	height:130px;
+	height:100%;
 	vertical-align: middle;
 
-	.glyphicon,
 	.course-place {
+		position: relative;
 		display: table-cell;
+		padding: 15px 15px 15px 40px;
 		vertical-align: middle;
-	}
-	.glyphicon {
-		padding:0 10px 0 0;
-		color:$light-text-color;
+		@extend .glyphicon-map-marker;
+
+		&:before {
+			position: absolute;
+			left: 15px;
+			top: 50%;
+			margin-top: -7px;
+			color:$light-text-color;
+			@extend .glyphicon;
+		}
+		&:after {
+			position: absolute;
+			content: '';
+			top: 50%;
+			left: 0;
+			margin-top: -10px;
+			width: 0;
+			height: 0;
+			border-left: 10px solid $light-panel-bg;
+			border-right: 0px solid transparent;
+			border-top: 10px solid transparent;
+			border-bottom: 10px solid transparent;    
+		}
 	}
 }
 .course-address {
