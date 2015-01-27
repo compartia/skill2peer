@@ -2,13 +2,13 @@
 
 define(
 //
-[ 'angular', 'services', 'autocomplete' ],
+[ 'angular', 'services', 'autocomplete', 'ngTagsInput' ],
 //
 function(angular) {
 
 	/* Controllers */
 
-	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete' ])
+	return angular.module('skill2peerApp.controllers', [ 'skill2peerApp.services', 'ngAutocomplete', 'ngTagsInput' ])
 	/* */
 
 	.controller('placeEditController', [ '$scope', '$injector', function($scope, $injector) {
@@ -20,8 +20,8 @@ function(angular) {
 		});
 
 	} ])
-    
-    .controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
+
+	.controller('lessonEditController', [ '$scope', '$injector', function($scope, $injector) {
 		require([ 'controllers/lessonEditController' ], function(lessonEditController) {
 
 			$injector.invoke(lessonEditController, this, {
@@ -30,8 +30,8 @@ function(angular) {
 		});
 
 	} ])
-    
-    .controller('favoriteCourseController', [ '$scope', '$injector', function($scope, $injector) {
+
+	.controller('favoriteCourseController', [ '$scope', '$injector', function($scope, $injector) {
 		require([ 'controllers/favoriteCourseController' ], function(favoriteCourseController) {
 
 			$injector.invoke(favoriteCourseController, this, {

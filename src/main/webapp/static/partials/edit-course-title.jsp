@@ -15,11 +15,8 @@
 	<label>Навыки <br> 
 		<small>Укажите навыки(skills), которые студенты приобретут, пройдя этот курс.
 			Не более пяти.</small></label>
-
-	<div class="tagsinput-primary">
-		<input name="tagsinput" class="tagsinput form-control" ng-model="course.tags" data-role="tagsinput"
-			value="School, Teacher, Colleague" />
-	</div>
+	
+	<tags-input ng-model="course.tags"></tags-input>
 </div>
 <!-- end of SKILLS -->
 
