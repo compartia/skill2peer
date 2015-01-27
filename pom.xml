@@ -27,7 +27,7 @@
 		<!-- <spring.social.version>1.1.0.RELEASE</spring.social.version> -->
 		<!-- <spring.social.facebook.version>1.1.0.RELEASE</spring.social.facebook.version> <spring.social.twitter.version>1.1.0.RELEASE</spring.social.twitter.version> -->
 		<build.profile.id>dev</build.profile.id>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
 
@@ -171,10 +171,10 @@
 						<username>${db.username}</username> <password>${db.password}</password> -->
 					<!-- <propertyFile>profiles/${build.profile.id}/config.properties</propertyFile> -->
 					<verbose>true</verbose>
-					<url>${env.jdbc.url}</url>
-					<driver>${env.jdbc.driver}</driver>
-					<password>${env.jdbc.pwd}</password>
-					<username>${env.jdbc.usr}</username>
+					<url>${env.jdbc_url}</url>
+					<driver>${env.jdbc_driver}</driver>
+					<password>${env.jdbc_pwd}</password>
+					<username>${env.jdbc_usr}</username>
 					<changeLogFile>src/main/liquibase/db.changelog.xml</changeLogFile>
 					<contexts>db</contexts>
 
@@ -188,9 +188,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				
 				 <configuration>
-		          <jvmArguments>
+		         <!--  <jvmArguments>
 		            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-		          </jvmArguments>
+		          </jvmArguments> -->
 		        </configuration> 
 			</plugin>
 			<!-- <plugin> <groupId>org.mortbay.jetty</groupId> <groupId>org.eclipse.jetty</groupId> <artifactId>jetty-maven-plugin</artifactId> 

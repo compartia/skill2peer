@@ -1,14 +1,11 @@
 .input-lg, .input{
     border-radius: 0;
 }
+
 .lesson-edit-block{
-/*    padding-left: 10px!important; */
-/*    padding-right: 10px!important; */
     padding-bottom: 10px!important; 
     padding-top: 10px!important; 
 }
-
-
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -20,21 +17,8 @@
     padding-right: 0;
 }
 
-.content {
-    padding-left: 1em;
-    padding-right: 1em;
-}
 
-.grey-bg{
-    background-color:rgba( 251,252,250,1) !important;
-	background-image: url(../img/noise.png) !important;
-}
-.panel{
-    margin: 0!important;
-    margin-bottom: 10px;
-    padding: 0!important;
-    background: none;
-}
+
 
 .panel-footer{
     margin: 0px;
@@ -45,11 +29,7 @@
 }
 
 
-.panel-body{
-    padding: 15px!important;
-    background-color:rgba( 251,252,250,1) !important;
-	background-image: url(../img/noise.png) !important;
-}
+
 
 .panel-heading{
      font-family: "Roboto" !important;
@@ -82,19 +62,6 @@
 	background-image: url(../img/noise.png);
 }
 
-/*
-.form-panel{
-	 background-color: #E7EFEF; 
-	background-color:rgba( 253,251,250,1);
-	background-image: url(../img/noise.png);
-	margin: 0.5em;
-}
-*/
-
-body {
-	/* background: url(static/img/tkLOe7nnQ7mnMsiuijBy_hm.jpg); */
-}
-
 /* .page, */.noisy {
 	background: url(../img/noise.png);
 }
@@ -117,25 +84,7 @@ body {
 
 /* ========================== */
 
-.nav-tabs>li, .btn{
-    font-family: "Roboto" !important;
-    font-style: normal !important;
-	font-weight: 300 !important;
-	font-size: 12px;
-	text-transform: uppercase;
-	letter-spacing: .1em;  
-}
 
-label{
-    font-family: "Roboto" !important;
-    font-weight: 400 !important;
-	
-}
-
-label small, .form-control{
-    font-weight: 300 !important;
-	font-family: "Roboto" !important;
-}
 
 
 .course-list-item {
@@ -256,7 +205,7 @@ a.overlay-link {
 	background-color: rgba(36, 83, 164, 0.8);
 }
 
-time {
+/* time {
 	-webkit-font-smoothing: antialiased;
 	color: rgb(153, 153, 153);
 	cursor: auto;
@@ -269,7 +218,7 @@ time {
 	line-height: 15px;
 	text-transform: uppercase;
 	width: auto;
-}
+} */
 
 
 small.course-id {

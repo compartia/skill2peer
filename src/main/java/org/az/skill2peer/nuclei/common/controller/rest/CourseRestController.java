@@ -2,16 +2,12 @@ package org.az.skill2peer.nuclei.common.controller.rest;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseEditDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseInfoListItemDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.CourseMetaDataDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
-import org.az.skill2peer.nuclei.common.model.CourseFavorite;
-import org.az.skill2peer.nuclei.security.util.SecurityUtil;
 import org.az.skill2peer.nuclei.services.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +25,6 @@ public class CourseRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseRestController.class);
 
-    /**
-     * XXX: move to service layer
-     */
-    @Deprecated
-    @PersistenceContext
-    EntityManager em;
-
     @Autowired
     CourseService courseService;
 
@@ -45,23 +34,10 @@ public class CourseRestController {
         return courseService.getEditableCourse(id);
     }
 
-    //    @Transactional(readOnly = false)
     @RequestMapping(value = "/{id}/favorite", method = RequestMethod.POST)
-    @ResponseBody
+    // @ResponseBody
     public void favorite(@PathVariable("id") final Integer id) {
-        final Integer userId = SecurityUtil.getCurrentUser().getId();
-
-        final List<CourseFavorite> resultList = courseService.getCourseFavorites(id, userId);
-
-        if (resultList.isEmpty()) {
-            final CourseFavorite cf = new CourseFavorite();
-            cf.setUserId(userId);
-            cf.setCourseId(id);
-            em.persist(cf);
-        } else {
-            em.remove(resultList.get(0));
-        }
-
+        courseService.favorite(id);
     }
 
     @RequestMapping(value = "/availableLocations", method = RequestMethod.GET)

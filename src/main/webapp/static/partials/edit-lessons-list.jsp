@@ -20,8 +20,8 @@
 		</div>
 	</div>
 -->
-	<div class="lesson-list-item" ng-class="{'active':ls == lesson}">
-		<div class="lesson-list-item-wrap" ng-click="selectLesson(ls)" >
+	<div class="list-group-item" ng-class="{'active':ls == lesson}">
+		<div class="list-group-item-wrap" ng-click="selectLesson(ls)" >
 			<div class="date-wrap">
 				<h3>
 					{{ls.schedule.dateTime | date:"dd"}}<small>{{ls.schedule.dateTime | date:".MM"}}</small>

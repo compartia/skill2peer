@@ -13,8 +13,6 @@
 				<div class="panel-body">
 					<ng-include src="'/static/partials/edit-course-title.jsp'"></ng-include>
 				</div>
-				
-
 			</div>
 		</div>
 	</div>
@@ -46,7 +44,7 @@
 			<div ng-controller="lessonEditController">
 
 				<!-- WHAT-->
-				<div class="panel section-basic">
+				<div class="panel section-basic" ng-show="!isSingle()">
 					<div class="panel-heading">Что?</div>
 					<div class="panel-body">
 
@@ -80,17 +78,7 @@
 				</div>
 
 			</div> <!-- /controller -->
-
-
-			<div class="panel section-descr">
-				<div class="panel-heading">Как и зачем?</div>
-				<div class="panel-body">
-					<textarea class="form-control" rows="6" ng-model="course.lessons[0].description"
-						placeholder="детальное описание урока"></textarea>
-				</div>
-			</div>
-
-
+ 
 			<!-- PRICE panel-->
 			<div class="panel section-price">
 				<!-- Default panel contents -->
@@ -114,6 +102,8 @@
 
 				</div>
 			</div>
+                    
+           
 			<!-- /PRICE -->
 
 
@@ -124,6 +114,18 @@
 		<!--end of row-->
 
 	</div>
+     
+    <div class="row">
+		<div class="col-md-12">       
+            <div class="panel section-descr">
+				<div class="panel-heading">Как и зачем?</div>
+				<div class="panel-body">
+					<textarea class="form-control" rows="12" ng-model="course.description"
+						placeholder="детальное описание курса"></textarea>
+				</div>
+			</div>
+         </div>
+    </div><!--end of row-->
 
 	<a href="view_course.html" class="btn btn-default">предпросмотр</a>
 

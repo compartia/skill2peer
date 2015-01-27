@@ -1,18 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+
 <div class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
+			<sec:authorize access="isAuthenticated()">
+				<button type="button" class="btn btn-xs btn-danger navbar-btn">12</button>
+			</sec:authorize>
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
+				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			</button>
 
-            <a class="navbar-brand" href="/">
-				<img alt="logo" src="/static/img/skill2peerlogo.png">
-			</a>
+			<a class="navbar-brand" href="/"><img alt="logo" src="/static/img/skill2peerlogo.png"></a>
+
 		</div>
-        
+
+
+
 		<div class="navbar-collapse collapse">
+
 			<form role="search" class="navbar-form navbar-left">
 				<!-- <div class="form-group"> -->
 				<div class="input-group">
@@ -27,11 +34,9 @@
 
 
 
-			<sec:authorize access="isAuthenticated()">
-				<button class="btn btn-danger navbar-btn btn-xs" type="button">12</button>
-			</sec:authorize>
-
 			<ul class="nav navbar-nav navbar-right">
+
+
 
 				<sec:authorize access="isAnonymous()">
 					<li><a href="/user/register"><spring:message code="label.navigation.registration.link" /></a></li>
@@ -56,7 +61,7 @@
 							<li><a href="/"><spring:message code="label.navigation.home.link" /></a></li>
 
 
-							<li><a href="calendar.html">Мое расписание</a></li>
+							<li><a href="calendar.html"></a></li>
 							<li class="divider"></li>
 							<!-- <li><a href="#">выйти</a></li> -->
 

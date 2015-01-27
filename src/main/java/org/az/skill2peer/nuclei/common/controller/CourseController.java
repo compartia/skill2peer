@@ -2,7 +2,6 @@ package org.az.skill2peer.nuclei.common.controller;
 
 import org.az.skill2peer.nuclei.common.Urls;
 import org.az.skill2peer.nuclei.common.controller.dto.CourseInfoDto;
-import org.az.skill2peer.nuclei.common.controller.rest.dto.LocationDto;
 import org.az.skill2peer.nuclei.common.controller.rest.dto.PriceDto;
 import org.az.skill2peer.nuclei.services.CourseService;
 import org.slf4j.Logger;
@@ -49,18 +48,8 @@ public class CourseController {
 
     @Deprecated
     private void fakeCourseData(final CourseInfoDto course) {
-        course.setLocation(fakeLocation());
         course.setPrice(fakePrice());
         course.setSkills("fake skill 1,fake skill 2,fake skill 3");
-    }
-
-    @Deprecated
-    private LocationDto fakeLocation() {
-        final LocationDto location = new LocationDto();
-        location.setId(12);
-        location.setAddress("Петербург, Петра Лаврова улица 45, кв 193");
-        location.setName("Студия ArtLab");
-        return location;
     }
 
     @Deprecated

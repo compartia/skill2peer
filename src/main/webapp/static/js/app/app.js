@@ -3,7 +3,7 @@
 define(
 //
 [ 'angular', 'services', 'controllers', 'angularroute', 'angularresource', 'angularsanitize','angular-file-upload',
-		'bootstrap', 'jquery', 'bootstrap-ui' ],
+		'bootstrap', 'jquery'],
 //
 function(angular, filters, services, directives, controllers) {
 
@@ -12,7 +12,7 @@ function(angular, filters, services, directives, controllers) {
     
 	// Declare app level module which depends on filters, and services
 	var app = angular.module('skill2peerApp', [ 'ngRoute', 'ngSanitize', 'skill2peerApp.services', 'skill2peerApp.controllers',
-			'angularFileUpload', 'ui.bootstrap' ]);
+			'angularFileUpload' ]);
 
 	app.config([ "$httpProvider", '$routeProvider', function($httpProvider, $routeProvider) {
 		$httpProvider.defaults.transformResponse.push(function(responseData) {

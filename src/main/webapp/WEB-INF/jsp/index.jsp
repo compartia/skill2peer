@@ -13,7 +13,8 @@
 </style>
 
 <link rel="stylesheet/less" type="text/css" href="${pageContext.request.contextPath}/static/css/colorsections.less" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.1.0/less.min.js"></script> -->
+<script src="${pageContext.request.contextPath}/static/js/vendor/less.min.js"></script>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 

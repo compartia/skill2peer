@@ -15,6 +15,8 @@ public interface CourseService {
 
     void deleteCourse(final Integer courseId);
 
+    void favorite(final Integer id);
+
     List<LocationDto> getAvailableLocations();
 
     List<CourseFavorite> getCourseFavorites(Integer courseId, Integer userId);
@@ -28,5 +30,4 @@ public interface CourseService {
     List<CourseInfoListItemDto> getMyCourses();
 
     CourseEditDto updateCourse(CourseEditDto courseDto);
-
 }

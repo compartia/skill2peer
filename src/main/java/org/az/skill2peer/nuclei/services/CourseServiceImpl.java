@@ -108,6 +108,24 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
     }
 
     @Override
+    @Transactional(readOnly = false)
+    public void favorite(final Integer id) {
+        final Integer userId = SecurityUtil.getCurrentUser().getId();
+
+        final List<CourseFavorite> resultList = getCourseFavorites(id, userId);
+
+        if (resultList.isEmpty()) {
+            final CourseFavorite cf = new CourseFavorite();
+            cf.setUserId(userId);
+            cf.setCourseId(id);
+            em.persist(cf);
+        } else {
+            em.remove(resultList.get(0));
+        }
+
+    }
+
+    @Override
     public List<LocationDto> getAvailableLocations() {
         final List<Location> l = em.createNamedQuery("User.getAvailableLocations", Location.class)
                 .setParameter("authorId", getCurrentUser().getId())
@@ -296,9 +314,9 @@ public class CourseServiceImpl implements CourseService, CourseAdminService {
              * the only lesson
              */
             final Lesson theOnly = course.getLessons().get(0);
-            course.setName(theOnly.getName());
-            course.setSummary(theOnly.getSummary());
-            course.setDescription(theOnly.getDescription());
+            theOnly.setName(course.getName());
+            theOnly.setSummary(course.getSummary());
+            theOnly.setDescription(course.getDescription());
         }
 
     }

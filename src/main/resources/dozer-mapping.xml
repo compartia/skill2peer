@@ -7,6 +7,7 @@
 		<copy-by-references>
 			<copy-by-reference>org.joda.time.DateTime</copy-by-reference>
 			<copy-by-reference>org.az.skill2peer.nuclei.common.controller.rest.dto.DayEventsDto</copy-by-reference>
+			<!-- <copy-by-reference>org.az.skill2peer.nuclei.common.model.Location</copy-by-reference> -->
 		</copy-by-references>
 	</configuration>
 
@@ -76,18 +77,7 @@
 
 
 
-	<mapping map-id="lesson-copy-publish">
-		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
-		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>
-		<field-exclude>
-			<a>id</a>
-			<b>id</b>
-		</field-exclude>
-		<field map-id="schedule-copy-publish">
-			<a>schedule</a>
-			<b>schedule</b>
-		</field>
-	</mapping>
+
 
 	<mapping map-id="course-copy-publish">
 		<class-a>org.az.skill2peer.nuclei.common.model.Course</class-a>
@@ -117,5 +107,22 @@
 			<a>status</a>
 			<b>status</b>
 		</field-exclude>
+	</mapping>
+
+	<mapping map-id="lesson-copy-publish">
+		<class-a>org.az.skill2peer.nuclei.common.model.Lesson</class-a>
+		<class-b>org.az.skill2peer.nuclei.common.model.Lesson</class-b>
+		<field copy-by-reference="true">
+			<a>location</a>
+			<b>location</b>
+		</field>
+		<field-exclude>
+			<a>id</a>
+			<b>id</b>
+		</field-exclude>
+		<field map-id="schedule-copy-publish">
+			<a>schedule</a>
+			<b>schedule</b>
+		</field>
 	</mapping>
 </mappings>

@@ -20,6 +20,7 @@ public class DozerConfig {
         mapper.setMappingFiles(new Resource[] {
                 new ClassPathResource("dozer-mapping.xml")
         });
+
         return mapper;
     }
 
