@@ -13,30 +13,16 @@
 
 
 <title><sitemesh:write property="title" /> [SKILL2PEER]</title>
- <%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/vendor/bootstrap.min.css" />
- --%>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles_min.css">
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css" />  
  
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles_min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css" />  
+<link href='//fonts.googleapis.com/css?family=Istok+Web:400,700,400italic,700italic|Roboto:400,100,300,700,300italic&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 
-<%-- <script data-main="${pageContext.request.contextPath}/static/js/main" 
-src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/require.js"></script> --%>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/jquery-2.1.1.min.js"></script>
- --%>
-
-
-
-<%-- <script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/vendor/flat-ui.min.js"></script> --%>
-
-<!-- 	<script src="js/flat-ui.min.js"></script> -->
 <sitemesh:write property="head" />
 
 
 </head>
 <body>
-
-
 
 	<div class="page">
 		<!-- NAVBAR -->
@@ -49,6 +35,6 @@ src="${pageContext.request.contextPath}/static/js/bower_components/requirejs/req
 			</div>
 		</div>
 	</div>
-	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/vendor/flat-ui.min.js"></script> --%>
+
 </body>
 </html>
